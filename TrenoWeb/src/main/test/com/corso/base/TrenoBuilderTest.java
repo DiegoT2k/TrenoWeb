@@ -31,8 +31,6 @@ public class TrenoBuilderTest extends BaseTest{
 		   
 		   List<Vagone> l = builder.costruisciTreno("HH", 3);
 		   
-		   
-		   
 		   VagoneDao dao = factory.getBean("vagoneDao", VagoneDao.class);
 		   for(Vagone v : l) {
 			   dao.add(v);
