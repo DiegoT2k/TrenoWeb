@@ -24,8 +24,8 @@ public class Treno {
 	@JoinColumn(name="sigla")
 	private Fabbrica fabbrica;
 
-	@Column(name="n_biglietti")
-	private int biglietti;
+	//@Column(name="n_biglietti")
+	//private int biglietti;
 	
 	@OneToMany(
 			mappedBy = "id_treno",
@@ -47,13 +47,13 @@ public class Treno {
 		return vagoni;
 	}
 
-	public int getBiglietti() {
-		return biglietti;
-	}
+	//public int getBiglietti() {
+		//return biglietti;
+	//}
 
-	public void setBiglietti(int biglietti) {
-		this.biglietti = biglietti;
-	}
+	//public void setBiglietti(int biglietti) {
+		//this.biglietti = biglietti;
+	//}
 
 	public int getId_treno() {
 		return id_treno;
@@ -82,8 +82,7 @@ public class Treno {
 
 	@Override
 	public String toString() {
-		return "Treno [id_treno=" + id_treno + ", id_utente=" + id_utente + ", fabbrica=" + fabbrica + ", biglietti="
-				+ biglietti + "]";
+		return "Treno [id_treno=" + id_treno + ", id_utente=" + id_utente + ", fabbrica=" + fabbrica + "]";
 	}
 	
 }

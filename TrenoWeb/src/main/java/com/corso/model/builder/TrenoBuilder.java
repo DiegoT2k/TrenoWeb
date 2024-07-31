@@ -54,15 +54,15 @@ public abstract class TrenoBuilder {
 				break;
 			case 'P':
 				// treno.addVagone( getPasseggeri() );
-				lista.add( getPasseggeri() );
+				lista.add( getPasseggeri(id_treno) );
 				break;
 			case 'C':
 				// treno.addVagone( getCargo() );
-				lista.add( getCargo() );
+				lista.add( getCargo(id_treno) );
 				break;
 			case 'R':
 				// treno.addVagone( getRistorante() );
-				lista.add( getRistorante() );
+				lista.add( getRistorante(id_treno) );
 			default:
 				break;
 			}
@@ -105,8 +105,8 @@ public abstract class TrenoBuilder {
 	**/
 	
 	abstract protected Vagone getLocomotiva(int id);
-	abstract protected Vagone getPasseggeri();
-	abstract protected Vagone getCargo();
-	abstract protected Vagone getRistorante();
+	abstract protected Vagone getPasseggeri(int id);
+	abstract protected Vagone getCargo(int id);
+	abstract protected Vagone getRistorante(int id);
 	
 }

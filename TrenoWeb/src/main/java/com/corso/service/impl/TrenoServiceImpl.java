@@ -3,6 +3,8 @@ package com.corso.service.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.BeanFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import com.corso.config.Beans;
@@ -27,27 +29,38 @@ public class TrenoServiceImpl {
 	TrenoDao daoTreno = factory.getBean("trenoDao", TrenoDao.class); 
 	VagoneDao daoVagone = factory.getBean("vagoneDao", VagoneDao.class); 
 
+	@Autowired
+	private TrenoBuilder trenoItaloBuilder;
 	
-	public void creaTreno(String sigla, String fabbrica, int biglietti, int id_utente) {
+	@Autowired
+	private TrenoBuilder trenoTrenordBuilder;
+	
+	public void creaTreno(String sigla, String fabbrica, int id_utente) {
 		
+		ApplicationContext context = new AnnotationConfigApplicationContext(Beans.class);
+		trenoItaloBuilder = (TrenoBuilder) context.getBean(TrenoItaloBuilder.class);
+		trenoTrenordBuilder = (TrenoBuilder) context.getBean(TrenoTrenordBuilder.class);
+
 		checkStringa(sigla);
 		
 		Treno treno = new Treno();
 	    treno.setId_utente(daoTreno.find(id_utente));
 	    treno.setFabbrica(daoTreno.find(fabbrica));
-	    treno.setBiglietti(biglietti);
 		
 		int id_treno = daoTreno.add(treno);
 		System.out.println("id treno = " + id_treno);
-		TrenoBuilder builder = null;
+		//TrenoBuilder builder = null;
+		List<Vagone> lista = null;
 		
 		if(fabbrica.equals("IT")) {
-			builder = new TrenoItaloBuilder();
+			//builder = new TrenoItaloBuilder();
+			lista = trenoItaloBuilder.costruisciTreno(sigla, id_treno);
 		}else if(fabbrica.equals("TN")) {
-			builder = new TrenoTrenordBuilder();
+			//builder = new TrenoTrenordBuilder();
+			lista = trenoTrenordBuilder.costruisciTreno(sigla, id_treno);
 		}
 		
-		List<Vagone> lista = builder.costruisciTreno(sigla, id_treno);
+		//List<Vagone> lista = builder.costruisciTreno(sigla, id_treno);
 		
 		for(Vagone v : lista)
 			daoVagone.add(v);

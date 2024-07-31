@@ -28,6 +28,9 @@ public abstract class Vagone {
 	@Column(name="peso")
 	protected double peso;
 	
+	@Column(name="n_biglietti")
+	protected int biglietti;
+	
 	@ManyToOne
 	@JoinColumn(name="id_treno")
 	protected Treno id_treno;
@@ -35,6 +38,14 @@ public abstract class Vagone {
 	@ManyToOne
 	@JoinColumn(name="tipo")
 	protected Tipologia tipo;
+
+	public int getBiglietti() {
+		return biglietti;
+	}
+
+	public void setBiglietti(int biglietti) {
+		this.biglietti = biglietti;
+	}
 
 	public int getId_vagone() {
 		return id_vagone;
