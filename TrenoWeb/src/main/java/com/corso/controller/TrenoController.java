@@ -16,5 +16,12 @@ public class TrenoController {
 		
       return "index";  
 	}  	
+	 
+	 @GetMapping("/home")
+	 public String home() {
+		 System.out.println("Sei nella homepage");
+		 
+		 return "home";
+	 }
 
 }

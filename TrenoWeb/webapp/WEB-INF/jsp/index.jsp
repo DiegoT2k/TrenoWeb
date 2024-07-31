@@ -10,11 +10,18 @@
 
         <!-- <img src="resources/P.png">  -->
 
-		Benvenuto sei nella home del sito!
+		<h1>Benvenuto!</h1>
+		<h3>Fai l'accesso al sito</h3>
 		
-		cosa vuoi fare?
-		 
 		<br>
+		
+		<form action="/TrenoWeb/home">
+			<label for="fname">Username:</label><br>
+			<input type="text" id="username" name="username" value="..."><br>
+			<label for="lname">Password:</label><br>
+			<input type="text" id="password" name="password" value="..."><br><br>
+			<input type="submit" value="Submit">
+		</form> 
 		
 </body>
 </html>
