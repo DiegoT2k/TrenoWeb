@@ -6,6 +6,7 @@ import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.stereotype.Component;
 
 import com.corso.config.Beans;
 import com.corso.dao.TrenoDao;
@@ -23,6 +24,7 @@ import com.corso.model.builder.TrenoBuilder;
 import com.corso.model.builder.impl.TrenoItaloBuilder;
 import com.corso.model.builder.impl.TrenoTrenordBuilder;
 
+@Component
 public class TrenoServiceImpl {
 	
 	BeanFactory factory = new AnnotationConfigApplicationContext(Beans.class);

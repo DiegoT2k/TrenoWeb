@@ -1,5 +1,7 @@
 package com.corso.dao;
 
+import java.util.List;
+
 import org.springframework.transaction.annotation.Transactional;
 import com.corso.model.Utente;
 	
@@ -8,6 +10,9 @@ import com.corso.model.Utente;
 		
  
     	public Utente add(Utente utente);
+    	
+    	public List<Utente> findByUsername(String username);
+    	
     	/**
     	public void update(Categoria categoria);
 

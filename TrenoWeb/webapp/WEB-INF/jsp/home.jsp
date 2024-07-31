@@ -8,7 +8,8 @@
 </head>
 <body>
 
-<h3>Benvenuto sei nella home del sito!</h3>
+<h3>Sei nella home del sito!</h3>
+<h2>${message}</h2>
 
 
 </body>

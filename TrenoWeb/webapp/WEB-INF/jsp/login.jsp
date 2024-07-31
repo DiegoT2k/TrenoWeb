@@ -15,11 +15,11 @@
 		
 		<br>
 		
-		<form action="/TrenoWeb/home">
-			<label for="fname">Username:</label><br>
-			<input type="text" id="username" name="username" value="..."><br>
-			<label for="lname">Password:</label><br>
-			<input type="text" id="password" name="password" value="..."><br><br>
+		<form action="check">
+			<label for="username">Username:</label><br>
+			<input type="text" id="username" name="username" placeholder="..."><br>
+			<label for="password">Password:</label><br>
+			<input type="text" id="password" name="password" placeholder="..."><br><br>
 			<input type="submit" value="Submit">
 		</form> 
 		
