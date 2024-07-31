@@ -129,7 +129,7 @@ public class Beans {
 	
 	/** SEZIONE SERVICE **/
 	
-	// con questo bean va in loop
+	// con questo bean va in loop..
 	
 	/**
 	@Bean(name="trenoService")
