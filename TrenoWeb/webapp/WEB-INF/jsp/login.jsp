@@ -1,27 +1,35 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
+<meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
 <body>
 
-        <!-- <img src="resources/P.png">  -->
+	${message}
+	
+	<form:form method="POST" 
+	        action="postLogin"       
+	        modelAttribute="loginVO"> 
+	     <table>
+	        <tr>
+	            <td><form:label path="username">Username</form:label></td>
+	            <td><form:input path="username"/></td>   
+	        </tr>
+	        <tr>
+	            <td><form:label path="password">Password</form:label></td>
+	            <td><form:input path="password"/></td>
+	        </tr>
 
-		<h1>Benvenuto!</h1>
-		<h3>Fai l'accesso al sito</h3>
-		
-		<br>
-		
-		<form action="check">
-			<label for="username">Username:</label><br>
-			<input type="text" id="username" name="username" placeholder="..."><br>
-			<label for="password">Password:</label><br>
-			<input type="text" id="password" name="password" placeholder="..."><br><br>
-			<input type="submit" value="Submit">
-		</form> 
-		
+	        <tr>
+	            <td><input type="submit" value="Submit"/></td>
+	        </tr>
+	    </table>
+	</form:form>
+
+
 </body>
 </html>

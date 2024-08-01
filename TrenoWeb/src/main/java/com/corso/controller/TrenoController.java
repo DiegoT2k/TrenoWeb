@@ -24,21 +24,23 @@ import com.corso.model.Treno;
 import com.corso.model.builder.TrenoBuilder;
 import com.corso.model.builder.impl.TrenoItaloBuilder;
 import com.corso.model.builder.impl.TrenoTrenordBuilder;
+import com.corso.service.TrenoService;
+import com.corso.service.UserService;
 import com.corso.service.impl.TrenoServiceImpl;
 
-import com.corso.service.impl.UserServiceImpl;;
+import com.corso.service.impl.UserServiceImpl;
+import com.corso.vo.LoginVO;;
 
 @Controller
 public class TrenoController {
 	
+	@Autowired
+	private UserService userService;
 
-//	private UserServiceImpl userservice = new UserServiceImpl();
-	
+	@Autowired
+	private TrenoService trenoService;
 
-	//@Autowired
-	private TrenoServiceImpl trenoService = new TrenoServiceImpl();;
-
-
+	/**
 	 @GetMapping("/login")
 	 public String index(){   
 	   
@@ -46,35 +48,61 @@ public class TrenoController {
 		
       return "login";  
 	}  	
-	 
+	 */
 	 @GetMapping("/registration")
 	 public String registration(Model model) {
 		 model.addAttribute("utente", new Utente());
 		 return "registration";
 	 }
 	 
-//	 @GetMapping("/checkRegistrazione")
-//	 public String checkRegistrazione(@RequestParam String nome, 
-//			 							@RequestParam String cognome, 
-//			 							@RequestParam String username, 
-//			 							@RequestParam String email, 
-//			 							@RequestParam String password, 
-//			 							Model model) {
-//		 Utente utente = new Utente();
-//		 utente.setNome(nome);
-//		 utente.setCognome(cognome);
-//		 utente.setUsername(username);
-//		 utente.setEmail(email);
-//		 utente.setPassword(password);
-//		 userservice.save(utente);
-//		 return "login";
-//	 }
+	 @GetMapping("/checkRegistrazione")
+	 public String checkRegistrazione(@RequestParam String nome, 
+			 							@RequestParam String cognome, 
+			 							@RequestParam String username, 
+			 							@RequestParam String email, 
+			 							@RequestParam String password, 
+			 							Model model) {
+	 
+	  //BeanUtils..
+		 Utente utente = new Utente();
+		 utente.setNome(nome);
+		 utente.setCognome(cognome);
+		 utente.setUsername(username);
+		 utente.setEmail(email);
+		 utente.setPassword(password);
+		 System.out.println("qua?");
+		 userService.save(utente);
+		 return "login";
+	 }
 	 
 	 @GetMapping("/home")
 	 public String home(@RequestParam String username, Model model) {
 		 
 		 System.out.println("Sei nella homepage");
 		 model.addAttribute("username", username);
+		 
+		 return "home";
+	 }
+	 
+	 @GetMapping("/login")
+	 public String preLogin(Model model) {
+		 
+		 model.addAttribute(new LoginVO("nome", "cognome"));
+		 
+		 return "login";
+	 }
+	 
+	 @PostMapping("postLogin")
+	 public String postLogin(@ModelAttribute("loginVO") LoginVO loginVO, Model model) {
+		 
+		 if(loginVO.getUsername() == null || loginVO.getUsername() == "") {
+			 model.addAttribute("message", "username è un campo obbligatorio");
+			 return "login";
+		 }
+		 
+		 
+		 
+		 System.out.println("username " + loginVO.getUsername() + " password " + loginVO.getPassword());
 		 
 		 return "home";
 	 }
@@ -85,7 +113,7 @@ public class TrenoController {
 		 List<Treno> listaTreni = trenoService.allTreni();
 		 System.out.println("Homepage dei treni");
 		 model.addAttribute("listaTreni", listaTreni);
-		 System.out.println("questa Ã¨ la lista " + listaTreni);
+		 System.out.println("Lista " + listaTreni);
 		 
 		 return "treni";
 		 
@@ -103,4 +131,5 @@ public class TrenoController {
 		 trenoService.creaTreno(sigla, fabbrica, 1);
 		 return "redirect:/treni";
 	 }
+	 
 }
