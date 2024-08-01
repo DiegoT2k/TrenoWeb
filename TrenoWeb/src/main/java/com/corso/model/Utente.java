@@ -37,7 +37,6 @@ public class Utente {
 		return treno;
 	}
 
-
 	public String getUsername() {
 		return username;
 	}
@@ -88,8 +87,8 @@ public class Utente {
 
 	@Override
 	public String toString() {
-		return "Utente [id_utente=" + id_utente + ", nome=" + nome + ", username " + username +", cognome=" + cognome + ", email=" + email
-				+ ", password=" + password + "]";
+		return "Utente [id_utente=" + id_utente + ", username=" + username + ", nome " + nome +", cognome=" + cognome + ", email=" + email
+				+ "]";
 	}
 	
 }
