@@ -20,7 +20,7 @@ public class TrenoController {
 	 @GetMapping("/home")
 	 public String home(@RequestParam String username, Model model) {
 		 
-		 System.out.println("Sei nella homepage");
+		 System.out.println("Sei nella homepaage");
 		 model.addAttribute("username", username);
 		 
 		 return "home";
