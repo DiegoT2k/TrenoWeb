@@ -23,33 +23,41 @@ import com.corso.model.abs_vagone.Vagone;
 import com.corso.model.builder.TrenoBuilder;
 import com.corso.model.builder.impl.TrenoItaloBuilder;
 import com.corso.model.builder.impl.TrenoTrenordBuilder;
+import com.corso.service.TrenoService;
 
-@Component
-public class TrenoServiceImpl {
+public class TrenoServiceImpl implements TrenoService{
 	
-	BeanFactory factory = new AnnotationConfigApplicationContext(Beans.class);
-	TrenoDao daoTreno = factory.getBean("trenoDao", TrenoDao.class); 
-	VagoneDao daoVagone = factory.getBean("vagoneDao", VagoneDao.class); 
+	//BeanFactory factory = new AnnotationConfigApplicationContext(Beans.class);
+	//TrenoDao daoTreno = factory.getBean("trenoDao", TrenoDao.class); 
+	//VagoneDao daoVagone = factory.getBean("vagoneDao", VagoneDao.class); 
 
+	@Autowired
+	TrenoDao trenoDao;
+	
+	@Autowired
+	VagoneDao vagoneDao;
+	
 	@Autowired
 	private TrenoBuilder trenoItaloBuilder;
 	
 	@Autowired
 	private TrenoBuilder trenoTrenordBuilder;
 	
+	
+	@Override
 	public void creaTreno(String sigla, String fabbrica, int id_utente) {
 		
-		ApplicationContext context = new AnnotationConfigApplicationContext(Beans.class);
-		trenoItaloBuilder = (TrenoBuilder) context.getBean(TrenoItaloBuilder.class);
-		trenoTrenordBuilder = (TrenoBuilder) context.getBean(TrenoTrenordBuilder.class);
+		//ApplicationContext context = new AnnotationConfigApplicationContext(Beans.class);
+		//trenoItaloBuilder = (TrenoBuilder) context.getBean(TrenoItaloBuilder.class);
+		//trenoTrenordBuilder = (TrenoBuilder) context.getBean(TrenoTrenordBuilder.class);
 
 		checkStringa(sigla);
 		
 		Treno treno = new Treno();
-	    treno.setId_utente(daoTreno.find(id_utente));
-	    treno.setFabbrica(daoTreno.find(fabbrica));
+	    treno.setId_utente(trenoDao.find(id_utente));
+	    treno.setFabbrica(trenoDao.find(fabbrica));
 		
-		int id_treno = daoTreno.add(treno);
+		int id_treno = trenoDao.add(treno);
 		System.out.println("id treno = " + id_treno);
 		//TrenoBuilder builder = null;
 		List<Vagone> lista = null;
@@ -65,9 +73,10 @@ public class TrenoServiceImpl {
 		//List<Vagone> lista = builder.costruisciTreno(sigla, id_treno);
 		
 		for(Vagone v : lista)
-			daoVagone.add(v);
+			vagoneDao.add(v);
 		
 	}
+	
 	
 	public void checkStringa(String vagoni){
 		for(char c : vagoni.toCharArray())
@@ -95,8 +104,9 @@ public class TrenoServiceImpl {
 				
 	}
 	
+	@Override
 	public List<Treno> allTreni(){
-		return daoTreno.findAll();
+		return trenoDao.findAll();
 	}
 	
 	

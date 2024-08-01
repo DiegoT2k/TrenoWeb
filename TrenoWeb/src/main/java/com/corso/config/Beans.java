@@ -34,7 +34,10 @@ import com.corso.model.vagone.impl.PasseggeriItalo;
 import com.corso.model.vagone.impl.PasseggeriTrenord;
 import com.corso.model.vagone.impl.RistoranteItalo;
 import com.corso.model.vagone.impl.RistoranteTrenord;
+import com.corso.service.TrenoService;
+import com.corso.service.UserService;
 import com.corso.service.impl.TrenoServiceImpl;
+import com.corso.service.impl.UserServiceImpl;
 import com.corso.dao.UtenteDao;
 import com.corso.dao.VagoneDao;
 import com.corso.dao.ValutazioneDao;
@@ -86,7 +89,7 @@ public class Beans {
 	      JpaTransactionManager transactionManager = new JpaTransactionManager();
 	      transactionManager.setEntityManagerFactory(getEntityManager().getObject());
 	      return transactionManager;
-	}
+	}	
 	
 	/**** sezione DAO ****/
 	
@@ -129,15 +132,18 @@ public class Beans {
 	
 	/** SEZIONE SERVICE **/
 	
-	// con questo bean va in loop..
 	
-	/**
 	@Bean(name="trenoService")
-	public TrenoServiceImpl getTrenoService() {
-		TrenoServiceImpl trenoService = new TrenoServiceImpl();
+	public TrenoService getTrenoService() {
+		TrenoService trenoService = new TrenoServiceImpl();
 		return trenoService;
 	}
-	**/
+	
+	@Bean(name="userService")
+	public UserService getUserService() {
+		UserService userService = new UserServiceImpl();
+		return userService;
+	}
 	
 	/** SEZIONE TRENO **/
 	
@@ -153,17 +159,6 @@ public class Beans {
 	
 	@Bean(name="locomotivaItalo")
 	public LocomotivaItalo getLocomotivaItalo() {
-		//Vagone l = new LocomotivaItalo();
-	
-		//VagoneDao dao = new VagoneDaoImpl();
-		
-		//l.setLunghezza(1);
-		//l.setPeso(1);
-		//l.setPrezzo(1);
-		//l.setId_treno(dao.find(3));
-		//l.setFabbrica(dao.find("TN"));
-		//l.setTipo(dao.findTipo("Locomotiva"));
-		
 		return new LocomotivaItalo();
 	}
 	

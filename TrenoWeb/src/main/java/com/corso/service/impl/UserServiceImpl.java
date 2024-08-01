@@ -4,17 +4,19 @@ import java.util.regex.Pattern;
 
 import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.BeanFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.stereotype.Component;
 
 import com.corso.config.Beans;
 import com.corso.dao.UtenteDao;
 import com.corso.model.Utente;
+import com.corso.service.UserService;
 
-public class UserServiceImpl {
+public class UserServiceImpl implements UserService{
 
-	BeanFactory factory = new AnnotationConfigApplicationContext(Beans.class);
-	UtenteDao dao = factory.getBean("utenteDao", UtenteDao.class);
+	@Autowired
+	UtenteDao utenteDao;
 	
 	private static final int MIN_PASSWORD_LENGTH = 8;
 	
@@ -30,22 +32,32 @@ public class UserServiceImpl {
     // Verifica se la stringa contiene almeno un carattere speciale
     private static final Pattern SPECIAL_CHAR_PATTERN = Pattern.compile(".*[^a-zA-Z0-9].*");
 	
+    
+    
+    
+    
+    
 	public boolean checkLogin(String username) {
 		
-        if(dao.findByUsername(username).size() == 0) 
+        if(utenteDao.findByUsername(username).size() == 0) 
         	return false;
         else
         	return true;
 	}
 	
+	
+	
+	
+	
 	public void save(Utente utente) {
+		System.out.println("entro in save");
         // Verifica se l'username è già in uso
-        if (dao.findByUsername(utente.getUsername()) != null) {
+        if (utenteDao.findByUsername(utente.getUsername()).size() > 0) {
             throw new IllegalArgumentException("Username già in uso");
         }
 
         // Verifica se l'email è già in uso
-        if (dao.findByEmail(utente.getEmail()) != null) {
+        if (utenteDao.findByEmail(utente.getEmail()).size() > 0) {
             throw new IllegalArgumentException("Email già in uso");
         }
         
@@ -53,12 +65,12 @@ public class UserServiceImpl {
 
         // Hash della password usando SHA-256
         utente.setPassword(DigestUtils.sha256Hex(utente.getPassword()));
-
+        System.out.println("provo a salvare " + utente);
         // Salva l'utente
-        dao.add(utente);
+        utenteDao.add(utente);
     }
 	
-	private void validatePassword(String password) {
+	public void validatePassword(String password) {
         if (password == null || password.length() < MIN_PASSWORD_LENGTH) {
             throw new IllegalArgumentException("La password deve essere lunga almeno " + MIN_PASSWORD_LENGTH + " caratteri");
         }
