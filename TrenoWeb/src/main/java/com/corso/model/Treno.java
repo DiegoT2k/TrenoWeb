@@ -82,7 +82,7 @@ public class Treno {
 
 	@Override
 	public String toString() {
-		return "Treno [id_treno=" + id_treno + ", id_utente=" + id_utente + ", fabbrica=" + fabbrica + "]";
+		return "Treno [id_treno=" + id_treno + ", id_utente=" + id_utente.getUsername() + ", " + fabbrica + "]";
 	}
 	
 }

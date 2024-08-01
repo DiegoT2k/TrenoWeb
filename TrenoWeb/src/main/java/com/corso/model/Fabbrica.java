@@ -26,5 +26,10 @@ public class Fabbrica implements Bean{
 	public void setFabbrica(String fabbrica) {
 		this.fabbrica = fabbrica;
 	}
+
+	@Override
+	public String toString() {
+		return "Fabbrica = " + sigla + ", "+ fabbrica + "]";
+	}
 	
 }

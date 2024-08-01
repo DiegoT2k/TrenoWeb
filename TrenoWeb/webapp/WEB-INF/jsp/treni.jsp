@@ -4,13 +4,13 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Pagina treni</title>
 </head>
 <body>
 
-<h3>Sei nella home del sito!!! ${username}</h3>
-<h2>${message}</h2>
+<h1>Tabella dei treni:</h1>
 
+${listaTreni}
 
 </body>
 </html>
