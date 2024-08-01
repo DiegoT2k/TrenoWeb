@@ -31,6 +31,14 @@ public class UtenteDaoImpl extends DaoImpl implements UtenteDao{
 		return l;
 	}
 
+	@Override
+	public List<Utente> findByEmail(String email) {
+		Query q = (Query) manager.createQuery("from Utente where email=:email", Utente.class);
+		q.setParameter("email", email);
+		
+		List<Utente> l = q.getResultList();
+		return l;
+	}
 }
 
 
