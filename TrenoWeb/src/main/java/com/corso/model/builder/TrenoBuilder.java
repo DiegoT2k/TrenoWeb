@@ -76,33 +76,6 @@ public abstract class TrenoBuilder {
 		
 		return lista;
 	}
-/**
-	public void checkStringa(String vagoni){
-		for(char c : vagoni.toCharArray())
-			if(!(c == 'H' || c == 'P' || c == 'R' || c == 'C'))
-				throw new VagoneException(vagoni, "Errore");			
-		
-		if(vagoni.charAt(0) != 'H' )
-			throw new LocomotivaNonInTestaException(vagoni, "Errore inserimento stringa");	
-
-		if(vagoni.length() <= 1)
-			throw new DimensioneMinException(vagoni, "Errore");
-			
-		if(vagoni.length() >= 20)
-			throw new DimensioneMagException(vagoni, "Errore");
-		
-		if(((String) vagoni.subSequence(1, (vagoni.length())-1)).contains("H") )
-			throw new NumLocomotiveException(vagoni, "Errore");
-		
-		if(vagoni.contains("C") && vagoni.contains("P") ||
-				vagoni.contains("C") && vagoni.contains("R")) 
-					throw new SoloCargoException(vagoni, "Errore treno cargo");
-		
-		if(vagoni.indexOf("R") != vagoni.lastIndexOf("R"))
-			throw new NumRistorantiException(vagoni, "Errore ristoranti");
-				
-	}
-	**/
 	
 	abstract protected Vagone getLocomotiva(int id);
 	abstract protected Vagone getPasseggeri(int id);

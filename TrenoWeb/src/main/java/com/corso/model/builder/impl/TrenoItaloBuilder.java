@@ -43,7 +43,6 @@ public class TrenoItaloBuilder extends TrenoBuilder{
 	    locomotivaItalo.setFabbrica(dao.find("IT"));
 	    locomotivaItalo.setTipo(dao.findTipo("Locomotiva"));
 	    locomotivaItalo.setBiglietti(0);
-	    //l.setBiglietti(0);
 	   
 	    return locomotivaItalo;
 	}

@@ -10,7 +10,7 @@
 
 	<h1>Crea il tuo treno personalizzato:</h1>
 	
-    <form action="/TrenoWeb/crea">
+    <form action="/TrenoWeb/crea" method="post">
         <label for="inputString">Inserisci una stringa:</label>
         <input type="text" id="sigla" name="sigla" required>
         <br><br>

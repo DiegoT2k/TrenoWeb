@@ -25,4 +25,6 @@ public interface TrenoDao {
 	public List<Treno> findByFilter(TrenoFilter filter);
 	
 	public List<Utente> findByName(String nome);
+	
+	public List<Object[]> filterByPeso(/**TrenoFilter filter**/);
 }
