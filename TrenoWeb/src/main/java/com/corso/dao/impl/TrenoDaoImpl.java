@@ -77,7 +77,21 @@ public class TrenoDaoImpl implements TrenoDao{
 	 * 
 	 */
 	
-	
+	public List<Object[]> filterByPeso(/**TrenoFilter filter**/){
+		
+		String jpql = "SELECT t.id_treno, SUM(v.peso) AS pesoTotale "
+				+ "FROM Treno t "
+				+ "JOIN t.vagoni v "
+				+ "GROUP BY t.id_treno " ;
+				//+ "HAVING SUM(v.peso) >= 300";
+		
+		Query q = manager.createQuery(jpql);
+		
+		List<Object[]> l = q.getResultList();
+		
+
+		return l;
+	}
 
 	
 	@Override
@@ -87,11 +101,11 @@ public class TrenoDaoImpl implements TrenoDao{
 		Root<Treno> criteriaRoot= criteriaQuery.from(Treno.class);
 		Join<Treno, Vagone> vagone = criteriaRoot.join("vagoni"); //vagoni da set vagoni in treno
 		
-//		String jpql = "SELECT id_treno, SUM(peso), SUM(prezzo), SUM(lunghezza)"
-//				+ "FROM vagone +"
-//				+ "GROUP BY id_treno";
-//		Query q = manager.createQuery(jpql);
-//		List<Treno> l = q.getResultList();
+		String jpql = "SELECT id_treno, SUM(peso), SUM(prezzo), SUM(lunghezza)"
+				+ "FROM vagone +"
+				+ "GROUP BY id_treno";
+		Query q = manager.createQuery(jpql);
+		List<Treno> l = q.getResultList();
 		
 		Predicate prezzoMinPredicate = null, prezzoMaxPredicate = null,
 				  lunghezzaMinPredicate = null, lunghezzaMaxPredicate = null,

@@ -95,4 +95,9 @@ public class TrenoServiceImpl {
 				
 	}
 	
+	public List<Treno> allTreni(){
+		return daoTreno.findAll();
+	}
+	
+	
 }
