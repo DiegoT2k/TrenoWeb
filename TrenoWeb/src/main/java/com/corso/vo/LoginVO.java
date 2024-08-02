@@ -10,13 +10,16 @@ public class LoginVO {
 	@NotBlank(message = "Password è un campo obbligatorio")
 	private String password;
 	
-	public LoginVO() {};
 	
 	public LoginVO(String username, String password) {
 		this.username = username;
 		this.password = password;
 	}
 	
+	public LoginVO() {
+
+	}
+
 	public String getUsername() {
 		return username;
 	}

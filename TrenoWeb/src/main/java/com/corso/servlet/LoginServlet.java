@@ -17,35 +17,35 @@ import com.corso.service.impl.UserServiceImpl;
 /**
  * Servlet implementation class LoginServlet
  */
-@WebServlet("/check")
-public class LoginServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-       
-	//@Autowired
-	private UserServiceImpl service = new UserServiceImpl();
-    
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		String username = request.getParameter("username");	
-		
-		boolean flag = service.checkUsername(username);
-		System.out.println(flag);
-		if(flag)			
-			request.setAttribute("message", "Login effettuato correttamente!"); 	
-		else 	
-			request.setAttribute("message", "Login non effettuato correttamente!");
-			
-		 RequestDispatcher d = request.getRequestDispatcher("home");
-		 	
-		 d.forward(request,response);
-	}
+//@WebServlet("/check")
+//public class LoginServlet extends HttpServlet {
+//	private static final long serialVersionUID = 1L;
+//       
+//	//@Autowired
+//	private UserServiceImpl service = new UserServiceImpl();
+//    
+//	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+//		
+//		String username = request.getParameter("username");	
+//		
+//		boolean flag = service.checkUsername(username);
+//		System.out.println(flag);
+//		if(flag)			
+//			request.setAttribute("message", "Login effettuato correttamente!"); 	
+//		else 	
+//			request.setAttribute("message", "Login non effettuato correttamente!");
+//			
+//		 RequestDispatcher d = request.getRequestDispatcher("home");
+//		 	
+//		 d.forward(request,response);
+//	}
+//
+//	/**
+//	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+//	 */
+//	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+//		// TODO Auto-generated method stub
+//		doGet(request, response);
+//	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
-	}
-
-}
+//}

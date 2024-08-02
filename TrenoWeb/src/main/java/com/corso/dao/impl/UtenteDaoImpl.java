@@ -22,6 +22,7 @@ public class UtenteDaoImpl extends DaoImpl implements UtenteDao{
 		return utente;
 	}
 	
+	@Override
 	public List<Utente> findByUsername(String username) {
 		Query q = (Query) manager.createQuery("from Utente where username=:username", Utente.class);
 		q.setParameter("username", username);
@@ -40,15 +41,15 @@ public class UtenteDaoImpl extends DaoImpl implements UtenteDao{
 		return l;
 	}
 
-	@Override
-	public Utente findUsername(String username) {
-        String hql = "FROM Utente WHERE username = :username";
-        return manager.createQuery(hql, Utente.class)
-                            .setParameter("username", username)
-                            .getSingleResult();
-	}
-
-	
+//	@Override
+//	public Utente findUsername(String username) {
+//        String hql = "FROM Utente WHERE username = :username";
+//        return manager.createQuery(hql, Utente.class)
+//                            .setParameter("username", username)
+//                            .getSingleResult();
+//	}
+//
+//	
 	
 	
 }

@@ -1,5 +1,6 @@
 package com.corso.service.impl;
 
+import java.util.List;
 import java.util.regex.Pattern;
 
 import org.apache.commons.codec.digest.DigestUtils;
@@ -33,26 +34,18 @@ public class UserServiceImpl implements UserService{
     private static final Pattern SPECIAL_CHAR_PATTERN = Pattern.compile(".*[^a-zA-Z0-9].*");
 	
     
-    
-    
-    @Override
-	public boolean checkUsername(String username) {
-		Utente utente = utenteDao.findUsername(username);
-        return utente != null;
-	}
 
     @Override
-	public boolean checkPassword(String username, String password) {
-		Utente utente = utenteDao.findUsername(username);
-		
-		if (utente != null) {
-			return utente.getPassword().equals(password);
-		}
-		
-		return false;
-	}
-	
-	
+   	public Utente checkLogin(String username) {
+   		List<Utente> utenti = utenteDao.findByUsername(username);
+   		
+   		if (utenti != null && utenti.size() > 0) {
+   			return utenti.get(0);
+   		}
+   		return null;
+      
+   	}
+ 
 	
 	public void save(Utente utente) {
 		System.out.println("entro in save");

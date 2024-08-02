@@ -73,35 +73,36 @@ public class TrenoController {
 	 @GetMapping("/login")
 	 public String preLogin(Model model) {
 		 
-		 model.addAttribute(new LoginVO("nome", "cognome"));
+		 model.addAttribute(new LoginVO());
 		 
 		 return "login";
 	 }
 	 
 	 @PostMapping("postLogin")
 	 public String postLogin(@Valid @ModelAttribute("loginVO") LoginVO loginVO,
-			 					BindingResult bindingResult, Model model) {
+			 					BindingResult bindingResult, Model model, HttpSession session) {
 		
 		 if (bindingResult.hasErrors()) {
 			 return "login";
 		 }
 		 
-		 boolean usernameExists = userService.checkUsername(loginVO.getUsername());
+		 Utente utente = userService.checkLogin(loginVO.getUsername());
 		 
-		 if(usernameExists) {
-			 boolean passCorrect = userService.checkPassword(loginVO.getUsername(), loginVO.getPassword());
-			 
-			 if (passCorrect) {
-				  model.addAttribute("username", loginVO.getUsername());
-				  //se login funziona entra nella home
-				  return "home";
-				  
-			 } else {
-				 	model.addAttribute("error", "Password errata"); 
-			 	} 	 
-		 } else {
+		 if(utente == null) {
 			 model.addAttribute("error", "Username non trovato");
 		 }
+		 else {
+			 if (utente.getPassword().equals(loginVO.getPassword())) {
+				 session.setAttribute("utente", utente); //aggiunge la sessione
+				 return "home";
+				 
+			 } else {
+				model.addAttribute("error", "Password errata");
+				return "login";
+			 }
+		 }
+			 
+		 
 		 System.out.println("username " + loginVO.getUsername() + " password " + loginVO.getPassword());
 	
 		 //ritorna al login se non riesce a farlo
@@ -132,5 +133,6 @@ public class TrenoController {
 		 trenoService.creaTreno(sigla, fabbrica, 1);
 		 return "redirect:/treni";
 	 }
+
 	 
 }
