@@ -7,35 +7,10 @@
 <title>Registrazione</title>
 </head>
 <body>
+
 <jsp:include page="menu.jsp"></jsp:include>	
- <h1>Registrazione</h1>
- <!-- 
-    <form action="/TrenoWeb/checkRegistrazione">
-        <div>
-            <label for="nome">Nome:</label>
-            <input type="text" id="nome" name="nome" placeholder="Inserisci Nome"/>
-        </div>
-        <div>
-            <label for="cognome">Cognome:</label>
-            <input type="text" id="cognome" name="cognome" placeholder="Inserisci Cognome"/>
-        </div>
-        <div>
-            <label for="username">Username:</label>
-            <input type="text" id="username" name="username" placeholder="Inserisci Username"/>
-        </div>
-        <div>
-            <label for="email">Email:</label>
-            <input type="text" id="email" name="email" placeholder="Inserisci Email"/>
-        </div>
-        <div>
-            <label for="password">Password:</label>
-            <input type="text" id="password" name="password" placeholder="Inserisci Password"/>
-        </div>
-        <div>
-            <button type="submit">Registrati</button>
-        </div>
-    </form>
-     -->
+
+<h1>Registrazione</h1>
     
     	<form:form method="POST" 
 	        action="postRegistrazione"       
@@ -62,7 +37,7 @@
 	            <td><form:input path="password" placeholder="..."/></td>
 	        </tr>
 	        <tr>
-	            <td><input type="submit" value="Submit"/></td>
+	            <td><input type="submit" value="Registrati"/></td>
 	        </tr>
 	    </table>
 	</form:form>

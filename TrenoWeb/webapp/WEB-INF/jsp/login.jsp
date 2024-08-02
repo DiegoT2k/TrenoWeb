@@ -10,6 +10,10 @@
 </head>
 <body>
 
+<jsp:include page="menu.jsp"></jsp:include>	
+
+<h1>Login</h1>
+
 	${error}
 	
 	<form:form method="POST" 
@@ -26,7 +30,7 @@
 	        </tr>
 
 	        <tr>
-	            <td><input type="submit" value="Submit"/></td>
+	            <td><input type="submit" value="Login"/></td>
 	        </tr>
 	    </table>
 	</form:form>
