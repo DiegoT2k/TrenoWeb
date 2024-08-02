@@ -45,27 +45,23 @@ public class UserServiceImpl implements UserService{
         	return true;
 	}
 	
-	
-	
-	
-	
 	public void save(Utente utente) {
 		System.out.println("entro in save");
-        // Verifica se l'username è già in uso
+        // Verifica se l'username e' gia'� in uso
         if (utenteDao.findByUsername(utente.getUsername()).size() > 0) {
             throw new IllegalArgumentException("Username già in uso");
         }
 
-        // Verifica se l'email è già in uso
+        // Verifica se l'email e' gia' in uso
         if (utenteDao.findByEmail(utente.getEmail()).size() > 0) {
             throw new IllegalArgumentException("Email già in uso");
         }
-        
+               
         validatePassword(utente.getPassword());
 
         // Hash della password usando SHA-256
-        utente.setPassword(DigestUtils.sha256Hex(utente.getPassword()));
-        System.out.println("provo a salvare " + utente);
+        //utente.setPassword(DigestUtils.sha256Hex(utente.getPassword()));
+      
         // Salva l'utente
         utenteDao.add(utente);
     }

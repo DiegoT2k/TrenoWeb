@@ -4,7 +4,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
-
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -29,7 +29,8 @@ import com.corso.service.UserService;
 import com.corso.service.impl.TrenoServiceImpl;
 
 import com.corso.service.impl.UserServiceImpl;
-import com.corso.vo.LoginVO;;
+import com.corso.vo.LoginVO;
+import com.corso.vo.RegistrationVO;;
 
 @Controller
 public class TrenoController {
@@ -50,29 +51,20 @@ public class TrenoController {
 	}  	
 	 */
 	 @GetMapping("/registration")
-	 public String registration(Model model) {
-		 model.addAttribute("utente", new Utente());
+	 public String preRegistration(Model model) {
+		 model.addAttribute("registrationVO", new RegistrationVO());
 		 return "registration";
 	 }
 	 
-	 @GetMapping("/checkRegistrazione")
-	 public String checkRegistrazione(@RequestParam String nome, 
-			 							@RequestParam String cognome, 
-			 							@RequestParam String username, 
-			 							@RequestParam String email, 
-			 							@RequestParam String password, 
-			 							Model model) {
+	 @PostMapping("postRegistrazione")
+	 public String postRegistrazione(@ModelAttribute("registrationVO") RegistrationVO registrationVO, Model model) {
 	 
-	  //BeanUtils..
 		 Utente utente = new Utente();
-		 utente.setNome(nome);
-		 utente.setCognome(cognome);
-		 utente.setUsername(username);
-		 utente.setEmail(email);
-		 utente.setPassword(password);
-		 System.out.println("qua?");
+		 BeanUtils.copyProperties(registrationVO, utente);
+		 
 		 userService.save(utente);
-		 return "login";
+		 
+		 return "redirect:/login";
 	 }
 	 
 	 @GetMapping("/home")
