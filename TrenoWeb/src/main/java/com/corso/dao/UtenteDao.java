@@ -15,6 +15,9 @@ import com.corso.model.Utente;
     	
     	public List<Utente> findByEmail(String email);
     	
+    	public Utente findUsername(String username);
+
+    	
     	/**
     	public void update(Categoria categoria);
 

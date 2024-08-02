@@ -28,7 +28,7 @@ public class LoginServlet extends HttpServlet {
 		
 		String username = request.getParameter("username");	
 		
-		boolean flag = service.checkLogin(username);
+		boolean flag = service.checkUsername(username);
 		System.out.println(flag);
 		if(flag)			
 			request.setAttribute("message", "Login effettuato correttamente!"); 	

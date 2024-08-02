@@ -4,7 +4,9 @@ import com.corso.model.Utente;
 
 public interface UserService {
 	
-	public boolean checkLogin(String username);
+	public boolean checkUsername(String username);
+	
+	public boolean checkPassword(String username, String password);
 	
 	public void save(Utente utente);
 	

@@ -39,6 +39,18 @@ public class UtenteDaoImpl extends DaoImpl implements UtenteDao{
 		List<Utente> l = q.getResultList();
 		return l;
 	}
+
+	@Override
+	public Utente findUsername(String username) {
+        String hql = "FROM Utente WHERE username = :username";
+        return manager.createQuery(hql, Utente.class)
+                            .setParameter("username", username)
+                            .getSingleResult();
+	}
+
+	
+	
+	
 }
 
 

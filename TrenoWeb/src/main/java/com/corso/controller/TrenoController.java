@@ -3,6 +3,7 @@ package com.corso.controller;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.BeanFactory;
@@ -12,6 +13,7 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.WebSession;
 
@@ -41,15 +43,7 @@ public class TrenoController {
 	@Autowired
 	private TrenoService trenoService;
 
-	/**
-	 @GetMapping("/login")
-	 public String index(){   
-	   
-		System.out.println("sono passato dal metodo controller index()!"); 	
-		
-      return "login";  
-	}  	
-	 */
+
 	 @GetMapping("/registration")
 	 public String preRegistration(Model model) {
 		 model.addAttribute("registrationVO", new RegistrationVO());
@@ -85,18 +79,33 @@ public class TrenoController {
 	 }
 	 
 	 @PostMapping("postLogin")
-	 public String postLogin(@ModelAttribute("loginVO") LoginVO loginVO, Model model) {
-		 
-		 if(loginVO.getUsername() == null || loginVO.getUsername() == "") {
-			 model.addAttribute("message", "username è un campo obbligatorio");
+	 public String postLogin(@Valid @ModelAttribute("loginVO") LoginVO loginVO,
+			 					BindingResult bindingResult, Model model) {
+		
+		 if (bindingResult.hasErrors()) {
 			 return "login";
 		 }
 		 
+		 boolean usernameExists = userService.checkUsername(loginVO.getUsername());
 		 
-		 
+		 if(usernameExists) {
+			 boolean passCorrect = userService.checkPassword(loginVO.getUsername(), loginVO.getPassword());
+			 
+			 if (passCorrect) {
+				  model.addAttribute("username", loginVO.getUsername());
+				  //se login funziona entra nella home
+				  return "home";
+				  
+			 } else {
+				 	model.addAttribute("error", "Password errata"); 
+			 	} 	 
+		 } else {
+			 model.addAttribute("error", "Username non trovato");
+		 }
 		 System.out.println("username " + loginVO.getUsername() + " password " + loginVO.getPassword());
-		 
-		 return "home";
+	
+		 //ritorna al login se non riesce a farlo
+		 return "login";
 	 }
 
 	 @GetMapping("/treni")

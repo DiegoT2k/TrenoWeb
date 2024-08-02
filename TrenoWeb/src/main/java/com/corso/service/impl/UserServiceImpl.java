@@ -35,19 +35,28 @@ public class UserServiceImpl implements UserService{
     
     
     
-    
-    
-	public boolean checkLogin(String username) {
-		
-        if(utenteDao.findByUsername(username).size() == 0) 
-        	return false;
-        else
-        	return true;
+    @Override
+	public boolean checkUsername(String username) {
+		Utente utente = utenteDao.findUsername(username);
+        return utente != null;
 	}
+
+    @Override
+	public boolean checkPassword(String username, String password) {
+		Utente utente = utenteDao.findUsername(username);
+		
+		if (utente != null) {
+			return utente.getPassword().equals(password);
+		}
+		
+		return false;
+	}
+	
+	
 	
 	public void save(Utente utente) {
 		System.out.println("entro in save");
-        // Verifica se l'username e' gia'† in uso
+        // Verifica se l'username e' gia'ÔøΩ in uso
         if (utenteDao.findByUsername(utente.getUsername()).size() > 0) {
             throw new IllegalArgumentException("Username gi√† in uso");
         }
@@ -83,5 +92,7 @@ public class UserServiceImpl implements UserService{
             throw new IllegalArgumentException("La password deve contenere almeno un carattere speciale");
         }
     }
+
+
 	
 }

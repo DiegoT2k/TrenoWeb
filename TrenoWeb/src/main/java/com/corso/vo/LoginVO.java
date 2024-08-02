@@ -1,9 +1,16 @@
 package com.corso.vo;
 
+import javax.validation.constraints.NotBlank;
+
 public class LoginVO {
 
+	@NotBlank(message = "Username è un campo obbligatorio")
 	private String username;
+	
+	@NotBlank(message = "Password è un campo obbligatorio")
 	private String password;
+	
+	public LoginVO() {};
 	
 	public LoginVO(String username, String password) {
 		this.username = username;
