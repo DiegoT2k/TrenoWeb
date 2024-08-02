@@ -105,16 +105,9 @@ public class TrenoController {
 	 }
 
 	 @GetMapping("/treni")
-	 public String treni(Model model) {
-		
-		 //List<Treno> listaTreni = trenoService.allTreni();
-		 //System.out.println("Homepage dei treni");
-		 
+	 public String treni(Model model) {	 
 		 
 		 List<TrenoVoto> l = trenoService.votoTreni();
-		 for(TrenoVoto t : l) {
-			 System.out.println("id_treno= " + t.getId_treno() + " e voto: " + t.getVoto());
-		 }
 	
 		 model.addAttribute("listaTreni", l);
 		 return "treni";

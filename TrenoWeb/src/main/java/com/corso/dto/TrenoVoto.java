@@ -10,12 +10,14 @@ public class TrenoVoto {
 	private Utente id_utente;
 	private Fabbrica fabbrica;
 	private Double voto;
+	
 	public TrenoVoto(int id_treno, Utente id_utente, Fabbrica fabbrica, Double voto) {
 		this.id_treno = id_treno;
 		this.id_utente = id_utente;
 		this.fabbrica = fabbrica;
 		this.voto = voto;
 	}
+	
 	public int getId_treno() {
 		return id_treno;
 	}
