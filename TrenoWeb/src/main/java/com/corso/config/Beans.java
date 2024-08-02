@@ -36,8 +36,10 @@ import com.corso.model.vagone.impl.RistoranteItalo;
 import com.corso.model.vagone.impl.RistoranteTrenord;
 import com.corso.service.TrenoService;
 import com.corso.service.UserService;
+import com.corso.service.ValutazioneService;
 import com.corso.service.impl.TrenoServiceImpl;
 import com.corso.service.impl.UserServiceImpl;
+import com.corso.service.impl.ValutazioneServiceImpl;
 import com.corso.dao.UtenteDao;
 import com.corso.dao.VagoneDao;
 import com.corso.dao.ValutazioneDao;
@@ -143,6 +145,12 @@ public class Beans {
 	public UserService getUserService() {
 		UserService userService = new UserServiceImpl();
 		return userService;
+	}
+	
+	@Bean(name="valutazioneService")
+	public ValutazioneService getValutazioneService() {
+		ValutazioneService valutazioneService = new ValutazioneServiceImpl();
+		return valutazioneService ;
 	}
 	
 	/** SEZIONE TRENO **/

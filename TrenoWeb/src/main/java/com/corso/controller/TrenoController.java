@@ -20,12 +20,14 @@ import com.corso.model.Utente;
 
 import com.corso.config.Beans;
 import com.corso.dao.TrenoDao;
+import com.corso.dto.TrenoVoto;
 import com.corso.model.Treno;
 import com.corso.model.builder.TrenoBuilder;
 import com.corso.model.builder.impl.TrenoItaloBuilder;
 import com.corso.model.builder.impl.TrenoTrenordBuilder;
 import com.corso.service.TrenoService;
 import com.corso.service.UserService;
+import com.corso.service.ValutazioneService;
 import com.corso.service.impl.TrenoServiceImpl;
 
 import com.corso.service.impl.UserServiceImpl;
@@ -40,6 +42,9 @@ public class TrenoController {
 
 	@Autowired
 	private TrenoService trenoService;
+	
+	@Autowired
+	private ValutazioneService valutazioneService;
 
 	/**
 	 @GetMapping("/login")
@@ -53,7 +58,7 @@ public class TrenoController {
 	 @GetMapping("/registration")
 	 public String preRegistration(Model model) {
 		 model.addAttribute("registrationVO", new RegistrationVO());
-		 return "registration";
+     return "registration";
 	 }
 	 
 	 @PostMapping("postRegistrazione")
@@ -102,11 +107,16 @@ public class TrenoController {
 	 @GetMapping("/treni")
 	 public String treni(Model model) {
 		
-		 List<Treno> listaTreni = trenoService.allTreni();
-		 System.out.println("Homepage dei treni");
-		 model.addAttribute("listaTreni", listaTreni);
-		 System.out.println("Lista " + listaTreni);
+		 //List<Treno> listaTreni = trenoService.allTreni();
+		 //System.out.println("Homepage dei treni");
 		 
+		 
+		 List<TrenoVoto> l = trenoService.votoTreni();
+		 for(TrenoVoto t : l) {
+			 System.out.println("id_treno= " + t.getId_treno() + " e voto: " + t.getVoto());
+		 }
+	
+		 model.addAttribute("listaTreni", l);
 		 return "treni";
 		 
 	 }
@@ -121,6 +131,14 @@ public class TrenoController {
 	 public String creazioneTreno(@RequestParam String sigla, @RequestParam String fabbrica) {
 		 System.out.println("\nSto provando a costruire il treno " + sigla + " e fabbrica " + fabbrica);
 		 trenoService.creaTreno(sigla, fabbrica, 1);
+		 return "redirect:/treni";
+	 }
+	 
+	 @PostMapping("addVoto")
+	 public String votaTreno(@RequestParam int rating, @RequestParam int trenoId) {
+		 
+		 valutazioneService.addVoto(rating, trenoId, 56);
+		 
 		 return "redirect:/treni";
 	 }
 	 

@@ -29,7 +29,7 @@ public class Fabbrica implements Bean{
 
 	@Override
 	public String toString() {
-		return "Fabbrica = " + sigla + ", "+ fabbrica + "]";
+		return "" + fabbrica;
 	}
 	
 }
