@@ -96,9 +96,11 @@
 
     <!-- Contenitore del menu di navigazione -->
     <div class="menu">
-        <a href="formLogin">Login</a>
-        <a href="logout">Logout</a>
+    	<a href="home">Home</a>
+        <a href="login">Login</a>
+        <a href="registration">Registrazione</a>
         <a href="treni">Treni</a>
+        <a href="modulo">Crea Treno</a>
         <!-- Puoi aggiungere altri link o dropdown qui -->
     </div>
 

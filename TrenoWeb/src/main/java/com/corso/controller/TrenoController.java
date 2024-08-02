@@ -67,16 +67,20 @@ public class TrenoController {
 	 }
 	 
 	 @GetMapping("/home")
-	 public String home(@RequestParam String username, Model model) {
+	 public String home(Model model, HttpSession session) {
 		 
 		 System.out.println("Sei nella homepage");
-		 model.addAttribute("username", username);
+		 model.addAttribute("username", session.getAttribute("utente"));
 		 
 		 return "home";
 	 }
 	 
 	 @GetMapping("/login")
-	 public String preLogin(Model model) {
+	 public String preLogin(Model model, HttpSession session) {
+		 
+		 if(session.getAttribute("utente") != null) {
+			 return "redirect:/home";
+		 }
 		 
 		 model.addAttribute(new LoginVO());
 		 
@@ -98,8 +102,8 @@ public class TrenoController {
 		 }
 		 else {
 			 if (utente.getPassword().equals(loginVO.getPassword())) {
-				 session.setAttribute("utente", utente); //aggiunge la sessione
-				 return "home";
+				 session.setAttribute("utente", utente.getId_utente()); //aggiunge la sessione
+				 return "redirect:/home";
 				 
 			 } else {
 				model.addAttribute("error", "Password errata");
@@ -125,15 +129,18 @@ public class TrenoController {
 	 }
 	 
 	 @GetMapping("/modulo")
-	 public String crea() {
+	 public String crea(Model model, HttpSession session) {
 		 System.out.println("\nSono nella pagina modulo creazione\n");
+		 model.addAttribute("id_utente", session.getAttribute("utente"));
 		 return "modulo";
 	 }
 	 
 	 @PostMapping("/crea")
-	 public String creazioneTreno(@RequestParam String sigla, @RequestParam String fabbrica) {
+	 public String creazioneTreno(@RequestParam String sigla, 
+			 					@RequestParam String fabbrica, 
+			 					@RequestParam int id_utente) {
 		 System.out.println("\nSto provando a costruire il treno " + sigla + " e fabbrica " + fabbrica);
-		 trenoService.creaTreno(sigla, fabbrica, 1);
+		 trenoService.creaTreno(sigla, fabbrica, id_utente);
 		 return "redirect:/treni";
 	 }
 

@@ -8,8 +8,9 @@
 </head>
 <body>
 
+<jsp:include page="menu.jsp"></jsp:include>	
+
 <h3>Sei nella home del sito!!! ${username}</h3>
-<h2>${message}</h2>
 
 
 </body>
