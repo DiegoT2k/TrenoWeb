@@ -12,10 +12,12 @@ import javax.persistence.criteria.Join;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import com.corso.dao.TrenoDao;
+import com.corso.dto.TrenoVoto;
 import com.corso.model.Fabbrica;
 import com.corso.model.Treno;
 import com.corso.model.TrenoFilter;
 import com.corso.model.Utente;
+import com.corso.model.Valutazione;
 import com.corso.model.abs_vagone.Vagone;
 
 import javax.persistence.*;
@@ -32,7 +34,6 @@ public class TrenoDaoImpl implements TrenoDao{
 		return treno.getId_treno();
 	}
 
-	
 	@Override
 	public Utente find(int id) {
 		return manager.find(Utente.class, id);
@@ -56,6 +57,30 @@ public class TrenoDaoImpl implements TrenoDao{
 		return l;
 	}
 	
+	@Override
+	public List<TrenoVoto> findTrenoVoto() {
+		
+		String jpql = "SELECT new com.corso.dto.TrenoVoto(t.id_treno, t.id_utente, t.fabbrica, AVG(v.voto))"
+				+ "FROM Treno t "
+				+ "LEFT JOIN t.valutazione v "
+				+ "GROUP BY t.id_treno " ;
+		
+		Query q = manager.createQuery(jpql);
+		
+		List<TrenoVoto> l = q.getResultList();
+		
+		return l;
+	}
+		
+
+	
+	@Override
+	public List<Valutazione> findAllValutazione(){
+		Query q = (Query) manager.createQuery("from Valutazione", Valutazione.class);
+
+		List<Valutazione> l = q.getResultList();
+		return l;
+	}
 	
 	
 	/**

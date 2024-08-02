@@ -4,10 +4,12 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
+import com.corso.dto.TrenoVoto;
 import com.corso.model.Fabbrica;
 import com.corso.model.Treno;
 import com.corso.model.TrenoFilter;
 import com.corso.model.Utente;
+import com.corso.model.Valutazione;
 
 @Transactional
 public interface TrenoDao {
@@ -27,4 +29,9 @@ public interface TrenoDao {
 	public List<Utente> findByName(String nome);
 	
 	public List<Object[]> filterByPeso(/**TrenoFilter filter**/);
+	
+	public List<Valutazione> findAllValutazione();
+	
+	public List<TrenoVoto> findTrenoVoto();
+		
 }

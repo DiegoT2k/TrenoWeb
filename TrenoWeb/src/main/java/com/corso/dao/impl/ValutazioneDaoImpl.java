@@ -29,5 +29,12 @@ public class ValutazioneDaoImpl extends DaoImpl implements ValutazioneDao{
 		Treno t = manager.find(Treno.class, id_treno);
 		return t;
 	}
+	
+	@Override
+	public void addVoto(int rating, int id_treno, int id_utente) {
+		Valutazione v = new Valutazione();
+		v.setId(10); v.setId_treno(id_treno); v.setId_utente(id_utente); v.setVoto(rating);
+		manager.merge(v);
+	}
 
 }

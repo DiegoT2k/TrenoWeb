@@ -11,6 +11,8 @@ import org.springframework.stereotype.Component;
 import com.corso.config.Beans;
 import com.corso.dao.TrenoDao;
 import com.corso.dao.VagoneDao;
+import com.corso.dao.ValutazioneDao;
+import com.corso.dto.TrenoVoto;
 import com.corso.exception.DimensioneMagException;
 import com.corso.exception.DimensioneMinException;
 import com.corso.exception.LocomotivaNonInTestaException;
@@ -19,6 +21,7 @@ import com.corso.exception.NumRistorantiException;
 import com.corso.exception.SoloCargoException;
 import com.corso.exception.VagoneException;
 import com.corso.model.Treno;
+import com.corso.model.Valutazione;
 import com.corso.model.abs_vagone.Vagone;
 import com.corso.model.builder.TrenoBuilder;
 import com.corso.model.builder.impl.TrenoItaloBuilder;
@@ -26,10 +29,6 @@ import com.corso.model.builder.impl.TrenoTrenordBuilder;
 import com.corso.service.TrenoService;
 
 public class TrenoServiceImpl implements TrenoService{
-	
-	//BeanFactory factory = new AnnotationConfigApplicationContext(Beans.class);
-	//TrenoDao daoTreno = factory.getBean("trenoDao", TrenoDao.class); 
-	//VagoneDao daoVagone = factory.getBean("vagoneDao", VagoneDao.class); 
 
 	@Autowired
 	TrenoDao trenoDao;
@@ -43,13 +42,8 @@ public class TrenoServiceImpl implements TrenoService{
 	@Autowired
 	private TrenoBuilder trenoTrenordBuilder;
 	
-	
 	@Override
 	public void creaTreno(String sigla, String fabbrica, int id_utente) {
-		
-		//ApplicationContext context = new AnnotationConfigApplicationContext(Beans.class);
-		//trenoItaloBuilder = (TrenoBuilder) context.getBean(TrenoItaloBuilder.class);
-		//trenoTrenordBuilder = (TrenoBuilder) context.getBean(TrenoTrenordBuilder.class);
 
 		checkStringa(sigla);
 		
@@ -59,24 +53,19 @@ public class TrenoServiceImpl implements TrenoService{
 		
 		int id_treno = trenoDao.add(treno);
 		System.out.println("id treno = " + id_treno);
-		//TrenoBuilder builder = null;
+		
 		List<Vagone> lista = null;
 		
 		if(fabbrica.equals("IT")) {
-			//builder = new TrenoItaloBuilder();
 			lista = trenoItaloBuilder.costruisciTreno(sigla, id_treno);
 		}else if(fabbrica.equals("TN")) {
-			//builder = new TrenoTrenordBuilder();
 			lista = trenoTrenordBuilder.costruisciTreno(sigla, id_treno);
 		}
-		
-		//List<Vagone> lista = builder.costruisciTreno(sigla, id_treno);
 		
 		for(Vagone v : lista)
 			vagoneDao.add(v);
 		
 	}
-	
 	
 	public void checkStringa(String vagoni){
 		for(char c : vagoni.toCharArray())
@@ -107,6 +96,13 @@ public class TrenoServiceImpl implements TrenoService{
 	@Override
 	public List<Treno> allTreni(){
 		return trenoDao.findAll();
+	}
+	
+	@Override
+	public List<TrenoVoto> votoTreni(){
+		List<TrenoVoto> all = trenoDao.findTrenoVoto();
+		
+		return all;
 	}
 	
 	
