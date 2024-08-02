@@ -1,5 +1,6 @@
 package com.corso.service.impl;
 
+import java.util.List;
 import java.util.regex.Pattern;
 
 import org.apache.commons.codec.digest.DigestUtils;
@@ -33,21 +34,22 @@ public class UserServiceImpl implements UserService{
     private static final Pattern SPECIAL_CHAR_PATTERN = Pattern.compile(".*[^a-zA-Z0-9].*");
 	
     
-    
-    
-    
-    
-	public boolean checkLogin(String username) {
-		
-        if(utenteDao.findByUsername(username).size() == 0) 
-        	return false;
-        else
-        	return true;
-	}
+
+    @Override
+   	public Utente checkLogin(String username) {
+   		List<Utente> utenti = utenteDao.findByUsername(username);
+   		
+   		if (utenti != null && utenti.size() > 0) {
+   			return utenti.get(0);
+   		}
+   		return null;
+      
+   	}
+ 
 	
 	public void save(Utente utente) {
 		System.out.println("entro in save");
-        // Verifica se l'username e' gia'† in uso
+        // Verifica se l'username e' gia'ÔøΩ in uso
         if (utenteDao.findByUsername(utente.getUsername()).size() > 0) {
             throw new IllegalArgumentException("Username gi√† in uso");
         }
@@ -83,5 +85,7 @@ public class UserServiceImpl implements UserService{
             throw new IllegalArgumentException("La password deve contenere almeno un carattere speciale");
         }
     }
+
+
 	
 }

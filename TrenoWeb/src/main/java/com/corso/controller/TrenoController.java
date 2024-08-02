@@ -3,6 +3,7 @@ package com.corso.controller;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.BeanFactory;
@@ -12,6 +13,7 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.WebSession;
 
@@ -46,15 +48,7 @@ public class TrenoController {
 	@Autowired
 	private ValutazioneService valutazioneService;
 
-	/**
-	 @GetMapping("/login")
-	 public String index(){   
-	   
-		System.out.println("sono passato dal metodo controller index()!"); 	
-		
-      return "login";  
-	}  	
-	 */
+
 	 @GetMapping("/registration")
 	 public String preRegistration(Model model) {
 		 model.addAttribute("registrationVO", new RegistrationVO());
@@ -84,24 +78,40 @@ public class TrenoController {
 	 @GetMapping("/login")
 	 public String preLogin(Model model) {
 		 
-		 model.addAttribute(new LoginVO("nome", "cognome"));
+		 model.addAttribute(new LoginVO());
 		 
 		 return "login";
 	 }
 	 
 	 @PostMapping("postLogin")
-	 public String postLogin(@ModelAttribute("loginVO") LoginVO loginVO, Model model) {
-		 
-		 if(loginVO.getUsername() == null || loginVO.getUsername() == "") {
-			 model.addAttribute("message", "username è un campo obbligatorio");
+	 public String postLogin(@Valid @ModelAttribute("loginVO") LoginVO loginVO,
+			 					BindingResult bindingResult, Model model, HttpSession session) {
+		
+		 if (bindingResult.hasErrors()) {
 			 return "login";
 		 }
 		 
+		 Utente utente = userService.checkLogin(loginVO.getUsername());
 		 
+		 if(utente == null) {
+			 model.addAttribute("error", "Username non trovato");
+		 }
+		 else {
+			 if (utente.getPassword().equals(loginVO.getPassword())) {
+				 session.setAttribute("utente", utente); //aggiunge la sessione
+				 return "home";
+				 
+			 } else {
+				model.addAttribute("error", "Password errata");
+				return "login";
+			 }
+		 }
+			 
 		 
 		 System.out.println("username " + loginVO.getUsername() + " password " + loginVO.getPassword());
-		 
-		 return "home";
+	
+		 //ritorna al login se non riesce a farlo
+		 return "login";
 	 }
 
 	 @GetMapping("/treni")
@@ -126,6 +136,7 @@ public class TrenoController {
 		 trenoService.creaTreno(sigla, fabbrica, 1);
 		 return "redirect:/treni";
 	 }
+
 	 
 	 @PostMapping("addVoto")
 	 public String votaTreno(@RequestParam int rating, @RequestParam int trenoId) {
