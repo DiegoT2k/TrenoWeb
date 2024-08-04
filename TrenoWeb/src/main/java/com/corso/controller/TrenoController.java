@@ -3,6 +3,7 @@ package com.corso.controller;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.BeanFactory;
@@ -12,6 +13,7 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.WebSession;
 
@@ -57,8 +59,29 @@ public class TrenoController {
 	 }
 	 
 	 @PostMapping("postRegistrazione")
-	 public String postRegistrazione(@ModelAttribute("registrationVO") RegistrationVO registrationVO, Model model) {
-	 
+	 public String postRegistrazione(@Valid @ModelAttribute("registrationVO") 
+	 RegistrationVO registrationVO, BindingResult bindingResult, Model model) {
+		 
+		// Verifica se ci sono errori di validazione
+		if (bindingResult.hasErrors()) {
+			 return "registration";
+		}
+		 
+		// Verifica se l'username è già in uso
+	    if (!userService.isUsernameUnique(registrationVO.getUsername())) {
+	        bindingResult.rejectValue("username", "", "Username già in uso");
+	    }
+
+	    // Verifica se l'email è già in uso
+	    if (!userService.isEmailUnique(registrationVO.getEmail())) {
+	        bindingResult.rejectValue("email", "", "Email già in uso");
+	    }
+
+	    // Se ci sono errori, ritorna alla pagina di registrazione
+	    if (bindingResult.hasErrors()) {
+	        return "registration";
+	    }
+		 
 		 Utente utente = new Utente();
 		 BeanUtils.copyProperties(registrationVO, utente);
 		 
@@ -88,7 +111,7 @@ public class TrenoController {
 	 public String postLogin(@ModelAttribute("loginVO") LoginVO loginVO, Model model) {
 		 
 		 if(loginVO.getUsername() == null || loginVO.getUsername() == "") {
-			 model.addAttribute("message", "username � un campo obbligatorio");
+			 model.addAttribute("message", "username � un campo obbligatorio");
 			 return "login";
 		 }
 		 

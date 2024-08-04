@@ -8,6 +8,8 @@ public interface UserService {
 	
 	public void save(Utente utente);
 	
-	public void validatePassword(String password);
+	boolean isUsernameUnique(String username);
+	
+    boolean isEmailUnique(String email);
 	
 }
