@@ -4,10 +4,10 @@ import javax.validation.constraints.NotBlank;
 
 public class LoginVO {
 
-	@NotBlank(message = "Username è un campo obbligatorio")
+	@NotBlank(message = "Username è obbligatorio")
 	private String username;
 	
-	@NotBlank(message = "Password è un campo obbligatorio")
+	@NotBlank(message = "Password è obbligatorio")
 	private String password;
 	
 	

@@ -80,11 +80,14 @@ public class TrenoController {
 	 
 	 @PostMapping("postLogin")
 	 public String postLogin(@Valid @ModelAttribute("loginVO") LoginVO loginVO,
-			 					BindingResult bindingResult, Model model, HttpSession session) {
+			 		BindingResult bindingResult, Model model, HttpSession session) {
 		
 		 if (bindingResult.hasErrors()) {
 			 return "login";
 		 }
+		 
+		 model.addAttribute("login", loginVO);
+		 
 		 
 		 Utente utente = userService.checkLogin(loginVO.getUsername());
 		 
