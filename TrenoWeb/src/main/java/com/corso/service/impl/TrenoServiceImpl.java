@@ -133,4 +133,9 @@ public class TrenoServiceImpl implements TrenoService{
 	public void updateTreno(Treno treno) {
 		trenoDao.updateTreno(treno);
 	}
+	
+	@Override
+    public void deleteTreno(int idTreno) {
+        trenoDao.deleteTreno(idTreno);
+    }
 }

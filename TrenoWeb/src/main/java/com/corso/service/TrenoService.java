@@ -27,4 +27,7 @@ public interface TrenoService {
 	public void updateTreno(Treno treno);
 	
 	public List<TrenoCompleto> filtraTreno(FiltroVO filtroVO);
+	
+	void deleteTreno(int idTreno);
+
 }

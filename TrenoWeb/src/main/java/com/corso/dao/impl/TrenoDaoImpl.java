@@ -309,4 +309,12 @@ public class TrenoDaoImpl implements TrenoDao{
     public void updateTreno(Treno treno) {
         manager.merge(treno);
     }
+	
+	@Override
+    public void deleteTreno(int idTreno) {
+		Treno treno = manager.find(Treno.class, idTreno);
+	    if (treno != null) {
+	        manager.remove(treno);
+	    }
+    }
 }
