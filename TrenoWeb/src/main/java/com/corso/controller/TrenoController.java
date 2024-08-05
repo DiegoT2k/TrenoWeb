@@ -57,8 +57,29 @@ public class TrenoController {
 	 }
 	 
 	 @PostMapping("postRegistrazione")
-	 public String postRegistrazione(@ModelAttribute("registrationVO") RegistrationVO registrationVO, Model model) {
-	 
+	 public String postRegistrazione(@Valid @ModelAttribute("registrationVO") 
+	 RegistrationVO registrationVO, BindingResult bindingResult, Model model) {
+		 
+		// Verifica se ci sono errori di validazione
+		if (bindingResult.hasErrors()) {
+			 return "registration";
+		}
+		 
+		// Verifica se l'username è già in uso
+	    if (!userService.isUsernameUnique(registrationVO.getUsername())) {
+	        bindingResult.rejectValue("username", "", "Username già in uso");
+	    }
+
+	    // Verifica se l'email è già in uso
+	    if (!userService.isEmailUnique(registrationVO.getEmail())) {
+	        bindingResult.rejectValue("email", "", "Email già in uso");
+	    }
+
+	    // Se ci sono errori, ritorna alla pagina di registrazione
+	    if (bindingResult.hasErrors()) {
+	        return "registration";
+	    }
+		 
 		 Utente utente = new Utente();
 		 BeanUtils.copyProperties(registrationVO, utente);
 		 

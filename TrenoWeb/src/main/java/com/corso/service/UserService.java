@@ -6,8 +6,11 @@ public interface UserService {
 	
 	public void save(Utente utente);
 	
-	public void validatePassword(String password);
+	boolean isUsernameUnique(String username);
+	
+  boolean isEmailUnique(String email);
 
 	public Utente checkLogin(String username);
+
 	
 }
