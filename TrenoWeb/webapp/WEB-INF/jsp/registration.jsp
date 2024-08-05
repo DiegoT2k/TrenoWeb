@@ -76,6 +76,7 @@
 </style>
 </head>
 <body>
+
 <div class="container">
     <h1>Registration Form</h1> 
     <form:form method="POST" 
@@ -116,5 +117,6 @@
         </div>
     </form:form>
 </div>
+
 </body>
 </html>

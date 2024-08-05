@@ -22,6 +22,7 @@ import com.corso.model.Utente;
 
 import com.corso.config.Beans;
 import com.corso.dao.TrenoDao;
+import com.corso.dto.TrenoCompleto;
 import com.corso.dto.TrenoVoto;
 import com.corso.model.Treno;
 import com.corso.model.builder.TrenoBuilder;
@@ -108,14 +109,46 @@ public class TrenoController {
 		 return "login";
 	 }
 	 
+//	 @PostMapping("postLogin")
+//	 public String postLogin(@Valid @ModelAttribute("loginVO") LoginVO loginVO,
+//			 					BindingResult bindingResult, Model model, HttpSession session) {
+//		
+//		 if (bindingResult.hasErrors()) {
+//			 return "login";
+//		 }
+//		 
+//		 Utente utente = userService.checkLogin(loginVO.getUsername());
+//		 
+//		 if(utente == null) {
+//			 model.addAttribute("error", "Username non trovato");
+//		 }
+//		 else {
+//			 if (utente.getPassword().equals(loginVO.getPassword())) {
+//				 session.setAttribute("utente", utente.getId_utente()); //aggiunge la sessione
+//				 return "redirect:/home";
+//				 
+//			 } else {
+//				model.addAttribute("error", "Password errata");
+//				return "login";
+//			 }
+//		 }
+//			 
+//		 
+//		 System.out.println("username " + loginVO.getUsername() + " password " + loginVO.getPassword());
+//	
+//		 //ritorna al login se non riesce a farlo
+//		 return "login";
+//	 }
+
+	 
 	 @PostMapping("postLogin")
 	 public String postLogin(@Valid @ModelAttribute("loginVO") LoginVO loginVO,
-			 					BindingResult bindingResult, Model model, HttpSession session) {
+			 		BindingResult bindingResult, Model model, HttpSession session) {
 		
 		 if (bindingResult.hasErrors()) {
 			 return "login";
 		 }
-		 
+
 		 Utente utente = userService.checkLogin(loginVO.getUsername());
 		 
 		 if(utente == null) {
@@ -131,14 +164,14 @@ public class TrenoController {
 				return "login";
 			 }
 		 }
-			 
-		 
+
 		 System.out.println("username " + loginVO.getUsername() + " password " + loginVO.getPassword());
-	
-		 //ritorna al login se non riesce a farlo
+
 		 return "login";
 	 }
 
+	 
+	 
 	 @GetMapping("/treni")
 	 public String treni(Model model) {	 
 		 
@@ -146,6 +179,17 @@ public class TrenoController {
 	
 		 model.addAttribute("listaTreni", l);
 		 return "treni";
+		 
+	 }
+	 
+
+	 @GetMapping("/treni2")
+	 public String treni2(Model model) {	 
+		 
+		 List<TrenoCompleto> l = trenoService.trenoCompleto();
+	
+		 model.addAttribute("listaTreni", l);
+		 return "treni2";
 		 
 	 }
 	 
@@ -172,6 +216,12 @@ public class TrenoController {
 		 valutazioneService.addVoto(rating, trenoId, 56);
 		 
 		 return "redirect:/treni";
+	 }
+	 
+	 @GetMapping("/logout")
+	 public String logout(HttpSession session) {
+		 session.removeAttribute("utente");
+		 return "redirect:/login";
 	 }
 	 
 }

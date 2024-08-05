@@ -2,6 +2,7 @@ package com.corso.service;
 
 import java.util.List;
 
+import com.corso.dto.TrenoCompleto;
 import com.corso.dto.TrenoVoto;
 import com.corso.model.Treno;
 
@@ -15,5 +16,5 @@ public interface TrenoService {
 	
 	public List<TrenoVoto> votoTreni();
 
-	
+	public List<TrenoCompleto> trenoCompleto();
 }

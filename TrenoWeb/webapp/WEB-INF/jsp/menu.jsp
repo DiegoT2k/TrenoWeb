@@ -90,6 +90,19 @@
         .menu .dropdown:hover .dropdown-content {
             display: block;
         }
+  .menu {
+    display: flex;
+    justify-content: space-between;
+}
+
+.menu a {
+    padding: 10px;
+    text-decoration: none;
+}
+
+.logout {
+    margin-left: auto; /* Spinge il logout a destra */
+}
     </style>
 </head>
 <body>
@@ -97,10 +110,9 @@
     <!-- Contenitore del menu di navigazione -->
     <div class="menu">
     	<a href="home">Home</a>
-        <a href="login">Login</a>
-        <a href="registration">Registrazione</a>
         <a href="treni">Treni</a>
         <a href="modulo">Crea Treno</a>
+        <a href="logout" class="logout">Logout</a>
         <!-- Puoi aggiungere altri link o dropdown qui -->
     </div>
 

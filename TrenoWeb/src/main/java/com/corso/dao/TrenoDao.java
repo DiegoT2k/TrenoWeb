@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
+import com.corso.dto.TrenoCompleto;
 import com.corso.dto.TrenoVoto;
 import com.corso.model.Fabbrica;
 import com.corso.model.Treno;
@@ -33,5 +34,7 @@ public interface TrenoDao {
 	public List<Valutazione> findAllValutazione();
 	
 	public List<TrenoVoto> findTrenoVoto();
+	
+	public List<TrenoCompleto> findTrenoCompleto();
 		
 }
