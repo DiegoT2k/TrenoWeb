@@ -33,8 +33,6 @@ public interface TrenoDao {
 	
 	public List<Valutazione> findAllValutazione();
 	
-	public List<TrenoVoto> findTrenoVoto();
-	
 	public List<TrenoCompleto> findTrenoCompleto();
 	
 	public List<TrenoCompleto> findByIdUtente(int utenteId);
