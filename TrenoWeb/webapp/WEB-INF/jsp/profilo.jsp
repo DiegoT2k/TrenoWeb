@@ -36,12 +36,15 @@
                     <tbody>
                         <c:forEach var="treno" items="${treniCreati}">
                             <tr>
-                                <td>${treno.idTreno}</td>
+                                <td>${treno.id_treno}</td>
                                 <td>${treno.fabbrica}</td>
-                                <td>${treno.mediaVoti}</td>
-                                <td>${treno.pesoTotale}</td>
-                                <td>${treno.prezzoTotale}</td>
-                                <td>${treno.lunghezzaTotale}</td>
+                                <td>${treno.voto}</td>
+                                <td>${treno.peso}</td>
+                                <td>${treno.prezzo}</td>
+                                <td>${treno.lunghezza}</td>
+                                <td><form action="<c:url value='/modificaTreno/${treno.id_treno}' />" method="get">
+            						<button type="submit">Modifica Treno</button>
+        						</form></td>
                             </tr>
                         </c:forEach>
                     </tbody>
