@@ -58,10 +58,11 @@ public class UtenteController {
     public String showEditForm(@PathVariable("id_treno") int idTreno, Model model) {
         Treno treno = trenoService.findTreno(idTreno);
         if (treno == null) {
-            return "redirect:/utente/profilo";
+            return "redirect:/profilo";
         }
         TrenoVO trenoVO = new TrenoVO();
-        trenoVO.setSigla(treno.getSigla);
+        trenoVO.setSigla(treno.getSigla());
+        trenoVO.setIdTreno(idTreno);
         model.addAttribute("trenoVO", trenoVO);
         return "modificaTreno";
     }
@@ -76,12 +77,12 @@ public class UtenteController {
         
         Treno treno = trenoService.findTreno(trenoVO.getIdTreno());
         if (treno == null) {
-            return "redirect:/utente/profilo";
+            return "redirect:/profilo";
         }
 
         treno.setSigla(trenoVO.getSigla());
         trenoService.updateTreno(treno);
         
-        return "redirect:/utente/profilo";
+        return "redirect:/profilo";
     }
 }
