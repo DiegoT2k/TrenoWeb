@@ -12,6 +12,7 @@ import com.corso.config.Beans;
 import com.corso.dao.TrenoDao;
 import com.corso.dao.VagoneDao;
 import com.corso.dao.ValutazioneDao;
+import com.corso.dto.TrenoCompleto;
 import com.corso.dto.TrenoVoto;
 import com.corso.exception.DimensioneMagException;
 import com.corso.exception.DimensioneMinException;
@@ -105,5 +106,10 @@ public class TrenoServiceImpl implements TrenoService{
 		return all;
 	}
 	
-	
+	@Override
+	public List<TrenoCompleto> trenoCompleto(){
+		List<TrenoCompleto> all = trenoDao.findTrenoCompleto();
+		
+		return all;
+	}
 }

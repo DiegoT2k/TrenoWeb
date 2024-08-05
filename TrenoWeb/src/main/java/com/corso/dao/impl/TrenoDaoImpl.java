@@ -12,6 +12,7 @@ import javax.persistence.criteria.Join;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import com.corso.dao.TrenoDao;
+import com.corso.dto.TrenoCompleto;
 import com.corso.dto.TrenoVoto;
 import com.corso.model.Fabbrica;
 import com.corso.model.Treno;
@@ -72,6 +73,21 @@ public class TrenoDaoImpl implements TrenoDao{
 		return l;
 	}
 		
+	@Override
+	public List<TrenoCompleto> findTrenoCompleto(){
+		
+		String jpql = "SELECT new com.corso.dto.TrenoCompleto(t.id_treno, t.id_utente, t.fabbrica, AVG(val.voto), SUM(vag.peso), SUM(vag.prezzo), SUM(vag.lunghezza)) "
+				+ "FROM Treno t "
+				+ "LEFT JOIN t.valutazione val "
+				+ "LEFT JOIN t.vagoni vag "
+				+ "GROUP BY t.id_treno" ;
+		
+		Query q = manager.createQuery(jpql);
+		
+		List<TrenoCompleto> l = q.getResultList();
+		
+		return l;
+	}
 
 	
 	@Override

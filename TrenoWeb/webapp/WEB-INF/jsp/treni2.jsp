@@ -114,7 +114,10 @@
             <th>ID_Treno</th>
             <th>Utente</th>
             <th>Fabbrica</th>
-            <th>Valutazione</th>
+            <th>Peso tot</th>
+            <th>Lunghezza tot</th>
+            <th>Prezzo tot</th>   
+            <th>Valutazione</th>     
             <th>#1</th>
             <th>#2</th>
             <th>#3</th>
@@ -126,6 +129,9 @@
                 <td>${item.id_treno}</td>
                 <td>${item.id_utente}</td>
                 <td>${item.fabbrica}</td>
+                <td>${item.peso}</td>
+                <td>${item.lunghezza}</td>
+                <td>${item.prezzo}</td>
                 <td><span class="emoji">&#x2B50;</span> ${item.voto}</td>
                 <td><button type="button" class="modifica">Modifica</button></td>
                 <td><button type="button" class="elimina">Elimina</button></td>
