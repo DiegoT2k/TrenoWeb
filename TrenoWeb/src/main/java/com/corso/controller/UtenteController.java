@@ -20,6 +20,7 @@ import com.corso.model.Treno;
 import com.corso.model.Utente;
 import com.corso.service.TrenoService;
 import com.corso.service.UserService;
+import com.corso.vo.TrenoVO;
 
 
 
@@ -52,35 +53,35 @@ public class UtenteController {
         return "profilo";
     }
 	
-//	// Visualizza il modulo di modifica del treno
-//    @GetMapping("/modificaTreno/{idTreno}")
-//    public String showEditForm(@PathVariable("idTreno") int idTreno, Model model) {
-//        Treno treno = trenoService.findTreno(idTreno);
-//        if (treno == null) {
-//            return "redirect:/utente/profilo"; // Se il treno non esiste, torna al profilo
-//        }
-//        TrenoVO trenoVO = new TrenoVO();
-//        BeanUtils.copyProperties(treno, trenoVO);
-//        model.addAttribute("trenoVO", trenoVO);
-//        return "modificaTreno";
-//    }
-//
-//    // Gestisce l'aggiornamento del treno
-//    @PostMapping("/modificaTreno")
-//    public String updateTreno(@Valid @ModelAttribute("trenoVO") TrenoVO trenoVO,
-//                              BindingResult bindingResult, Model model) {
-//        if (bindingResult.hasErrors()) {
-//            return "modificaTreno";
-//        }
-//        
-//        Treno treno = trenoService.findTreno(trenoVO.getIdTreno());
-//        if (treno == null) {
-//            return "redirect:/utente/profilo"; // Se il treno non esiste, torna al profilo
-//        }
-//
-//        BeanUtils.copyProperties(trenoVO, treno, "idTreno"); // Copia le proprietà, mantenendo l'ID invariato
-//        trenoService.updateTreno(treno);
-//        
-//        return "redirect:/utente/profilo"; // Dopo l'aggiornamento, torna al profilo
-//    }
+	// Visualizza il modulo di modifica del treno
+    @GetMapping("/modificaTreno/{id_treno}")
+    public String showEditForm(@PathVariable("id_treno") int idTreno, Model model) {
+        Treno treno = trenoService.findTreno(idTreno);
+        if (treno == null) {
+            return "redirect:/utente/profilo";
+        }
+        TrenoVO trenoVO = new TrenoVO();
+        trenoVO.setSigla(treno.getSigla);
+        model.addAttribute("trenoVO", trenoVO);
+        return "modificaTreno";
+    }
+
+    // Gestisce l'aggiornamento del treno
+    @PostMapping("/modificaTreno")
+    public String updateTreno(@Valid @ModelAttribute("trenoVO") TrenoVO trenoVO,
+                              BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+            return "modificaTreno";
+        }
+        
+        Treno treno = trenoService.findTreno(trenoVO.getIdTreno());
+        if (treno == null) {
+            return "redirect:/utente/profilo";
+        }
+
+        treno.setSigla(trenoVO.getSigla());
+        trenoService.updateTreno(treno);
+        
+        return "redirect:/utente/profilo";
+    }
 }
