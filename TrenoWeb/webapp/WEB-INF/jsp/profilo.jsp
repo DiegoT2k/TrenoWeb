@@ -31,6 +31,7 @@
                             <th>Peso Totale</th>
                             <th>Prezzo Totale</th>
                             <th>Lunghezza Totale</th>
+                            <th>Azioni</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -42,9 +43,16 @@
                                 <td>${treno.peso}</td>
                                 <td>${treno.prezzo}</td>
                                 <td>${treno.lunghezza}</td>
-                                <td><form action="<c:url value='/modificaTreno/${treno.id_treno}' />" method="get">
-            						<button type="submit">Modifica Treno</button>
-        						</form></td>
+                                <td>
+                                    <form action="<c:url value='/modificaTreno/${treno.id_treno}' />" method="get" style="display:inline;">
+                                        <button type="submit">Modifica Treno</button>
+                                    </form>
+                                    <form action="<c:url value='/gestisciTreno' />" method="post" style="display:inline;">
+                                        <input type="hidden" name="idTreno" value="${treno.id_treno}"/>
+                                        <input type="hidden" name="azione" value="elimina"/>
+                                        <button type="submit" onclick="return confirm('Sei sicuro di voler eliminare questo treno?');">Elimina Treno</button>
+                                    </form>
+                                </td>
                             </tr>
                         </c:forEach>
                     </tbody>
