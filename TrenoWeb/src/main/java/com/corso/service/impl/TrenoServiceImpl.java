@@ -112,4 +112,9 @@ public class TrenoServiceImpl implements TrenoService{
 		
 		return all;
 	}
+	
+	@Override
+    public List<TrenoCompleto> findByIdUtente(int utenteId) {
+        return trenoDao.findByIdUtente(utenteId);
+    }
 }

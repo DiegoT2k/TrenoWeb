@@ -17,4 +17,6 @@ public interface TrenoService {
 	public List<TrenoVoto> votoTreni();
 
 	public List<TrenoCompleto> trenoCompleto();
+	
+	public List<TrenoCompleto> findByIdUtente(int utenteId);
 }
