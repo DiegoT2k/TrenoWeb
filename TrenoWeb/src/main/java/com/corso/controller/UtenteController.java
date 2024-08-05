@@ -10,10 +10,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.corso.dto.TrenoCompleto;
 import com.corso.model.Treno;
@@ -83,6 +85,14 @@ public class UtenteController {
         treno.setSigla(trenoVO.getSigla());
         trenoService.updateTreno(treno);
         
+        return "redirect:/profilo";
+    }
+    
+    @PostMapping("/gestisciTreno")
+    public String gestisciTreno(@RequestParam("idTreno") int idTreno, @RequestParam("azione") String azione) {
+        if ("elimina".equals(azione)) {
+            trenoService.deleteTreno(idTreno);
+        }
         return "redirect:/profilo";
     }
 }
