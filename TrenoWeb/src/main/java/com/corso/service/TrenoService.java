@@ -8,6 +8,7 @@ import com.corso.dao.TrenoDao;
 import com.corso.dto.TrenoCompleto;
 import com.corso.dto.TrenoVoto;
 import com.corso.model.Treno;
+import com.corso.vo.FiltroVO;
 
 public interface TrenoService {
 	
@@ -26,4 +27,6 @@ public interface TrenoService {
 	public Treno findTreno(int idTreno);
 	
 	public void updateTreno(Treno treno);
+	
+	public List<TrenoCompleto> filtraTreno(FiltroVO filtroVO);
 }

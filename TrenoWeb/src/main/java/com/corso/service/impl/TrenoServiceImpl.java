@@ -28,6 +28,7 @@ import com.corso.model.builder.TrenoBuilder;
 import com.corso.model.builder.impl.TrenoItaloBuilder;
 import com.corso.model.builder.impl.TrenoTrenordBuilder;
 import com.corso.service.TrenoService;
+import com.corso.vo.FiltroVO;
 
 public class TrenoServiceImpl implements TrenoService{
 
@@ -43,14 +44,17 @@ public class TrenoServiceImpl implements TrenoService{
 	@Autowired
 	private TrenoBuilder trenoTrenordBuilder;
 	
+	//@Autowired
+	//private Treno treno;
+	
 	@Override
 	public void creaTreno(String sigla, String fabbrica, int id_utente) {
 
 		checkStringa(sigla);
-		
 		Treno treno = new Treno();
 	    treno.setId_utente(trenoDao.find(id_utente));
 	    treno.setFabbrica(trenoDao.find(fabbrica));
+	    treno.setSigla(sigla);
 		
 		int id_treno = trenoDao.add(treno);
 		System.out.println("id treno = " + id_treno);
@@ -100,16 +104,18 @@ public class TrenoServiceImpl implements TrenoService{
 	}
 	
 	@Override
-	public List<TrenoVoto> votoTreni(){
-		List<TrenoVoto> all = trenoDao.findTrenoVoto();
+	public List<TrenoCompleto> trenoCompleto(){
+		List<TrenoCompleto> all = trenoDao.findTrenoCompleto();
 		
 		return all;
 	}
 	
 	@Override
-	public List<TrenoCompleto> trenoCompleto(){
-		List<TrenoCompleto> all = trenoDao.findTrenoCompleto();
+	public List<TrenoCompleto> filtraTreno(FiltroVO filtroVO){
 		
+		List<TrenoCompleto> all = trenoDao.filtraTrenoCompleto(filtroVO.getPrezzoMin(), filtroVO.getPrezzoMax(), 
+				filtroVO.getLunghezzaMin(), filtroVO.getLunghezzaMax(), filtroVO.getPesoMin(), 
+				filtroVO.getPesoMax(), filtroVO.getSigla());
 		return all;
 	}
 	

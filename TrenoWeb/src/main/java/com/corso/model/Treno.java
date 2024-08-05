@@ -21,11 +21,11 @@ public class Treno {
 	private Utente id_utente;
 	
 	@ManyToOne
-	@JoinColumn(name="sigla")
+	@JoinColumn(name="fabbrica")
 	private Fabbrica fabbrica;
-
-	//@Column(name="n_biglietti")
-	//private int biglietti;
+	
+	@Column(name="sigla")
+	private String sigla;
 	
 	@OneToMany(
 			mappedBy = "id_treno",
@@ -47,13 +47,13 @@ public class Treno {
 		return vagoni;
 	}
 
-	//public int getBiglietti() {
-		//return biglietti;
-	//}
+	public String getSigla() {
+		return sigla;
+	}
 
-	//public void setBiglietti(int biglietti) {
-		//this.biglietti = biglietti;
-	//}
+	public void setSigla(String sigla) {
+		this.sigla = sigla;
+	}
 
 	public int getId_treno() {
 		return id_treno;

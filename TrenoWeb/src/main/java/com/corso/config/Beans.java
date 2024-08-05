@@ -22,6 +22,7 @@ import com.corso.dao.impl.TrenoDaoImpl;
 import com.corso.dao.impl.UtenteDaoImpl;
 import com.corso.dao.impl.VagoneDaoImpl;
 import com.corso.dao.impl.ValutazioneDaoImpl;
+import com.corso.model.Treno;
 import com.corso.model.abs_vagone.Vagone;
 import com.corso.model.builder.TrenoBuilder;
 import com.corso.model.builder.impl.TrenoItaloBuilder;
@@ -154,6 +155,10 @@ public class Beans {
 	}
 	
 	/** SEZIONE TRENO **/
+	@Bean(name="treno")
+	public Treno getTreno() {
+		return new Treno();
+	}
 	
 	@Bean(name="trenoItaloBuilder")
 	public TrenoBuilder getTrenoItaloBuilder() {
