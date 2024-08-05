@@ -38,5 +38,7 @@ public interface TrenoDao {
 	public List<TrenoCompleto> findTrenoCompleto();
 	
 	public List<TrenoCompleto> findByIdUtente(int utenteId);
+	
+	public void updateTreno(Treno treno);
 		
 }

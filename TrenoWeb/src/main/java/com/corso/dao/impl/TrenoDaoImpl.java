@@ -270,4 +270,9 @@ public class TrenoDaoImpl implements TrenoDao{
 	    
 	    return q.getResultList();
 	}
+	
+	@Override
+    public void updateTreno(Treno treno) {
+        manager.merge(treno);
+    }
 }
