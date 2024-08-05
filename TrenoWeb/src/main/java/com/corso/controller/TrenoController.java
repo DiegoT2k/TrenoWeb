@@ -11,10 +11,10 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import com.corso.model.Utente;
 import com.corso.dto.TrenoCompleto;
-import com.corso.dto.TrenoVoto;
 import com.corso.service.TrenoService;
 import com.corso.service.UserService;
 import com.corso.service.ValutazioneService;
+import com.corso.vo.FiltroVO;
 import com.corso.vo.LoginVO;
 import com.corso.vo.RegistrationVO;;
 
@@ -48,12 +48,12 @@ public class TrenoController {
 		 
 		// Verifica se l'username è già  in uso
 	    if (!userService.isUsernameUnique(registrationVO.getUsername())) {
-	        bindingResult.rejectValue("username", "", "Username già  in uso");
+	        bindingResult.rejectValue("username", "", "Username già in uso");
 	    }
 
 	    // Verifica se l'email è già  in uso
 	    if (!userService.isEmailUnique(registrationVO.getEmail())) {
-	        bindingResult.rejectValue("email", "", "Email già  in uso");
+	        bindingResult.rejectValue("email", "", "Email già in uso");
 	    }
 
 	    // Se ci sono errori, ritorna alla pagina di registrazione
@@ -121,24 +121,17 @@ public class TrenoController {
 
 	 
 	 
+	 
+	 
+	 
+	 
 	 @GetMapping("/treni")
 	 public String treni(Model model) {	 
 		 
-		 List<TrenoVoto> l = trenoService.votoTreni();
-	
+		 List<TrenoCompleto> l = trenoService.trenoCompleto();
+		 model.addAttribute("filtroVO", new FiltroVO());
 		 model.addAttribute("listaTreni", l);
 		 return "treni";
-		 
-	 }
-	 
-
-	 @GetMapping("/treni2")
-	 public String treni2(Model model) {	 
-		 
-		 List<TrenoCompleto> l = trenoService.trenoCompleto();
-	
-		 model.addAttribute("listaTreni", l);
-		 return "treni2";
 		 
 	 }
 	 
@@ -171,6 +164,16 @@ public class TrenoController {
 	 public String logout(HttpSession session) {
 		 session.removeAttribute("utente");
 		 return "redirect:/login";
+	 }
+	 
+	 @PostMapping("filtro")
+	 public String filtraTreni(@ModelAttribute("filtroVO") FiltroVO filtroVO, Model model) {
+		 
+		 List<TrenoCompleto> l = trenoService.filtraTreno(filtroVO);
+		 model.addAttribute("filtroVO", new FiltroVO());
+		 model.addAttribute("listaTreni", l);
+		
+		 return "treni";
 	 }
 	 
 }

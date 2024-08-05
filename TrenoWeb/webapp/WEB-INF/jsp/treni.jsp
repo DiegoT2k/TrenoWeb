@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,6 +19,7 @@
     table{
         width: 100%;
         border-collapse: collapse;
+        margin-top: 10px;
     }
     
     td, th {
@@ -100,27 +102,58 @@
 
 <h1>Tabella dei treni:</h1>
 
-    <form id="pesoForm" method="post" action="addVoto">
-        <label for="rating">Peso min:</label>
-        <input type="number" id="pesoMin" name="pesoMin" required>
-        <label for="rating">Peso max:</label>
-        <input type="number" id="pesoMax" name="pesoMax" required>
-        <button type="submit">Invia</button>
-    </form>
+    <form:form method="POST" 
+        action="filtro"       
+        modelAttribute="filtroVO"> 
+        <div class="form-group">
+		    <form:label path="pesoMin">Peso min:</form:label>
+		    <form:input path="pesoMin"/>
+        </div>
+        <div class="form-group">
+		    <form:label path="pesoMax">Peso max:</form:label>
+		    <form:input path="pesoMax" />
+        </div>
+        <div class="form-group">
+		    <form:label path="lunghezzaMin">Lunghezza min:</form:label>
+		    <form:input path="lunghezzaMin" />
+        </div>
+        <div class="form-group">
+            <form:label path="lunghezzaMax">Lunghezza max:</form:label>
+            <form:input path="lunghezzaMax"/>
+        </div>
+        <div class="form-group">
+            <form:label path="prezzoMin">Prezzo min:</form:label>
+            <form:input path="prezzoMin"/>
+        </div>
+        <div class="form-group">
+            <form:label path="prezzoMax">Prezzo max:</form:label>
+            <form:input path="prezzoMax"/>
+        </div>
+        <div class="form-group">
+	        <form:label path="sigla">Cerca sigla:</form:label>
+	        <form:input path="sigla"/>
+	    </div>
+        <div class="form-group">
+            <input type="submit" value="Filtra"/>
+        </div>
+    </form:form>
+
+
 
 <table border="1">
     <thead>
         <tr>
             <th>ID_Treno</th>
             <th>Utente</th>
+            <th>Treno</th>
+            <th>Sigla</th>
             <th>Fabbrica</th>
+            <th>Posti</th>
             <th>Peso tot</th>
             <th>Lunghezza tot</th>
             <th>Prezzo tot</th>   
             <th>Valutazione</th>     
-            <th>#1</th>
-            <th>#2</th>
-            <th>#3</th>
+            <th>#</th>
         </tr>
     </thead>
     <tbody>
@@ -128,13 +161,14 @@
             <tr>
                 <td>${item.id_treno}</td>
                 <td>${item.id_utente}</td>
+                <td><button type="button" class="modifica" onclick="document.location='home'">Mostra</button></td>
+                <td>${item.sigla}</td>
                 <td>${item.fabbrica}</td>
+                <td>${item.biglietti} <button type="button" class="vota">Acquista</button></td>
                 <td>${item.peso}</td>
                 <td>${item.lunghezza}</td>
                 <td>${item.prezzo}</td>
                 <td><span class="emoji">&#x2B50;</span> ${item.voto}</td>
-                <td><button type="button" class="modifica">Modifica</button></td>
-                <td><button type="button" class="elimina">Elimina</button></td>
                 <td><button type="button" class="vota" onclick="openVoteForm('${item.id_treno}')">Vota</button></td>
             </tr>
         </c:forEach>
