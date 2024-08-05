@@ -8,11 +8,15 @@
 </head>
 <body>
 
+<jsp:include page="menu.jsp"></jsp:include>	
+
 	<h1>Crea il tuo treno personalizzato:</h1>
+	<h5>Sei ${id_utente}</h5>
 	
     <form action="/TrenoWeb/crea" method="post">
         <label for="inputString">Inserisci una stringa:</label>
         <input type="text" id="sigla" name="sigla" required>
+        <input type="hidden" id="id_utente" name="id_utente" value="${id_utente}">
         <br><br>
         <label for="selectOption">Seleziona un'opzione:</label>
         <select id="fabbrica" name="fabbrica" required>

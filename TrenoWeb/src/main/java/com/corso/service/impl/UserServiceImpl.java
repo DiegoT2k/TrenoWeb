@@ -1,5 +1,6 @@
 package com.corso.service.impl;
 
+import java.util.List;
 import java.util.regex.Pattern;
 
 import javax.validation.Valid;
@@ -55,8 +56,5 @@ public class UserServiceImpl implements UserService{
       
         // Salva l'utente
         utenteDao.add(utente);
-    }
-	
-
-	
+    }	
 }

@@ -10,6 +10,10 @@ import com.corso.model.Valutazione;
 public interface ValutazioneDao {
 
 	public Valutazione add(Valutazione voto);
+	
 	public Utente findUtente(int id);
+	
 	public Treno findTreno(int id);
+	
+	public void addVoto(int rating, int id_treno, int id_utente);
 }
