@@ -44,9 +44,14 @@
                                 <td>${treno.prezzo}</td>
                                 <td>${treno.lunghezza}</td>
                                 <td>
+                                	<form action="<c:url value='/${treno.id_treno}' />" method="get">
+                            			<button type="submit">Visualizza</button>
+                        			</form>                                
+                                
                                     <form action="<c:url value='/modificaTreno/${treno.id_treno}' />" method="get" style="display:inline;">
                                         <button type="submit">Modifica Treno</button>
                                     </form>
+                                
                                     <form action="<c:url value='/gestisciTreno' />" method="post" style="display:inline;">
                                         <input type="hidden" name="idTreno" value="${treno.id_treno}"/>
                                         <input type="hidden" name="azione" value="elimina"/>
