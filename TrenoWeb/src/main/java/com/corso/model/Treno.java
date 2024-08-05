@@ -29,7 +29,8 @@ public class Treno {
 	
 	@OneToMany(
 			mappedBy = "id_treno",
-			fetch = FetchType.EAGER
+			fetch = FetchType.EAGER,
+			cascade = CascadeType.ALL
 			)
 	private Set<Vagone> vagoni;
 	
