@@ -95,4 +95,16 @@ public class UtenteController {
         }
         return "redirect:/profilo";
     }
+    
+    @GetMapping("/{idTreno}")
+    public String showTrenoDetails(@PathVariable("idTreno") int idTreno, Model model) {
+        Treno treno = trenoService.findTreno(idTreno);
+        if (treno == null) {
+            return "redirect:/treni"; // Redirect to list if not found
+        }
+
+        model.addAttribute("treno", treno);
+
+        return "trenoDetails";
+    }
 }
