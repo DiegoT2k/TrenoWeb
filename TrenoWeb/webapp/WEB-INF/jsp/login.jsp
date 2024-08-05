@@ -7,13 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Login</title>
-</head>
-<body>
 
-
-<jsp:include page="menu.jsp"></jsp:include>	
-
-<h1>Login</h1>
 
 <style>
     .error {
@@ -84,7 +78,11 @@
     }
 </style>
 </head>
+
 <body>
+
+<jsp:include page="menu.jsp"></jsp:include>	
+
 <div class="container">
 
 	<h1>Login</h1>
@@ -92,15 +90,16 @@
 	<form:form method="POST" 
 	        action="postLogin"       
 	        modelAttribute="loginVO">
-
+<!--  
 			<c:if test="${not empty error}">
 				<div class="error">${error}</div>
 			</c:if>
-
+ -->
 			<div class="form-group">
 				<form:label path="username">Username</form:label>
 				<form:input path="username" placeholder="Inserisci il tuo username" />
-				<form:errors path="username" class="error" />
+				<form:errors path="username" class="error"/>
+				<h2 class="error">${error_username}</h2>
 			</div>
 
 			<div class="form-group">
@@ -109,6 +108,7 @@
 				<form:password path="password"
 					placeholder="Inserisci la tua password" />
 				<form:errors path="password" class="error" />
+				<h2 class="error">${error_password}</h2>
 			</div>
 
 			 <div class="form-group">

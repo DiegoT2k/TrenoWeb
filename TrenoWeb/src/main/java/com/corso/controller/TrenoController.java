@@ -1,39 +1,20 @@
 package com.corso.controller;
 
 import java.util.List;
-
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
-
 import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.WebSession;
-
-
 import com.corso.model.Utente;
-
-import com.corso.config.Beans;
-import com.corso.dao.TrenoDao;
 import com.corso.dto.TrenoCompleto;
 import com.corso.dto.TrenoVoto;
-import com.corso.model.Treno;
-import com.corso.model.builder.TrenoBuilder;
-import com.corso.model.builder.impl.TrenoItaloBuilder;
-import com.corso.model.builder.impl.TrenoTrenordBuilder;
 import com.corso.service.TrenoService;
 import com.corso.service.UserService;
 import com.corso.service.ValutazioneService;
-import com.corso.service.impl.TrenoServiceImpl;
-
-import com.corso.service.impl.UserServiceImpl;
 import com.corso.vo.LoginVO;
 import com.corso.vo.RegistrationVO;;
 
@@ -65,14 +46,14 @@ public class TrenoController {
 			 return "registration";
 		}
 		 
-		// Verifica se l'username √® gi√† in uso
+		// Verifica se l'username Ë gi‡† in uso
 	    if (!userService.isUsernameUnique(registrationVO.getUsername())) {
-	        bindingResult.rejectValue("username", "", "Username gi√† in uso");
+	        bindingResult.rejectValue("username", "", "Username gi‡† in uso");
 	    }
 
-	    // Verifica se l'email √® gi√† in uso
+	    // Verifica se l'email Ë gi‡† in uso
 	    if (!userService.isEmailUnique(registrationVO.getEmail())) {
-	        bindingResult.rejectValue("email", "", "Email gi√† in uso");
+	        bindingResult.rejectValue("email", "", "Email gi‡† in uso");
 	    }
 
 	    // Se ci sono errori, ritorna alla pagina di registrazione
@@ -109,38 +90,6 @@ public class TrenoController {
 		 return "login";
 	 }
 	 
-//	 @PostMapping("postLogin")
-//	 public String postLogin(@Valid @ModelAttribute("loginVO") LoginVO loginVO,
-//			 					BindingResult bindingResult, Model model, HttpSession session) {
-//		
-//		 if (bindingResult.hasErrors()) {
-//			 return "login";
-//		 }
-//		 
-//		 Utente utente = userService.checkLogin(loginVO.getUsername());
-//		 
-//		 if(utente == null) {
-//			 model.addAttribute("error", "Username non trovato");
-//		 }
-//		 else {
-//			 if (utente.getPassword().equals(loginVO.getPassword())) {
-//				 session.setAttribute("utente", utente.getId_utente()); //aggiunge la sessione
-//				 return "redirect:/home";
-//				 
-//			 } else {
-//				model.addAttribute("error", "Password errata");
-//				return "login";
-//			 }
-//		 }
-//			 
-//		 
-//		 System.out.println("username " + loginVO.getUsername() + " password " + loginVO.getPassword());
-//	
-//		 //ritorna al login se non riesce a farlo
-//		 return "login";
-//	 }
-
-	 
 	 @PostMapping("postLogin")
 	 public String postLogin(@Valid @ModelAttribute("loginVO") LoginVO loginVO,
 			 		BindingResult bindingResult, Model model, HttpSession session) {
@@ -152,7 +101,7 @@ public class TrenoController {
 		 Utente utente = userService.checkLogin(loginVO.getUsername());
 		 
 		 if(utente == null) {
-			 model.addAttribute("error", "Username non trovato");
+			 model.addAttribute("error_username", "Username non trovato");
 		 }
 		 else {
 			 if (utente.getPassword().equals(loginVO.getPassword())) {
@@ -160,7 +109,7 @@ public class TrenoController {
 				 return "redirect:/home";
 				 
 			 } else {
-				model.addAttribute("error", "Password errata");
+				model.addAttribute("error_password", "Password errata");
 				return "login";
 			 }
 		 }

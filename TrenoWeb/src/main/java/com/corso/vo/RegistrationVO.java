@@ -8,31 +8,31 @@ import javax.validation.constraints.Size;
 
 public class RegistrationVO {
 	
-	@NotBlank(message = "Il nome Ã¨ obbligatorio")
-	@Size(max = 50, message = "Il nome non puÃ² superare i 50 caratteri")
-	@Pattern(regexp = "^[a-zA-ZÃ€-Ã¿ ']+$", message = "Il nome puÃ² contenere solo lettere")
+	@NotBlank(message = "Il nome è obbligatorio")
+	@Size(max = 50, message = "Il nome non può superare i 50 caratteri")
+	@Pattern(regexp = "^[a-zA-ZÀ-ÿ ']+$", message = "Il nome può contenere solo lettere")
 	private String nome;
 	
-	@NotBlank(message = "Il cognome Ã¨ obbligatorio")
-	@Size(max = 50, message = "Il cognome non puÃ² superare i 50 caratteri")
-	@Pattern(regexp = "^[a-zA-ZÃ€-Ã¿ ']+$", message = "Il cognome puÃ² contenere solo lettere")
+	@NotBlank(message = "Il cognome è obbligatorio")
+	@Size(max = 50, message = "Il cognome non può superare i 50 caratteri")
+	@Pattern(regexp = "^[a-zA-ZÀ-ÿ ']+$", message = "Il cognome può contenere solo lettere")
 	private String cognome;
 	
-	@NotBlank(message = "L\'username Ã¨ obbligatorio")
+	@NotBlank(message = "L\'username è obbligatorio")
 	@Size(min = 4, max = 15, message = "L\'username deve essere lungo tra i 4 e i 15 caratteri")
 	private String username;
 	
-	@NotBlank(message = "L\'email Ã¨ obbligatoria")
+	@NotBlank(message = "L\'email è obbligatoria")
 	@Email(message = "Deve essere un indirizzo email valido")
 	private String email;
 	
-	@NotBlank(message = "La password Ã¨ obbligatoria")
+	@NotBlank(message = "La password è obbligatoria")
 	@Size(min = 8, max = 20, message = "La password deve avere una lunghezza minima di 8 caratteri e massimo 20 caratteri")
 	@Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$",
 	         message = "La password deve contenere almeno una lettera maiuscola, una lettera minuscola, un numero e un carattere speciale")
 	private String password;
 	
-	@NotBlank(message = "La conferma della password Ã¨ obbligatoria")
+	@NotBlank(message = "La conferma della password è obbligatoria")
 	@Size(min = 8, max = 20, message = "La conferma della password deve avere una lunghezza minima di 8 caratteri e massimo 20 caratteri")
 	private String confirmPassword;
 	

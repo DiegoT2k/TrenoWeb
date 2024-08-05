@@ -8,9 +8,8 @@ public interface UserService {
 	
 	boolean isUsernameUnique(String username);
 	
-  boolean isEmailUnique(String email);
+	boolean isEmailUnique(String email);
 
 	public Utente checkLogin(String username);
-
 	
 }

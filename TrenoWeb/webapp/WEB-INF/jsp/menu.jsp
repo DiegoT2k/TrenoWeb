@@ -112,6 +112,7 @@
     	<a href="home">Home</a>
         <a href="treni">Treni</a>
         <a href="modulo">Crea Treno</a>
+        <a href="registration">Registrati</a>
         <a href="logout" class="logout">Logout</a>
         <!-- Puoi aggiungere altri link o dropdown qui -->
     </div>

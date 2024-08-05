@@ -96,6 +96,7 @@ protected static void stampa(String nomeMetodoTest) {
 		protected static Valutazione getVoto(ValutazioneDao dao) {
 			Valutazione voto = new Valutazione();
 			voto.setVoto(4);
+			
 			voto.setUtente(dao.findUtente(1));
 			voto.setTreno(dao.findTreno(1));
 			
