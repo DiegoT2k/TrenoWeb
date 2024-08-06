@@ -12,9 +12,11 @@ public class TrenoCompleto {
 	private Double peso;
 	private Double prezzo;
 	private Double lunghezza;
+	private Long biglietti;
+	private String sigla;
 	
-	public TrenoCompleto(int id_treno, Utente id_utente, Fabbrica fabbrica, Double voto, Double peso, Double prezzo,
-			Double lunghezza) {
+	public TrenoCompleto(int id_treno, String sigla, Utente id_utente, Fabbrica fabbrica, Double voto, Double peso, Double prezzo,
+			Double lunghezza, Long biglietti) {
 		this.id_treno = id_treno;
 		this.id_utente = id_utente;
 		this.fabbrica = fabbrica;
@@ -22,6 +24,24 @@ public class TrenoCompleto {
 		this.peso = peso;
 		this.prezzo = prezzo;
 		this.lunghezza = lunghezza;
+		this.biglietti = biglietti;
+		this.sigla = sigla;
+	}
+
+	public String getSigla() {
+		return sigla;
+	}
+
+	public void setSigla(String sigla) {
+		this.sigla = sigla;
+	}
+
+	public Long getBiglietti() {
+		return biglietti;
+	}
+
+	public void setBiglietti(Long biglietti) {
+		this.biglietti = biglietti;
 	}
 
 	public int getId_treno() {

@@ -12,4 +12,6 @@ public interface UserService {
 
 	public Utente checkLogin(String username);
 	
+	public Utente findById(int id);
+	
 }

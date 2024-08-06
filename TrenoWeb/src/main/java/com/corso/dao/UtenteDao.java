@@ -15,6 +15,8 @@ import com.corso.model.Utente;
     	
     	public List<Utente> findByEmail(String email);
     	
+    	public Utente findById(int id);
+    	
 
     	
     	/**
