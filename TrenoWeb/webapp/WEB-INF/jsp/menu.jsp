@@ -128,16 +128,16 @@
    
     <div class="menu">
   
-    	<a href="home">
+    	<a href="<c:url value='/home' />">
     	<!-- icona home -->
     	<i class="fa-solid fa-home"></i>
     	 Home</a>
     	
-        <a href="treni">
+        <a href="<c:url value='/treni' />">
         <i class="fa-solid fa-table"></i>
          Treni</a>
         
-        <a href="modulo">
+        <a href="<c:url value='modulo' />">
         <i class="fa-solid fa-plus"></i>
          Crea Treno</a>
 
@@ -146,17 +146,17 @@
 <!-- 		Mostra login/logout a seconda dello stato dell'utente -->
 		<c:choose>
 			<c:when test="${sessionScope.utente == null}">
-				<a href="registration" class="registration">
+				<a href="<c:url value='registration' />" class="registration">
 				<i class="fa-solid fa-address-card"></i> Registrati</a>
         		
-        		<a href="login" class="login">
+        		<a href="<c:url value='/login' />" class="login">
         		<i class="fa-solid fa-right-to-bracket"></i> Login</a>
 			</c:when>
 			<c:otherwise>
-				<a href="profilo" class="profilo">
+				<a href="<c:url value='/profilo' />" class="profilo">
 				<i class="fa-solid fa-user"></i> Ciao, ${username}</a>
 				
-				<a href="logout" class="logout">
+				<a href="<c:url value='logout' />" class="logout">
 				<i class="fa-solid fa-right-from-bracket"></i> Logout</a>
 			</c:otherwise>
 		</c:choose>
