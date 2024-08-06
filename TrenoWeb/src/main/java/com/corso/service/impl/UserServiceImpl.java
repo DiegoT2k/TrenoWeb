@@ -53,4 +53,15 @@ public class UserServiceImpl implements UserService{
     public Utente findById(int id) {
         return utenteDao.findById(id);
     }
+	
+	@Override
+	public Utente find(String username) {
+		List<Utente> l = utenteDao.findByUsername(username);
+		if(l.size() == 0) {
+			return null;
+		}else {
+			return l.get(0);			
+		}
+
+	}
 }

@@ -22,12 +22,14 @@ import com.corso.exception.NumRistorantiException;
 import com.corso.exception.SoloCargoException;
 import com.corso.exception.VagoneException;
 import com.corso.model.Treno;
+import com.corso.model.Utente;
 import com.corso.model.Valutazione;
 import com.corso.model.abs_vagone.Vagone;
 import com.corso.model.builder.TrenoBuilder;
 import com.corso.model.builder.impl.TrenoItaloBuilder;
 import com.corso.model.builder.impl.TrenoTrenordBuilder;
 import com.corso.service.TrenoService;
+import com.corso.service.UserService;
 import com.corso.vo.FiltroVO;
 
 public class TrenoServiceImpl implements TrenoService{
@@ -37,6 +39,9 @@ public class TrenoServiceImpl implements TrenoService{
 	
 	@Autowired
 	VagoneDao vagoneDao;
+	
+	@Autowired
+	private UserService userServiceImpl;
 	
 	@Autowired
 	private TrenoBuilder trenoItaloBuilder;
@@ -113,9 +118,12 @@ public class TrenoServiceImpl implements TrenoService{
 	@Override
 	public List<TrenoCompleto> filtraTreno(FiltroVO filtroVO){
 		
+		Utente utente = userServiceImpl.find(filtroVO.getUsername());
+		System.out.println(utente);
 		List<TrenoCompleto> all = trenoDao.filtraTrenoCompleto(filtroVO.getPrezzoMin(), filtroVO.getPrezzoMax(), 
 				filtroVO.getLunghezzaMin(), filtroVO.getLunghezzaMax(), filtroVO.getPesoMin(), 
-				filtroVO.getPesoMax(), filtroVO.getSigla());
+				filtroVO.getPesoMax(), filtroVO.getSigla(), utente);
+		
 		return all;
 	}
 	

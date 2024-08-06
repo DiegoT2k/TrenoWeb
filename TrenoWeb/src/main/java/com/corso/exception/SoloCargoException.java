@@ -8,7 +8,7 @@ public class SoloCargoException extends TrenoException{
 
 	@Override
 	public String getSuggerimento() {
-		return "Un treno Cargo non puï¿½ contenere altri tipi di vagone\nInserire " + getSiglaSuggerita()+ " al posto di " + getSigla();
+		return "Un treno Cargo non può contenere altri tipi di vagone\nInserire " + getSiglaSuggerita()+ " al posto di " + getSigla();
 	}
 
 	@Override

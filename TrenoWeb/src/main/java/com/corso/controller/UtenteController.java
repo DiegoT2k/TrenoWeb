@@ -1,22 +1,18 @@
 package com.corso.controller;
 
 import java.util.List;
-
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
-
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
 import com.corso.dto.TrenoCompleto;
 import com.corso.model.Treno;
 import com.corso.model.Utente;
@@ -25,7 +21,6 @@ import com.corso.service.UserService;
 import com.corso.vo.LoginVO;
 import com.corso.vo.RegistrationVO;
 import com.corso.vo.TrenoVO;
-
 
 
 @Controller
@@ -80,10 +75,14 @@ public class UtenteController {
 		 return "login";
 	 }
 
+
+	 
+
 	 @GetMapping("/registration")
 	 public String preRegistration(Model model) {
 		 model.addAttribute("registrationVO", new RegistrationVO());
-    return "registration";
+     return "registration";
+
 	 }
 	 
 	 @PostMapping("postRegistrazione")
@@ -100,12 +99,14 @@ public class UtenteController {
 
 	        bindingResult.rejectValue("username", "", "Username già in uso");
 
+
 	    }
 
 	    // Verifica se l'email ï¿½ giï¿½ in uso
 	    if (!userService.isEmailUnique(registrationVO.getEmail())) {
-
+        
 	        bindingResult.rejectValue("email", "", "Email già in uso");
+
 
 	    }
 
@@ -122,6 +123,7 @@ public class UtenteController {
 		 return "redirect:/login";
 	 }
 	 
+
 	 @GetMapping("/logout")
 	 public String logout(HttpSession session) {
 		 session.invalidate();
@@ -192,7 +194,9 @@ public class UtenteController {
     
     @GetMapping("/{idTreno}")
     public String showTrenoDetails(@PathVariable("idTreno") int idTreno, Model model) {
+    	
         Treno treno = trenoService.findTreno(idTreno);
+    	 
         if (treno == null) {
             return "redirect:/treni"; // Redirect to list if not found
         }
@@ -203,6 +207,4 @@ public class UtenteController {
     }
     
 
-	 
-	 
 }

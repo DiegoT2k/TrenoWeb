@@ -6,9 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.corso.dto.TrenoCompleto;
+import com.corso.exception.TrenoException;
 import com.corso.service.TrenoService;
-import com.corso.service.UserService;
 import com.corso.service.ValutazioneService;
 import com.corso.vo.FiltroVO;
 
@@ -21,7 +22,6 @@ public class TrenoController {
 	
 	@Autowired
 	private ValutazioneService valutazioneService;
-
 	 
 	 @GetMapping("/home")
 	 public String home(Model model, HttpSession session) {
@@ -33,7 +33,6 @@ public class TrenoController {
 		 System.out.println("Sei nella homepage");
 		 return "home";
 	 }
-	 
 
 	 @GetMapping("/treni")
 	 public String treni(Model model) {	 
@@ -45,19 +44,31 @@ public class TrenoController {
 		 
 	 }
 	 
+	 
 	 @GetMapping("/modulo")
 	 public String crea(Model model, HttpSession session) {
 		 System.out.println("\nSono nella pagina modulo creazione\n");
 		 model.addAttribute("id_utente", session.getAttribute("utente"));
+		 
 		 return "modulo";
 	 }
+	 
 	 
 	 @PostMapping("/crea")
 	 public String creazioneTreno(@RequestParam String sigla, 
 			 					@RequestParam String fabbrica, 
-			 					@RequestParam int id_utente) {
+			 					@RequestParam int id_utente,
+			 					RedirectAttributes redirectAttributes) {
+		 
 		 System.out.println("\nSto provando a costruire il treno " + sigla + " e fabbrica " + fabbrica);
-		 trenoService.creaTreno(sigla, fabbrica, id_utente);
+		 
+		 try {
+			trenoService.creaTreno(sigla, fabbrica, id_utente);
+		 }catch (TrenoException e) {
+			 redirectAttributes.addFlashAttribute("errorMessage", e.getSuggerimento());
+	        return "redirect:/modulo";
+		 }
+		 
 		 return "redirect:/treni";
 	 }
 

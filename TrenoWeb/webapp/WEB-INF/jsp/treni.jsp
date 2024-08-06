@@ -140,6 +140,10 @@
 	        <form:input path="sigla"/>
 	    </div>
         <div class="form-group">
+	        <form:label path="username">Cerca username:</form:label>
+	        <form:input path="username"/>
+	    </div>
+        <div class="form-group">
             <input type="submit" value="Cerca"/>
         </div>
     </form:form>
@@ -173,7 +177,11 @@
             <tr>
                 <td>${item.id_treno}</td>
                 <td>${item.id_utente}</td>
-                <td><button type="button" class="modifica" onclick="document.location='home'">Mostra</button></td>
+                <td>
+                <form action="<c:url value='/${item.id_treno}' />" method="get">
+                      <button type="submit">Visualizza</button>
+                </form> 
+                </td>
                 <td>${item.sigla}</td>
                 <td>${item.fabbrica}</td>
                 <td>${item.biglietti} <button type="button" class="vota">Acquista</button></td>
