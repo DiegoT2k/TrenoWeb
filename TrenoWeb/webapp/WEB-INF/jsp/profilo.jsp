@@ -5,10 +5,15 @@
 <head>
     <title>Profilo Utente</title>
     <link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/style.css' />" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
 </head>
 <body>
     <header>
+    	<!-- Bottone di ritorno alla home -->
+        <a href="home"><i class="fa-solid fa-arrow-left-long"></i><i class="fa-solid fa-home"></i></a>
+        
         <h1>Benvenuto, ${utente.username}</h1>
+
     </header>
 
     <section>

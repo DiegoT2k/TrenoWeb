@@ -77,6 +77,8 @@
 </head>
 <body>
 
+<jsp:include page="menu.jsp"></jsp:include> 
+
 <div class="container">
     <h1>Registration Form</h1> 
     <form:form method="POST" 
