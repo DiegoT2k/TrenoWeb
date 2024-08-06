@@ -12,7 +12,7 @@
 	
     <h1>Modifica Treno</h1>
 
-    <form action="<c:url value='/modificaTreno' />" method="post">
+    <form action="<c:url value='/modificaTreno/${trenoVO.idTreno}' />" method="post">
         <input type="hidden" name="idTreno" value="${trenoVO.idTreno}"/> <!-- Hidden field for idTreno -->
 
         <div>
@@ -28,5 +28,9 @@
     <div>
         <a href="<c:url value='/profilo' />">Torna al Profilo</a>
     </div>
+    
+    <c:if test="${not empty errorMessage}">
+        <p style="color:red;">${errorMessage}</p>
+    </c:if>
 </body>
 </html>
