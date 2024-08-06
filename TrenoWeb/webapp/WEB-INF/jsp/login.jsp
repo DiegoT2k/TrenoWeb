@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-
+<%@ page session="false"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -95,6 +95,7 @@
 				<div class="error">${error}</div>
 			</c:if>
  -->
+ 			<input type="hidden" name="origin" value="${origin}">
 			<div class="form-group">
 				<form:label path="username">Username</form:label>
 				<form:input path="username" placeholder="Inserisci il tuo username" />

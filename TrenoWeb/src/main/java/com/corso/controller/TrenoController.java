@@ -46,14 +46,14 @@ public class TrenoController {
 			 return "registration";
 		}
 		 
-		// Verifica se l'username è già  in uso
+		// Verifica se l'username ï¿½ giï¿½ in uso
 	    if (!userService.isUsernameUnique(registrationVO.getUsername())) {
-	        bindingResult.rejectValue("username", "", "Username già  in uso");
+	        bindingResult.rejectValue("username", "", "Username giï¿½ in uso");
 	    }
 
-	    // Verifica se l'email è già  in uso
+	    // Verifica se l'email ï¿½ giï¿½ in uso
 	    if (!userService.isEmailUnique(registrationVO.getEmail())) {
-	        bindingResult.rejectValue("email", "", "Email già  in uso");
+	        bindingResult.rejectValue("email", "", "Email giï¿½ in uso");
 	    }
 
 	    // Se ci sono errori, ritorna alla pagina di registrazione
@@ -69,12 +69,15 @@ public class TrenoController {
 		 return "redirect:/login";
 	 }
 	 
+	 
 	 @GetMapping("/home")
 	 public String home(Model model, HttpSession session) {
+
 		 
+		 model.addAttribute("username", session.getAttribute("username"));
+		 model.addAttribute("message", "Benvenuto nella homepage!");
+		
 		 System.out.println("Sei nella homepage");
-		 model.addAttribute("username", session.getAttribute("utente"));
-		 
 		 return "home";
 	 }
 	 
@@ -105,7 +108,8 @@ public class TrenoController {
 		 }
 		 else {
 			 if (utente.getPassword().equals(loginVO.getPassword())) {
-				 session.setAttribute("utente", utente.getId_utente()); //aggiunge la sessione
+				 session.setAttribute("utente", utente.getId_utente());
+				 session.setAttribute("username", utente.getUsername());
 				 return "redirect:/home";
 				 
 			 } else {
@@ -169,7 +173,7 @@ public class TrenoController {
 	 
 	 @GetMapping("/logout")
 	 public String logout(HttpSession session) {
-		 session.removeAttribute("utente");
+		 session.invalidate();
 		 return "redirect:/login";
 	 }
 	 

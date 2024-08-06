@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="it">
 <head>
@@ -103,20 +103,43 @@
 .logout {
     margin-left: auto; /* Spinge il logout a destra */
 }
+
+.login {
+	margin-left: auto;
+}
+
+
     </style>
 </head>
+
+
 <body>
 
     <!-- Contenitore del menu di navigazione -->
+    <nav>
+   
     <div class="menu">
+  
     	<a href="home">Home</a>
         <a href="treni">Treni</a>
         <a href="modulo">Crea Treno</a>
-        <a href="registration">Registrati</a>
-        <a href="logout" class="logout">Logout</a>
-        <!-- Puoi aggiungere altri link o dropdown qui -->
-    </div>
 
+        <!-- Puoi aggiungere altri link o dropdown qui -->
+
+<!-- 		Mostra login/logout a seconda dello stato dell'utente -->
+		<c:choose>
+			<c:when test="${sessionScope.utente == null}">
+				<a href="registration" class="registration">Registrati</a>
+        		<a href="login" class="login">Login</a>
+			</c:when>
+			<c:otherwise>
+				<a href="utente" class="utente">Profilo</a>
+				<a href="logout" class="logout">Logout</a>
+			</c:otherwise>
+		</c:choose>
+		
+	</div>
+	</nav>
 </body>
 </html>
 
