@@ -17,7 +17,6 @@ import com.corso.model.Utente;
     	
     	public Utente findById(int id);
     	
-
     	
     	/**
     	public void update(Categoria categoria);

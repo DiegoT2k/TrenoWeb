@@ -14,4 +14,6 @@ public interface UserService {
 	
 	public Utente findById(int id);
 	
+	public Utente find(String username);
+	
 }

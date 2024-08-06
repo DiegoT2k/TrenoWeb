@@ -76,7 +76,7 @@ public class TrenoDaoImpl implements TrenoDao{
 
 	@Override
 	public List<TrenoCompleto> filtraTrenoCompleto(Double prezzoMin, Double prezzoMax, Double lunghezzaMin, 
-			Double lunghezzaMax, Double pesoMin, Double pesoMax, String sigla) {
+			Double lunghezzaMax, Double pesoMin, Double pesoMax, String sigla, Utente utente) {
 	    StringBuilder jpql = new StringBuilder("SELECT new com.corso.dto.TrenoCompleto(t.id_treno, t.sigla, t.id_utente, t.fabbrica, AVG(val.voto), SUM(vag.peso), SUM(vag.prezzo), SUM(vag.lunghezza), SUM(vag.biglietti) ) "
 	            + "FROM Treno t "
 	            + "LEFT JOIN t.valutazione val "
@@ -105,6 +105,9 @@ public class TrenoDaoImpl implements TrenoDao{
 	    if(sigla != null) {
 	    	jpql.append(" AND t.sigla LIKE :sigla");
 	    }
+	    if(utente != null) {
+	    	jpql.append(" AND t.id_utente = :utente");
+	    }
 
 	    Query q = manager.createQuery(jpql.toString());
 
@@ -129,7 +132,10 @@ public class TrenoDaoImpl implements TrenoDao{
 	    if(sigla != null) {
 	    	q.setParameter("sigla", "%" + sigla + "%");
 	    }
-
+	    if(utente != null) {
+	    	q.setParameter("utente", utente);
+	    }
+	    
 	    List<TrenoCompleto> l = q.getResultList();
 
 	    return l;

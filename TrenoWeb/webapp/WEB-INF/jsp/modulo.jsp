@@ -11,7 +11,6 @@
 <jsp:include page="menu.jsp"></jsp:include>	
 
 	<h1>Crea il tuo treno personalizzato:</h1>
-	<h5>Sei ${id_utente}</h5>
 	
     <form action="/TrenoWeb/crea" method="post">
         <label for="inputString">Inserisci una stringa:</label>
@@ -27,6 +26,9 @@
         <input type="submit" value="Invia">
     </form>
 
-
+    <c:if test="${not empty errorMessage}">
+        <p style="color:red;">${errorMessage}</p>
+    </c:if>
+    
 </body>
 </html>

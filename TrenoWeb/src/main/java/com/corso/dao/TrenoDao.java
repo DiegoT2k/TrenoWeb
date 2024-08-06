@@ -40,7 +40,7 @@ public interface TrenoDao {
 	public void updateTreno(Treno treno);
 		
 	public List<TrenoCompleto> filtraTrenoCompleto(Double prezzoMin, Double prezzoMax, Double lunghezzaMin, 
-			Double lunghezzaMax, Double pesoMin, Double pesoMax, String sigla);
+			Double lunghezzaMax, Double pesoMin, Double pesoMax, String sigla, Utente utente);
 	
 	public void deleteTreno(int idTreno);
 }
