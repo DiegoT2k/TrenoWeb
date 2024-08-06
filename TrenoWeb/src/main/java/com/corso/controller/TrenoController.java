@@ -80,7 +80,7 @@ public class TrenoController {
 		 
 		 valutazioneService.addVoto(rating, trenoId, (Integer) session.getAttribute("utente"));
 		 
-		 return "redirect:/treni";
+		 return "redirect:/" + trenoId;
 	 }
 	 
 

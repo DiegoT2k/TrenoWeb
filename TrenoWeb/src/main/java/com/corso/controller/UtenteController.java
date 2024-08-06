@@ -199,7 +199,7 @@ public class UtenteController {
             return "redirect:/treni";
         }
 
-        model.addAttribute("trenoCompleto ", trenoCompleto);
+        model.addAttribute("trenoCompleto", trenoCompleto);
 
         return "trenoDetails";
     }
