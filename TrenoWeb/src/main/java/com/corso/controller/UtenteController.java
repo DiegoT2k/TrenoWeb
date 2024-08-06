@@ -193,13 +193,13 @@ public class UtenteController {
     @GetMapping("/{idTreno}")
     public String showTrenoDetails(@PathVariable("idTreno") int idTreno, Model model) {
     	
-        Treno treno = trenoService.findTreno(idTreno);
+    	TrenoCompleto trenoCompleto = trenoService.findTrenoCompletoById(idTreno);
     	 
-        if (treno == null) {
+        if (trenoCompleto  == null) {
             return "redirect:/treni";
         }
 
-        model.addAttribute("treno", treno);
+        model.addAttribute("trenoCompleto ", trenoCompleto);
 
         return "trenoDetails";
     }
