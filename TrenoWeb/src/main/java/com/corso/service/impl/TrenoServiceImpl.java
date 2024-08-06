@@ -124,7 +124,7 @@ public class TrenoServiceImpl implements TrenoService{
 		System.out.println(utente);
 		List<TrenoCompleto> all = trenoDao.filtraTrenoCompleto(filtroVO.getPrezzoMin(), filtroVO.getPrezzoMax(), 
 				filtroVO.getLunghezzaMin(), filtroVO.getLunghezzaMax(), filtroVO.getPesoMin(), 
-				filtroVO.getPesoMax(), filtroVO.getSigla(), utente);
+				filtroVO.getPesoMax(), filtroVO.getSigla(), utente, filtroVO.getSortField(), filtroVO.getSortOrder());
 		
 		return all;
 	}

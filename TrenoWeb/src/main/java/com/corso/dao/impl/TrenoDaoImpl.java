@@ -76,7 +76,8 @@ public class TrenoDaoImpl implements TrenoDao{
 
 	@Override
 	public List<TrenoCompleto> filtraTrenoCompleto(Double prezzoMin, Double prezzoMax, Double lunghezzaMin, 
-			Double lunghezzaMax, Double pesoMin, Double pesoMax, String sigla, Utente utente) {
+			Double lunghezzaMax, Double pesoMin, Double pesoMax, String sigla, Utente utente,
+			String sortField, String sortOrder) {
 	    StringBuilder jpql = new StringBuilder("SELECT new com.corso.dto.TrenoCompleto(t.id_treno, t.sigla, t.id_utente, t.fabbrica, AVG(val.voto), SUM(vag.peso), SUM(vag.prezzo), SUM(vag.lunghezza), SUM(vag.biglietti) ) "
 	            + "FROM Treno t "
 	            + "LEFT JOIN t.valutazione val "
@@ -109,6 +110,28 @@ public class TrenoDaoImpl implements TrenoDao{
 	    	jpql.append(" AND t.id_utente = :utente");
 	    }
 
+	    
+	    
+	    if (sortField != null && sortOrder != null) {
+	        jpql.append(" ORDER BY ");
+	        switch (sortField) {
+	            case "lunghezza":
+	                jpql.append("SUM(vag.lunghezza)");
+	                break;
+	            case "peso":
+	                jpql.append("SUM(vag.peso)");
+	                break;
+	            case "prezzo":
+	                jpql.append("SUM(vag.prezzo)");
+	                break;
+	            default:
+	                jpql.append("t.id_treno"); // Ordinamento predefinito
+	                break;
+	        }
+	        jpql.append(" " + sortOrder);
+	    }
+	    
+	    
 	    Query q = manager.createQuery(jpql.toString());
 
 	    if (prezzoMin != null) {

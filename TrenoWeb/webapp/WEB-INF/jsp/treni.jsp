@@ -94,6 +94,11 @@
         background-color: #de3f23;
         color: white;
     }
+    
+    .selected {
+        background-color: #4CAF50; /* Colore di esempio */
+        color: white;
+    }
 
 </style>
 </head>
@@ -143,18 +148,27 @@
 	        <form:label path="username">Cerca username:</form:label>
 	        <form:input path="username"/>
 	    </div>
-        <div class="form-group">
+	    <div class="form-group">
+            <form:input type="hidden" path="sortField" id="sortField" name="sortField" />
+            <form:input type="hidden" path="sortOrder" id="sortOrder" name="sortOrder" />
+        </div>
+
+        
+        <div>
+        	<button type="button" id="sortLunghezza" onclick="setSort('lunghezza', 'ASC')">Ordina per lunghezza</button>
+        	<button type="button" id="sortPeso" onclick="setSort('peso', 'ASC')">Ordina per peso</button>
+        	<button type="button" id="sortPrezzo" onclick="setSort('prezzo', 'ASC')">Ordina per prezzo</button>
+    	</div>
+    	
+ 	    <div class="form-group">
             <input type="submit" value="Cerca"/>
         </div>
+        
     </form:form>
 
     </div>
 
-   <div>
-        <button>Ordina per lunghezza</button>
-        <button>Ordina per peso</button>
-        <button>Ordina per prezzo</button>
-    </div>
+
 
 <table border="1">
     <thead>
@@ -197,6 +211,25 @@
 	        $("#filters").toggle();
 	    });
 	});
+	
+   function setSort(field, order) {
+        document.getElementById('sortField').value = field;
+        document.getElementById('sortOrder').value = order;
+        
+        // Rimuovi la classe 'selected' da tutti i bottoni
+        document.getElementById('sortLunghezza').classList.remove('selected');
+        document.getElementById('sortPeso').classList.remove('selected');
+        document.getElementById('sortPrezzo').classList.remove('selected');
+
+        // Aggiungi la classe 'selected' al bottone cliccato
+        if (field === 'lunghezza') {
+            document.getElementById('sortLunghezza').classList.add('selected');
+        } else if (field === 'peso') {
+            document.getElementById('sortPeso').classList.add('selected');
+        } else if (field === 'prezzo') {
+            document.getElementById('sortPrezzo').classList.add('selected');
+        }
+    }
 </script>
 
 </body>
