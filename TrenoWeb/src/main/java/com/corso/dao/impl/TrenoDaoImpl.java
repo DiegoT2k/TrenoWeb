@@ -151,25 +151,6 @@ public class TrenoDaoImpl implements TrenoDao{
 	}
 	
 	
-	/**
-	 * PESO LUNGHEZZA PESO QUERY
-	 * prezzoMin
-	 * prezzoMax
-	 * 
-	 * lunghezzaMin
-	 * lunghezzaMax
-	 * 
-	 * pesoMin
-	 * pesoMax
-	 * 
-	 * CON CRITERIA
-	 * filtro nome utente
-	 * 
-	 * cercare stringa all'interno delle sigle
-	 * 
-	 * 
-	 */
-	
 	public List<Object[]> filterByPeso(/**TrenoFilter filter**/){
 		
 		String jpql = "SELECT t.id_treno, SUM(v.peso) AS pesoTotale "
@@ -184,110 +165,6 @@ public class TrenoDaoImpl implements TrenoDao{
 		
 
 		return l;
-	}
-
-	
-	@Override
-	public List<Treno> findByFilter(TrenoFilter filter){
-		CriteriaBuilder criteriaBuilder = manager.getCriteriaBuilder();
-		CriteriaQuery<Treno> criteriaQuery = criteriaBuilder.createQuery(Treno.class);
-		Root<Treno> criteriaRoot= criteriaQuery.from(Treno.class);
-		Join<Treno, Vagone> vagone = criteriaRoot.join("vagoni"); //vagoni da set vagoni in treno
-		
-		String jpql = "SELECT id_treno, SUM(peso), SUM(prezzo), SUM(lunghezza)"
-				+ "FROM vagone +"
-				+ "GROUP BY id_treno";
-		Query q = manager.createQuery(jpql);
-		List<Treno> l = q.getResultList();
-		
-		Predicate prezzoMinPredicate = null, prezzoMaxPredicate = null,
-				  lunghezzaMinPredicate = null, lunghezzaMaxPredicate = null,
-				  pesoMinPredicate = null, pesoMaxPredicate = null;
-		
-		if (filter.getPrezzoMin()!= null) {
-			prezzoMinPredicate = criteriaBuilder.greaterThanOrEqualTo(vagone.get("prezzo"), filter.getPrezzoMin());
-		}
-		
-		if (filter.getPrezzoMax()!= null) {
-			prezzoMaxPredicate = criteriaBuilder.lessThanOrEqualTo(vagone.get("prezzo"), filter.getPrezzoMax());
-		}
-
-		if (filter.getLunghezzaMin()!= null) {
-			lunghezzaMinPredicate = criteriaBuilder.greaterThanOrEqualTo(vagone.get("lunghezza"), filter.getLunghezzaMin());
-		}
-		
-		if (filter.getLunghezzaMax()!= null) {
-			lunghezzaMaxPredicate = criteriaBuilder.lessThanOrEqualTo(vagone.get("lunghezza"), filter.getLunghezzaMax());
-		}
-		
-		if (filter.getPesoMin()!= null) {
-			pesoMinPredicate = criteriaBuilder.greaterThanOrEqualTo(vagone.get("peso"), filter.getPesoMin());
-		}
-		
-		if (filter.getPesoMax()!= null) {
-			pesoMaxPredicate = criteriaBuilder.lessThanOrEqualTo(vagone.get("peso"), filter.getPesoMax());
-		}
-		
-		
-		
-		//Predicate range del prezzo
-		Predicate prezzoRange  = null;
-		if (prezzoMinPredicate != null && prezzoMaxPredicate != null) {
-			prezzoRange = criteriaBuilder.and(prezzoMinPredicate, prezzoMaxPredicate);
-		} else if (prezzoMinPredicate != null) {
-			prezzoRange = prezzoMinPredicate;
-		} else if (prezzoMaxPredicate != null) {
-			prezzoRange = prezzoMaxPredicate;
-		}
-		
-		
-		//Predicate range della lunghezza
-		Predicate lunghezzaRange = null;
-		if (lunghezzaMinPredicate != null && lunghezzaMaxPredicate != null) {
-			lunghezzaRange = criteriaBuilder.and(lunghezzaMinPredicate, lunghezzaMaxPredicate);
-		} else if (lunghezzaMinPredicate != null) {
-			lunghezzaRange = lunghezzaMinPredicate;
-		} else if (lunghezzaMaxPredicate != null) {
-			lunghezzaRange = lunghezzaMaxPredicate;
-		}
-		
-		//Predicate range del peso
-		Predicate pesoRange = null;
-		if (pesoMinPredicate != null && pesoMaxPredicate != null) {
-			pesoRange = criteriaBuilder.and(pesoMinPredicate, pesoMaxPredicate);
-		} else if (pesoMinPredicate != null) {
-			pesoRange = pesoMinPredicate;
-		} else if (pesoMaxPredicate != null) {
-			pesoRange = pesoMaxPredicate;
-		}
-		
-		//Combinazione delle predicate 
-		List<Predicate> predicates = new ArrayList<>();
-
-		if(prezzoRange != null) {
-			predicates.add(prezzoRange);
-		}
-		
-		if(lunghezzaRange != null) {
-			predicates.add(lunghezzaRange);
-		}
-		
-		if(pesoRange != null) {
-			predicates.add(pesoRange);
-		}
-		
-		//Condizioni WHERE della query
-		if (!predicates.isEmpty()) {
-			criteriaQuery.where(criteriaBuilder.and(predicates.toArray(new Predicate[0])));
-		}
-		
-		//creare Query
-		Query query = manager.createQuery(criteriaQuery);
-		
-		@SuppressWarnings("unchecked")
-		List<Treno> result = query.getResultList();
-	
-		return result;
 	}
 	
 	@Override
@@ -329,7 +206,8 @@ public class TrenoDaoImpl implements TrenoDao{
 		String hql = "DELETE FROM Vagone v WHERE v.id_treno.id = :id_treno";
 	    Query query = manager.createQuery(hql);
 	    query.setParameter("id_treno", treno.getId_treno());
-	    query.executeUpdate();
+	    int deleted = query.executeUpdate();
+	    System.out.println("num vagoni eliminati: " + deleted);
 	}
 	
 }
