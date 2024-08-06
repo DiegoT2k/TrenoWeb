@@ -10,7 +10,21 @@ public class FiltroVO {
 	private Double lunghezzaMax;
 	private String sigla;
 	private String username;
+	private String sortField;
+	private String sortOrder;
 	
+	public String getSortField() {
+		return sortField;
+	}
+	public void setSortField(String sortField) {
+		this.sortField = sortField;
+	}
+	public String getSortOrder() {
+		return sortOrder;
+	}
+	public void setSortOrder(String sortOrder) {
+		this.sortOrder = sortOrder;
+	}
 	public String getUsername() {
 		return username;
 	}
