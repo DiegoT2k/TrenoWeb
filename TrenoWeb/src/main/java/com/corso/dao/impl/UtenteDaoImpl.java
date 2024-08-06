@@ -40,6 +40,11 @@ public class UtenteDaoImpl extends DaoImpl implements UtenteDao{
 		List<Utente> l = q.getResultList();
 		return l;
 	}
+	
+	@Override
+    public Utente findById(int id) {
+        return manager.find(Utente.class, id);
+    }
 
 //	@Override
 //	public Utente findUsername(String username) {

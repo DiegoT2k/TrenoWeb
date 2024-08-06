@@ -290,4 +290,31 @@ public class TrenoDaoImpl implements TrenoDao{
 		return null;
 	}
 
+	@Override
+	public List<TrenoCompleto> findByIdUtente(int utenteId) {
+		String jpql = "SELECT new com.corso.dto.TrenoCompleto(t.id_treno, t.sigla, t.id_utente, t.fabbrica, AVG(val.voto), SUM(vag.peso), SUM(vag.prezzo), SUM(vag.lunghezza), SUM(vag.biglietti)) "
+	            + "FROM Treno t "
+	            + "LEFT JOIN t.valutazione val "
+	            + "LEFT JOIN t.vagoni vag "
+	            + "WHERE t.id_utente.id_utente = :utenteId "
+	            + "GROUP BY t.id_treno";
+	    
+	    Query q = manager.createQuery(jpql);
+	    q.setParameter("utenteId", utenteId);
+	    
+	    return q.getResultList();
+	}
+	
+	@Override
+    public void updateTreno(Treno treno) {
+        manager.merge(treno);
+    }
+	
+	@Override
+    public void deleteTreno(int idTreno) {
+		Treno treno = manager.find(Treno.class, idTreno);
+	    if (treno != null) {
+	        manager.remove(treno);
+	    }
+    }
 }

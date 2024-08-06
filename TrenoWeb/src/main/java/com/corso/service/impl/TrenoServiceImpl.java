@@ -118,4 +118,24 @@ public class TrenoServiceImpl implements TrenoService{
 				filtroVO.getPesoMax(), filtroVO.getSigla());
 		return all;
 	}
+	
+	@Override
+    public List<TrenoCompleto> findByIdUtente(int utenteId) {
+        return trenoDao.findByIdUtente(utenteId);
+    }
+
+	@Override
+	public Treno findTreno(int idTreno) {
+		return trenoDao.findTreno(idTreno);
+	}
+
+	@Override
+	public void updateTreno(Treno treno) {
+		trenoDao.updateTreno(treno);
+	}
+	
+	@Override
+    public void deleteTreno(int idTreno) {
+        trenoDao.deleteTreno(idTreno);
+    }
 }
