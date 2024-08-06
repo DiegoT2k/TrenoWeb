@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
+import org.springframework.data.repository.query.Param;
+
 import com.corso.dto.TrenoCompleto;
 import com.corso.dto.TrenoVoto;
 import com.corso.model.Fabbrica;
@@ -46,4 +48,6 @@ public interface TrenoDao {
 	public void deleteTreno(int idTreno);
 	
 	public void deleteVagoniByTreno(Treno treno);
+	
+	public TrenoCompleto findTrenoCompletoById(@Param("idTreno") int idTreno);
 }
