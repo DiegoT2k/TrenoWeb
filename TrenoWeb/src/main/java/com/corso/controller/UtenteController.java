@@ -22,6 +22,8 @@ import com.corso.model.Treno;
 import com.corso.model.Utente;
 import com.corso.service.TrenoService;
 import com.corso.service.UserService;
+import com.corso.vo.LoginVO;
+import com.corso.vo.RegistrationVO;
 import com.corso.vo.TrenoVO;
 
 
@@ -35,6 +37,98 @@ public class UtenteController {
 	@Autowired
 	private TrenoService trenoService;
 	
+	
+	 @GetMapping("/login")
+	 public String preLogin(Model model, HttpSession session) {
+		 
+		 if(session.getAttribute("utente") != null) {
+			 return "redirect:/home";
+		 }
+		 
+		 model.addAttribute(new LoginVO());
+		 
+		 return "login";
+	 }
+	 
+	 @PostMapping("postLogin")
+	 public String postLogin(@Valid @ModelAttribute("loginVO") LoginVO loginVO,
+			 		BindingResult bindingResult, Model model, HttpSession session) {
+		
+		 if (bindingResult.hasErrors()) {
+			 return "login";
+		 }
+
+		 Utente utente = userService.checkLogin(loginVO.getUsername());
+		 
+		 if(utente == null) {
+			 model.addAttribute("error_username", "Username non trovato");
+		 }
+		 else {
+			 if (utente.getPassword().equals(loginVO.getPassword())) {
+				 session.setAttribute("utente", utente.getId_utente());
+				 session.setAttribute("username", utente.getUsername());
+				 return "redirect:/home";
+				 
+			 } else {
+				model.addAttribute("error_password", "Password errata");
+				return "login";
+			 }
+		 }
+
+		 System.out.println("username " + loginVO.getUsername() + " password " + loginVO.getPassword());
+
+		 return "login";
+	 }
+
+	 @GetMapping("/registration")
+	 public String preRegistration(Model model) {
+		 model.addAttribute("registrationVO", new RegistrationVO());
+    return "registration";
+	 }
+	 
+	 @PostMapping("postRegistrazione")
+	 public String postRegistrazione(@Valid @ModelAttribute("registrationVO") 
+	 RegistrationVO registrationVO, BindingResult bindingResult, Model model) {
+		 
+		// Verifica se ci sono errori di validazione
+		if (bindingResult.hasErrors()) {
+			 return "registration";
+		}
+		 
+		// Verifica se l'username ï¿½ giï¿½ in uso
+	    if (!userService.isUsernameUnique(registrationVO.getUsername())) {
+
+	        bindingResult.rejectValue("username", "", "Username già in uso");
+
+	    }
+
+	    // Verifica se l'email ï¿½ giï¿½ in uso
+	    if (!userService.isEmailUnique(registrationVO.getEmail())) {
+
+	        bindingResult.rejectValue("email", "", "Email già in uso");
+
+	    }
+
+	    // Se ci sono errori, ritorna alla pagina di registrazione
+	    if (bindingResult.hasErrors()) {
+	        return "registration";
+	    }
+		 
+		 Utente utente = new Utente();
+		 BeanUtils.copyProperties(registrationVO, utente);
+		 
+		 userService.save(utente);
+		 
+		 return "redirect:/login";
+	 }
+	 
+	 @GetMapping("/logout")
+	 public String logout(HttpSession session) {
+		 session.invalidate();
+		 return "redirect:/login";
+	 }
+	 
+	 
 	@GetMapping("/profilo")
     public String mostraProfilo(HttpSession session, Model model) {
 		Integer utenteId = (Integer) session.getAttribute("utente");
@@ -107,4 +201,8 @@ public class UtenteController {
 
         return "trenoDetails";
     }
+    
+
+	 
+	 
 }
