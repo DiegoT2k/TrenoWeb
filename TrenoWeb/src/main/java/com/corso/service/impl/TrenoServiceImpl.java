@@ -2,6 +2,8 @@ package com.corso.service.impl;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -137,5 +139,48 @@ public class TrenoServiceImpl implements TrenoService{
 	@Override
     public void deleteTreno(int idTreno) {
         trenoDao.deleteTreno(idTreno);
+    }
+	
+	@Override
+	@Transactional
+	public void updateTrenoSigla(Treno treno, String newSigla) {
+        checkStringa(newSigla);
+
+        treno.setSigla(newSigla);
+        
+        deleteVagoniByTreno(treno);
+
+        recreateVagoni(treno);
+
+        trenoDao.updateTreno(treno);
+    }
+	
+	@Override
+	@Transactional
+	public void deleteVagoniByTreno(Treno treno) {
+        trenoDao.deleteVagoniByTreno(treno);
+    }
+
+	@Override
+    public void recreateVagoni(Treno treno) {
+		String sigla = treno.getSigla();
+	    String fabbrica = treno.getFabbrica().getSigla();
+	    int id_treno = treno.getId_treno();
+	    
+	    // Costruisci una nuova lista di vagoni
+	    List<Vagone> lista = null;
+	    if (fabbrica.equals("IT")) {
+	        lista = trenoItaloBuilder.costruisciTreno(sigla, id_treno);
+	    } else if (fabbrica.equals("TN")) {
+	        lista = trenoTrenordBuilder.costruisciTreno(sigla, id_treno);
+	    }
+	    
+	    // Elimina i vagoni esistenti
+	    deleteVagoniByTreno(treno);
+	    
+	    // Aggiungi i nuovi vagoni
+	    for (Vagone v : lista) {
+	        vagoneDao.add(v);
+	    }
     }
 }
