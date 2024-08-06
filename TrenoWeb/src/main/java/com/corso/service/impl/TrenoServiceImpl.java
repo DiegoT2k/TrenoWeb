@@ -194,4 +194,9 @@ public class TrenoServiceImpl implements TrenoService{
 	public TrenoCompleto findTrenoCompletoById(int idTreno) {
 	    return trenoDao.findTrenoCompletoById(idTreno);
 	}
+	
+	@Override
+	public void acquistaBiglietti(int idTreno) {
+		trenoDao.decrementaBiglietti(trenoDao.findTreno(idTreno));
+	}
 }

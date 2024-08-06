@@ -76,10 +76,12 @@ public class TrenoController {
 	 @PostMapping("addVoto")
 	 public String votaTreno(@RequestParam int rating, @RequestParam int trenoId, HttpSession session) {
 		 
-		 System.out.println("voto :" + rating + " trenoid :" + trenoId + " utente "+session.getAttribute("utente") );
+		 System.out.println("voto :" + rating + " trenoid :" + trenoId + " utente " + session.getAttribute("utente") );
 		 
-		 valutazioneService.addVoto(rating, trenoId, (Integer) session.getAttribute("utente"));
-		 
+		 if(session.getAttribute("utente") != null) {
+			 valutazioneService.addVoto(rating, trenoId, (Integer) session.getAttribute("utente"));
+		 }
+		  
 		 return "redirect:/" + trenoId;
 	 }
 	 
@@ -92,6 +94,17 @@ public class TrenoController {
 		 model.addAttribute("listaTreni", l);
 		
 		 return "treni";
+	 }
+	 
+	 @GetMapping("/acquista/{id_treno}")
+	 public String acquistaBiglietto(@PathVariable("id_treno") int idTreno, HttpSession session) {
+		 System.out.println("acquisto del biglietto del treno " + idTreno);
+		 
+		 if(session.getAttribute("utente") != null) {
+			 trenoService.acquistaBiglietti(idTreno);
+		 }
+		 
+		 return "redirect:/" + idTreno;
 	 }
 	 
 }
