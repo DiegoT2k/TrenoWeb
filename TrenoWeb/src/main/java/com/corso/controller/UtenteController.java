@@ -82,9 +82,7 @@ public class UtenteController {
             return "redirect:/profilo";
         }
 
-        treno.setSigla(trenoVO.getSigla());
-        trenoService.updateTreno(treno);
-        
+        trenoService.updateTrenoSigla(treno, trenoVO.getSigla());        
         return "redirect:/profilo";
     }
     
@@ -100,7 +98,7 @@ public class UtenteController {
     public String showTrenoDetails(@PathVariable("idTreno") int idTreno, Model model) {
         Treno treno = trenoService.findTreno(idTreno);
         if (treno == null) {
-            return "redirect:/treni"; // Redirect to list if not found
+            return "redirect:/treni";
         }
 
         model.addAttribute("treno", treno);
