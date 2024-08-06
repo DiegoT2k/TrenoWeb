@@ -247,4 +247,21 @@ public class TrenoDaoImpl implements TrenoDao{
         return (TrenoCompleto) query.getSingleResult();
     }
 	
+	@Override
+	public void decrementaBiglietti(Treno idTreno) {
+		
+		String jpql = "FROM Vagone v WHERE v.id_treno = :id_treno";
+		Query query = manager.createQuery(jpql);
+		query.setParameter("id_treno", idTreno);
+		
+		List<Vagone> lista = query.getResultList();
+		for(Vagone v : lista) {
+			if(v.getBiglietti() > 0) {
+				v.setBiglietti(v.getBiglietti() - 1);
+				manager.merge(v);
+				break;
+			}
+		}
+	}
+	
 }

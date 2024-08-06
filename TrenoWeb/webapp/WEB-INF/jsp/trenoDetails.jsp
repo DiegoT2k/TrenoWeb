@@ -78,14 +78,16 @@
     <p><strong>Biglietti disponibili:</strong> ${trenoCompleto.biglietti}</p>
     <p><strong>Utente:</strong> ${trenoCompleto.id_utente.username}</p>
 
-	<button type="button" class="vota">Acquista Biglietto</button>
+    <form action="<c:url value='/acquista/${trenoCompleto.id_treno}' />" method="get" style="display:inline;">
+        <button class="vota" type="submit">Acquista Biglietti</button>
+    </form>
 	<button type="button" class="vota" onclick="openVoteForm('${trenoCompleto.id_treno}')">Vota</button>
 	<div class="train-image" id="trainImageContainer"></div>
 
 	<div class="bottoni">
 	    <a href="<c:url value='/treni' />">Tutti i treni</a><br>
 	    <a href="<c:url value='/profilo' />">I tuoi treni</a><br>
-	    <a href="<c:url value='/modificaTreno/${trenoCompleto.id_treno}' />">Modifica Treno</a>
+	    <a href="<c:url value='/modificaTreno/${trenoCompleto.id_treno}' />">Acquista Biglietti</a>
     </div>
     <div id="overlay" onclick="closeVoteForm()"></div>
 

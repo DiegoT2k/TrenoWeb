@@ -38,4 +38,6 @@ public interface TrenoService {
 	public void recreateVagoni(Treno treno);
 	
 	public TrenoCompleto findTrenoCompletoById(int idTreno);
+	
+	public void acquistaBiglietti(int idTreno);
 }
