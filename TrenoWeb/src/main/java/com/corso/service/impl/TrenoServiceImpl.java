@@ -156,11 +156,11 @@ public class TrenoServiceImpl implements TrenoService{
 
         treno.setSigla(newSigla);
         
-        deleteVagoniByTreno(treno);
-
-        recreateVagoni(treno);
-
         trenoDao.updateTreno(treno);
+        
+        deleteVagoniByTreno(treno);
+        
+        recreateVagoni(treno);
     }
 	
 	@Override
@@ -172,6 +172,7 @@ public class TrenoServiceImpl implements TrenoService{
 	@Override
     public void recreateVagoni(Treno treno) {
 		String sigla = treno.getSigla();
+		System.out.println("sigla nuova: " + sigla);
 	    String fabbrica = treno.getFabbrica().getSigla();
 	    int id_treno = treno.getId_treno();
 	    
@@ -182,9 +183,6 @@ public class TrenoServiceImpl implements TrenoService{
 	    } else if (fabbrica.equals("TN")) {
 	        lista = trenoTrenordBuilder.costruisciTreno(sigla, id_treno);
 	    }
-	    
-	    // Elimina i vagoni esistenti
-	    deleteVagoniByTreno(treno);
 	    
 	    // Aggiungi i nuovi vagoni
 	    for (Vagone v : lista) {
