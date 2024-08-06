@@ -5,6 +5,9 @@
 <head>
     <meta charset="UTF-8">
     <title>Menu di Navigazione</title>
+    
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+    
     <style>
         /* Stili di base per il corpo della pagina */
         body {
@@ -100,6 +103,10 @@
     text-decoration: none;
 }
 
+.profilo {
+	margin-left: auto;
+}
+
 .logout {
     margin-left: auto; /* Spinge il logout a destra */
 }
@@ -107,6 +114,7 @@
 .login {
 	margin-left: auto;
 }
+
 
 
     </style>
@@ -120,21 +128,36 @@
    
     <div class="menu">
   
-    	<a href="home">Home</a>
-        <a href="treni">Treni</a>
-        <a href="modulo">Crea Treno</a>
+    	<a href="home">
+    	<!-- icona home -->
+    	<i class="fa-solid fa-home"></i>
+    	 Home</a>
+    	
+        <a href="treni">
+        <i class="fa-solid fa-table"></i>
+         Treni</a>
+        
+        <a href="modulo">
+        <i class="fa-solid fa-plus"></i>
+         Crea Treno</a>
 
         <!-- Puoi aggiungere altri link o dropdown qui -->
 
 <!-- 		Mostra login/logout a seconda dello stato dell'utente -->
 		<c:choose>
 			<c:when test="${sessionScope.utente == null}">
-				<a href="registration" class="registration">Registrati</a>
-        		<a href="login" class="login">Login</a>
+				<a href="registration" class="registration">
+				<i class="fa-solid fa-address-card"></i> Registrati</a>
+        		
+        		<a href="login" class="login">
+        		<i class="fa-solid fa-right-to-bracket"></i> Login</a>
 			</c:when>
 			<c:otherwise>
-				<a href="utente" class="utente">Profilo</a>
-				<a href="logout" class="logout">Logout</a>
+				<a href="profilo" class="profilo">
+				<i class="fa-solid fa-user"></i> Ciao, ${username}</a>
+				
+				<a href="logout" class="logout">
+				<i class="fa-solid fa-right-from-bracket"></i> Logout</a>
 			</c:otherwise>
 		</c:choose>
 		

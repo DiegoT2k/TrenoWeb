@@ -11,6 +11,16 @@
 <jsp:include page="menu.jsp"></jsp:include>	
 
 	<h1>Crea il tuo treno personalizzato:</h1>
+
+	<h4>Sei ${username}</h4>
+	
+	<ul>
+	<li>H - Locomotiva</li>
+ 	<li>P - Vagone Passeggeri</li>
+	<li>C - Vagone Cargo</li>
+ 	<li>R - Vagone Ristorante</li>
+	</ul>
+
 	
     <form action="/TrenoWeb/crea" method="post">
         <label for="inputString">Inserisci una stringa:</label>

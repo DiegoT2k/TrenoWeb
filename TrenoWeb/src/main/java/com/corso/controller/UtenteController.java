@@ -75,12 +75,14 @@ public class UtenteController {
 		 return "login";
 	 }
 
+
 	 
 
 	 @GetMapping("/registration")
 	 public String preRegistration(Model model) {
 		 model.addAttribute("registrationVO", new RegistrationVO());
      return "registration";
+
 	 }
 	 
 	 @PostMapping("postRegistrazione")
@@ -95,14 +97,16 @@ public class UtenteController {
 		// Verifica se l'username ï¿½ giï¿½ in uso
 	    if (!userService.isUsernameUnique(registrationVO.getUsername())) {
 
-	        bindingResult.rejectValue("username", "", "Username gi�in uso");
+	        bindingResult.rejectValue("username", "", "Username già in uso");
+
 
 	    }
 
 	    // Verifica se l'email ï¿½ giï¿½ in uso
 	    if (!userService.isEmailUnique(registrationVO.getEmail())) {
+        
+	        bindingResult.rejectValue("email", "", "Email già in uso");
 
-	        bindingResult.rejectValue("email", "", "Email gi�in uso");
 
 	    }
 
@@ -119,7 +123,7 @@ public class UtenteController {
 		 return "redirect:/login";
 	 }
 	 
-	 
+
 	 @GetMapping("/logout")
 	 public String logout(HttpSession session) {
 		 session.invalidate();
@@ -202,5 +206,5 @@ public class UtenteController {
         return "trenoDetails";
     }
     
-    
+
 }
