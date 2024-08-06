@@ -8,6 +8,9 @@
     
 </head>
 <body>
+
+	<jsp:include page="menu.jsp"></jsp:include>  
+ 
     <h1>Dettagli Treno</h1>
     <p><strong>ID Treno:</strong> ${treno.id_treno}</p>
     <p><strong>Sigla:</strong> ${treno.sigla}</p>

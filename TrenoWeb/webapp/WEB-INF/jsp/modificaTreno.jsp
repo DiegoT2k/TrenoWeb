@@ -7,6 +7,9 @@
     <title>Modifica Treno</title>
 </head>
 <body>
+
+	<jsp:include page="menu.jsp" /> 
+	
     <h1>Modifica Treno</h1>
 
     <form action="<c:url value='/modificaTreno' />" method="post">

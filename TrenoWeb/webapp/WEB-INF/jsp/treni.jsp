@@ -164,7 +164,7 @@
             <th>Treno</th>
             <th>Sigla</th>
             <th>Fabbrica</th>
-            <th>Posti</th>
+            <th>Biglietti</th>
             <th>Peso tot</th>
             <th>Lunghezza tot</th>
             <th>Prezzo tot</th>   
