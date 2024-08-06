@@ -4,6 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <meta charset="UTF-8">
 <title>Pagina treni</title>
 
@@ -102,6 +103,11 @@
 
 <h1>Tabella dei treni:</h1>
 
+    <!-- Bottone per mostrare/nascondere i filtri -->
+    <button id="toggle-filters">Filtro</button>
+    
+	<div id="filters" class="mt-3" style="display: none;">
+    
     <form:form method="POST" 
         action="filtro"       
         modelAttribute="filtroVO"> 
@@ -134,11 +140,17 @@
 	        <form:input path="sigla"/>
 	    </div>
         <div class="form-group">
-            <input type="submit" value="Filtra"/>
+            <input type="submit" value="Cerca"/>
         </div>
     </form:form>
 
+    </div>
 
+   <div>
+        <button>Ordina per lunghezza</button>
+        <button>Ordina per peso</button>
+        <button>Ordina per prezzo</button>
+    </div>
 
 <table border="1">
     <thead>
@@ -201,6 +213,12 @@ function closeVoteForm() {
     document.getElementById('overlay').style.display = 'none';
     document.getElementById('voteForm').style.display = 'none';
 }
+
+$(document).ready(function(){
+    $("#toggle-filters").click(function(){
+        $("#filters").toggle();
+    });
+});
 </script>
 
 </body>

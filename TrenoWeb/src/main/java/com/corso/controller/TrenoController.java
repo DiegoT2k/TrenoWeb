@@ -153,9 +153,11 @@ public class TrenoController {
 
 	 
 	 @PostMapping("addVoto")
-	 public String votaTreno(@RequestParam int rating, @RequestParam int trenoId) {
+	 public String votaTreno(@RequestParam int rating, @RequestParam int trenoId, HttpSession session) {
 		 
-		 valutazioneService.addVoto(rating, trenoId, 56);
+		 System.out.println("voto :" + rating + " trenoid :" + trenoId + " utente "+session.getAttribute("utente") );
+		 
+		 valutazioneService.addVoto(rating, trenoId, (Integer) session.getAttribute("utente"));
 		 
 		 return "redirect:/treni";
 	 }
