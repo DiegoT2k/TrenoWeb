@@ -13,7 +13,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 import com.corso.dto.TrenoCompleto;
+import com.corso.exception.TrenoException;
 import com.corso.model.Treno;
 import com.corso.model.Utente;
 import com.corso.service.TrenoService;
@@ -166,9 +169,9 @@ public class UtenteController {
     }
 
     // Gestisce l'aggiornamento del treno
-    @PostMapping("/modificaTreno")
-    public String updateTreno(@Valid @ModelAttribute("trenoVO") TrenoVO trenoVO,
-                              BindingResult bindingResult, Model model) {
+    @PostMapping("/modificaTreno/{id_treno}")
+    public String updateTreno(@PathVariable("id_treno") int idTreno, @Valid @ModelAttribute("trenoVO") TrenoVO trenoVO,
+                              BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
             return "modificaTreno";
         }
@@ -177,8 +180,14 @@ public class UtenteController {
         if (treno == null) {
             return "redirect:/profilo";
         }
-
-        trenoService.updateTrenoSigla(treno, trenoVO.getSigla());        
+        
+        try {
+        	trenoService.updateTrenoSigla(treno, trenoVO.getSigla());
+        }catch(TrenoException e){
+        	redirectAttributes.addFlashAttribute("errorMessage", e.getSuggerimento());
+        	redirectAttributes.addFlashAttribute("trenoVO", trenoVO);
+            return "redirect:/modificaTreno/" + idTreno;
+        }
         return "redirect:/profilo";
     }
     
