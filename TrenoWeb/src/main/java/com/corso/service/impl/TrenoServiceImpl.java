@@ -189,4 +189,9 @@ public class TrenoServiceImpl implements TrenoService{
 	        vagoneDao.add(v);
 	    }
     }
+	
+	@Override
+	public TrenoCompleto findTrenoCompletoById(int idTreno) {
+	    return trenoDao.findTrenoCompletoById(idTreno);
+	}
 }

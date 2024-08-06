@@ -36,4 +36,6 @@ public interface TrenoService {
 	public void deleteVagoniByTreno(Treno treno);
 	
 	public void recreateVagoni(Treno treno);
+	
+	public TrenoCompleto findTrenoCompletoById(int idTreno);
 }

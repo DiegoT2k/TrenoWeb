@@ -210,4 +210,18 @@ public class TrenoDaoImpl implements TrenoDao{
 	    System.out.println("num vagoni eliminati: " + deleted);
 	}
 	
+	@Override
+    public TrenoCompleto findTrenoCompletoById(int idTreno) {
+        String hql = "SELECT new com.corso.dto.TrenoCompleto(t.id_treno, t.sigla, t.id_utente, t.fabbrica, AVG(val.voto), SUM(vag.peso), SUM(vag.prezzo), SUM(vag.lunghezza), SUM(vag.biglietti)) " 
+                    + "FROM Treno t " 
+                    + "LEFT JOIN t.valutazione val "
+     	            + "LEFT JOIN t.vagoni vag "
+                    + "WHERE t.id_treno = :idTreno";
+
+        Query query = manager.createQuery(hql);
+        query.setParameter("idTreno", idTreno);
+
+        return (TrenoCompleto) query.getSingleResult();
+    }
+	
 }
