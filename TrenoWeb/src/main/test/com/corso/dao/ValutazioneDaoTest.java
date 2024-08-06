@@ -35,5 +35,7 @@ public class ValutazioneDaoTest extends BaseTest{
 		   Treno treno = daoTreno.findTreno(1);
 		   getSetValutazioni(treno);
 	}
+	
+
 
 }

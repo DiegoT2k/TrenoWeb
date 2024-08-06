@@ -23,6 +23,10 @@ public class Valutazione {
 	@Column(name="id_utente")
 	private int id_utente;
 	
+	@Column(name="voto")
+	private int voto;
+	
+	
 	public int getId() {
 		return id;
 	}
@@ -46,9 +50,6 @@ public class Valutazione {
 	public void setId_utente(int id_utente) {
 		this.id_utente = id_utente;
 	}
-
-	@Column(name="voto")
-	private int voto;
 
 	public int getVoto() {
 		return voto;
