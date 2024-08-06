@@ -323,4 +323,13 @@ public class TrenoDaoImpl implements TrenoDao{
 	        manager.remove(treno);
 	    }
     }
+	
+	@Override
+	public void deleteVagoniByTreno(Treno treno) {
+		String hql = "DELETE FROM Vagone v WHERE v.id_treno.id = :id_treno";
+	    Query query = manager.createQuery(hql);
+	    query.setParameter("id_treno", treno.getId_treno());
+	    query.executeUpdate();
+	}
+	
 }

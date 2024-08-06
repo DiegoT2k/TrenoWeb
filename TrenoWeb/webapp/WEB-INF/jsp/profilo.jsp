@@ -42,6 +42,7 @@
                             <th>Peso Totale</th>
                             <th>Prezzo Totale</th>
                             <th>Lunghezza Totale</th>
+                            <th>Sigla</th>
                             <th>Azioni</th>
                         </tr>
                     </thead>
@@ -54,6 +55,7 @@
                                 <td>${treno.peso}</td>
                                 <td>${treno.prezzo}</td>
                                 <td>${treno.lunghezza}</td>
+                                <td>${treno.sigla}</td>
                                 <td>
                                 	<form action="<c:url value='/${treno.id_treno}' />" method="get">
                             			<button type="submit">Visualizza</button>

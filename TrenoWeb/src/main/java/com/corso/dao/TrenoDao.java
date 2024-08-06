@@ -11,6 +11,7 @@ import com.corso.model.Treno;
 import com.corso.model.TrenoFilter;
 import com.corso.model.Utente;
 import com.corso.model.Valutazione;
+import com.corso.model.abs_vagone.Vagone;
 
 @Transactional
 public interface TrenoDao {
@@ -43,4 +44,6 @@ public interface TrenoDao {
 			Double lunghezzaMax, Double pesoMin, Double pesoMax, String sigla, Utente utente);
 	
 	public void deleteTreno(int idTreno);
+	
+	public void deleteVagoniByTreno(Treno treno);
 }

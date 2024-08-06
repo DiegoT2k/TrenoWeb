@@ -30,7 +30,8 @@ public class Treno {
 	@OneToMany(
 			mappedBy = "id_treno",
 			fetch = FetchType.EAGER,
-			cascade = CascadeType.ALL
+			cascade = CascadeType.ALL,
+			orphanRemoval = true
 			)
 	private Set<Vagone> vagoni;
 	
@@ -80,10 +81,12 @@ public class Treno {
 	public void setFabbrica(Fabbrica fabbrica) {
 		this.fabbrica = fabbrica;
 	}
-
+	
 	@Override
 	public String toString() {
 		return "Treno [id_treno=" + id_treno + ", id_utente=" + id_utente.getUsername() + ", " + fabbrica + "]";
 	}
+	
+	
 	
 }
