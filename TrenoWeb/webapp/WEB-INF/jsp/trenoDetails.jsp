@@ -12,9 +12,15 @@
 	<jsp:include page="menu.jsp"></jsp:include>  
  
     <h1>Dettagli Treno</h1>
-    <p><strong>ID Treno:</strong> ${treno.id_treno}</p>
-    <p><strong>Sigla:</strong> ${treno.sigla}</p>
-    <p><strong>Fabbrica:</strong> ${treno.fabbrica}</p>
+    <p><strong>ID Treno:</strong> ${trenoCompleto.id_treno}</p>
+    <p><strong>Sigla:</strong> ${trenoCompleto.sigla}</p>
+    <p><strong>Fabbrica:</strong> ${trenoCompleto.fabbrica.sigla}</p>
+    <p><strong>Voto:</strong> ${trenoCompleto.voto}</p>
+    <p><strong>Peso:</strong> ${trenoCompleto.peso}</p>
+    <p><strong>Prezzo:</strong> ${trenoCompleto.prezzo}</p>
+    <p><strong>Lunghezza:</strong> ${trenoCompleto.lunghezza}</p>
+    <p><strong>Biglietti:</strong> ${trenoCompleto.biglietti}</p>
+    <p><strong>Utente:</strong> ${trenoCompleto.id_utente.username}</p>
 
 
 	<div class="train-image" id="trainImageContainer"></div>
