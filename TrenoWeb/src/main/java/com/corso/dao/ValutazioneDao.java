@@ -1,5 +1,7 @@
 package com.corso.dao;
 
+import java.util.List;
+
 import javax.transaction.Transactional;
 import com.corso.model.Treno;
 import com.corso.model.Utente;
@@ -17,5 +19,11 @@ public interface ValutazioneDao {
 	public void addVoto(int rating, int id_treno, int id_utente);
 	
 	public void findVoto(int id_treno, int id_utente);
+	
+	public List<Valutazione> findByValutazione (Valutazione voto);
+	
+	public List<Valutazione> getAll();
+	
+	public Valutazione findById(int id);
 	
 }

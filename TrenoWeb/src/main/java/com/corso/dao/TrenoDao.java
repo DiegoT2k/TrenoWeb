@@ -41,13 +41,17 @@ public interface TrenoDao {
 	public void updateTreno(Treno treno);
 		
 	public List<TrenoCompleto> filtraTrenoCompleto(Double prezzoMin, Double prezzoMax, Double lunghezzaMin, 
-			Double lunghezzaMax, Double pesoMin, Double pesoMax, String sigla, Utente utente);
+			Double lunghezzaMax, Double pesoMin, Double pesoMax, String sigla, Utente utente,
+			String sortField, String sortOrder);
 	
 	public void deleteTreno(int idTreno);
 	
 	public void deleteVagoniByTreno(Treno treno);
 	
 	public TrenoCompleto findTrenoCompletoById(@Param("idTreno") int idTreno);
-	
+
 	public TrenoCompleto findTrenoCompletoBySigla(String sigla);
+
+	public void decrementaBiglietti(Treno idTreno);
+
 }

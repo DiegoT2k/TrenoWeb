@@ -41,7 +41,7 @@ public class ValutazioneDaoImpl extends DaoImpl implements ValutazioneDao{
 		manager.merge(v);
 	}
 
-	// Cerca il voto, se è gia presente lo rimuove in modo da poter inserire quello nuovo
+	// Cerca il voto, se ï¿½ gia presente lo rimuove in modo da poter inserire quello nuovo
 	@Override
 	public void findVoto(int id_treno, int id_utente) {
 		
@@ -63,4 +63,32 @@ public class ValutazioneDaoImpl extends DaoImpl implements ValutazioneDao{
 		}
 		
 	}
+
+	@Override
+	public List<Valutazione> findByValutazione(Valutazione voto) {
+		Query q = (Query) manager.createQuery("from Valutazione where voto=:voto", Valutazione.class);
+		q.setParameter("voto", voto);
+		
+		List<Valutazione> l = q.getResultList();
+		
+		return l;
+		
+	}
+
+	@Override
+	public List<Valutazione> getAll() {
+		
+		String jpql = "SELECT v FROM Valutazione v ";
+		Query q = manager.createQuery(jpql, Valutazione.class);
+		
+		return q.getResultList();
+	}
+
+	@Override
+	public Valutazione findById(int id) {
+		Valutazione v = manager.find(Valutazione.class, id);
+		return v;
+	}
+	
+	
 }

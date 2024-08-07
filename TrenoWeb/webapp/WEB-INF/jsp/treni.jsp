@@ -94,6 +94,11 @@
         background-color: #de3f23;
         color: white;
     }
+    
+    .selected {
+        background-color: #4CAF50; /* Colore di esempio */
+        color: white;
+    }
 
 </style>
 </head>
@@ -143,18 +148,27 @@
 	        <form:label path="username">Cerca username:</form:label>
 	        <form:input path="username"/>
 	    </div>
-        <div class="form-group">
+	    <div class="form-group">
+            <form:input type="hidden" path="sortField" id="sortField" name="sortField" />
+            <form:input type="hidden" path="sortOrder" id="sortOrder" name="sortOrder" />
+        </div>
+
+        
+        <div>
+        	<button type="button" id="sortLunghezza" onclick="setSort('lunghezza', 'ASC')">Ordina per lunghezza</button>
+        	<button type="button" id="sortPeso" onclick="setSort('peso', 'ASC')">Ordina per peso</button>
+        	<button type="button" id="sortPrezzo" onclick="setSort('prezzo', 'ASC')">Ordina per prezzo</button>
+    	</div>
+    	
+ 	    <div class="form-group">
             <input type="submit" value="Cerca"/>
         </div>
+        
     </form:form>
 
     </div>
 
-   <div>
-        <button>Ordina per lunghezza</button>
-        <button>Ordina per peso</button>
-        <button>Ordina per prezzo</button>
-    </div>
+
 
 <table border="1">
     <thead>
@@ -164,12 +178,10 @@
             <th>Treno</th>
             <th>Sigla</th>
             <th>Fabbrica</th>
-            <th>Biglietti</th>
             <th>Peso tot</th>
             <th>Lunghezza tot</th>
             <th>Prezzo tot</th>   
             <th>Valutazione</th>     
-            <th>#</th>
         </tr>
     </thead>
     <tbody>
@@ -184,49 +196,40 @@
                 </td>
                 <td>${item.sigla}</td>
                 <td>${item.fabbrica}</td>
-                <td>${item.biglietti} <button type="button" class="vota">Acquista</button></td>
                 <td>${item.peso}</td>
                 <td>${item.lunghezza}</td>
                 <td>${item.prezzo}</td>
                 <td><span class="emoji">&#x2B50;</span> ${item.voto}</td>
-                <td><button type="button" class="vota" onclick="openVoteForm('${item.id_treno}')">Vota</button></td>
             </tr>
         </c:forEach>
     </tbody>
 </table>
 
-<!-- Sfondo scuro dietro il popup -->
-<div id="overlay" onclick="closeVoteForm()"></div>
-
-<!-- Modulo di valutazione popup -->
-<div id="voteForm">
-    <h3>Vota il Treno</h3>
-    <form id="voteFormContent" method="post" action="addVoto">
-        <input type="hidden" id="trenoId" name="trenoId">
-        <label for="rating">Valutazione:</label>
-        <input type="number" id="rating" name="rating" min="1" max="5" required>
-        <button type="submit">Invia</button>
-        <button type="button" onclick="closeVoteForm()">Annulla</button>
-    </form>
-</div>
-
 <script>
-function openVoteForm(trenoId) {
-    document.getElementById('trenoId').value = trenoId;
-    document.getElementById('overlay').style.display = 'block';
-    document.getElementById('voteForm').style.display = 'block';
-}
+	$(document).ready(function(){
+	    $("#toggle-filters").click(function(){
+	        $("#filters").toggle();
+	    });
+	});
+	
+   function setSort(field, order) {
+        document.getElementById('sortField').value = field;
+        document.getElementById('sortOrder').value = order;
+        
+        // Rimuovi la classe 'selected' da tutti i bottoni
+        document.getElementById('sortLunghezza').classList.remove('selected');
+        document.getElementById('sortPeso').classList.remove('selected');
+        document.getElementById('sortPrezzo').classList.remove('selected');
 
-function closeVoteForm() {
-    document.getElementById('overlay').style.display = 'none';
-    document.getElementById('voteForm').style.display = 'none';
-}
-
-$(document).ready(function(){
-    $("#toggle-filters").click(function(){
-        $("#filters").toggle();
-    });
-});
+        // Aggiungi la classe 'selected' al bottone cliccato
+        if (field === 'lunghezza') {
+            document.getElementById('sortLunghezza').classList.add('selected');
+        } else if (field === 'peso') {
+            document.getElementById('sortPeso').classList.add('selected');
+        } else if (field === 'prezzo') {
+            document.getElementById('sortPrezzo').classList.add('selected');
+        }
+    }
 </script>
 
 </body>

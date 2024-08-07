@@ -131,7 +131,7 @@ public class TrenoServiceImpl implements TrenoService{
 		System.out.println(utente);
 		List<TrenoCompleto> all = trenoDao.filtraTrenoCompleto(filtroVO.getPrezzoMin(), filtroVO.getPrezzoMax(), 
 				filtroVO.getLunghezzaMin(), filtroVO.getLunghezzaMax(), filtroVO.getPesoMin(), 
-				filtroVO.getPesoMax(), filtroVO.getSigla(), utente);
+				filtroVO.getPesoMax(), filtroVO.getSigla(), utente, filtroVO.getSortField(), filtroVO.getSortOrder());
 		
 		return all;
 	}
@@ -204,7 +204,7 @@ public class TrenoServiceImpl implements TrenoService{
 	
 	@Override
     public Treno duplicateTreno(String sigla) {
-		// Recupera i dati del treno esistente
+		    // Recupera i dati del treno esistente
         TrenoCompleto trenoCompleto = trenoDao.findTrenoCompletoBySigla(sigla);
         if (trenoCompleto == null) {
             throw new IllegalArgumentException("Treno non trovato con la sigla: " + sigla);
@@ -216,7 +216,7 @@ public class TrenoServiceImpl implements TrenoService{
         nuovoTreno.setFabbrica(trenoCompleto.getFabbrica());
         nuovoTreno.setId_utente(trenoCompleto.getId_utente());
 
-     // Salva il nuovo treno e ottieni il suo ID
+        // Salva il nuovo treno e ottieni il suo ID
         int idNuovoTreno;
         try {
             idNuovoTreno = trenoDao.add(nuovoTreno);
@@ -246,4 +246,8 @@ public class TrenoServiceImpl implements TrenoService{
 
         return nuovoTreno;
     }
+  
+	public void acquistaBiglietti(int idTreno) {
+		trenoDao.decrementaBiglietti(trenoDao.findTreno(idTreno));
+	}
 }
