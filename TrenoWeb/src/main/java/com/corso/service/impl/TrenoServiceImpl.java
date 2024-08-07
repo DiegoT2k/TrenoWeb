@@ -1,6 +1,8 @@
 package com.corso.service.impl;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import javax.transaction.Transactional;
 
@@ -30,10 +32,15 @@ import com.corso.model.abs_vagone.Vagone;
 import com.corso.model.builder.TrenoBuilder;
 import com.corso.model.builder.impl.TrenoItaloBuilder;
 import com.corso.model.builder.impl.TrenoTrenordBuilder;
+import com.corso.model.vagone.CargoAbs;
+import com.corso.model.vagone.LocomotivaAbs;
+import com.corso.model.vagone.PasseggeriAbs;
+import com.corso.model.vagone.RistoranteAbs;
 import com.corso.service.TrenoService;
 import com.corso.service.UserService;
 import com.corso.vo.FiltroVO;
 
+@Transactional
 public class TrenoServiceImpl implements TrenoService{
 
 	@Autowired
@@ -196,6 +203,50 @@ public class TrenoServiceImpl implements TrenoService{
 	}
 	
 	@Override
+    public Treno duplicateTreno(String sigla) {
+		    // Recupera i dati del treno esistente
+        TrenoCompleto trenoCompleto = trenoDao.findTrenoCompletoBySigla(sigla);
+        if (trenoCompleto == null) {
+            throw new IllegalArgumentException("Treno non trovato con la sigla: " + sigla);
+        }
+
+        // Crea un nuovo treno con le stesse proprietà
+        Treno nuovoTreno = new Treno();
+        nuovoTreno.setSigla(trenoCompleto.getSigla());
+        nuovoTreno.setFabbrica(trenoCompleto.getFabbrica());
+        nuovoTreno.setId_utente(trenoCompleto.getId_utente());
+
+        // Salva il nuovo treno e ottieni il suo ID
+        int idNuovoTreno;
+        try {
+            idNuovoTreno = trenoDao.add(nuovoTreno);
+            System.out.println("Nuovo treno creato con ID: " + idNuovoTreno);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+        
+        // Costruisci i vagoni per il nuovo treno
+        List<Vagone> listaVagoni = null;
+
+        if (trenoCompleto.getFabbrica().equals("IT")) {
+            listaVagoni = trenoItaloBuilder.costruisciTreno(nuovoTreno.getSigla(), idNuovoTreno);
+        } else if (trenoCompleto.getFabbrica().equals("TN")) {
+            listaVagoni = trenoTrenordBuilder.costruisciTreno(nuovoTreno.getSigla(), idNuovoTreno);
+        }
+        
+        System.out.println("Numero di vagoni da salvare: " + listaVagoni.size());
+        
+        // Aggiungi i nuovi vagoni al database e associa al nuovo treno
+        for (Vagone vagone : listaVagoni) {
+            vagone.setId_treno(nuovoTreno); // Associa il vagone al nuovo treno
+            System.out.println("Salvando vagone: " + vagone);
+            vagoneDao.add(vagone);
+        }
+
+        return nuovoTreno;
+    }
+  
 	public void acquistaBiglietti(int idTreno) {
 		trenoDao.decrementaBiglietti(trenoDao.findTreno(idTreno));
 	}

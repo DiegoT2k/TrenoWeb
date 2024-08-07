@@ -49,6 +49,9 @@ public interface TrenoDao {
 	public void deleteVagoniByTreno(Treno treno);
 	
 	public TrenoCompleto findTrenoCompletoById(@Param("idTreno") int idTreno);
-	
+
+	public TrenoCompleto findTrenoCompletoBySigla(String sigla);
+
 	public void decrementaBiglietti(Treno idTreno);
+
 }
