@@ -11,6 +11,7 @@ import com.corso.model.Treno;
 import com.corso.model.abs_vagone.Vagone;
 import com.corso.vo.FiltroVO;
 
+
 public interface TrenoService {
 	
 	public void creaTreno(String sigla, String fabbrica, int id_utente);
@@ -38,4 +39,7 @@ public interface TrenoService {
 	public void recreateVagoni(Treno treno);
 	
 	public TrenoCompleto findTrenoCompletoById(int idTreno);
+	
+	public Treno duplicateTreno(String sigla);
+	
 }

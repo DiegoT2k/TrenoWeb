@@ -224,4 +224,18 @@ public class TrenoDaoImpl implements TrenoDao{
         return (TrenoCompleto) query.getSingleResult();
     }
 	
+	@Override
+	public TrenoCompleto findTrenoCompletoBySigla(String sigla) {
+	    String jpql = "SELECT new com.corso.dto.TrenoCompleto(t.id_treno, t.sigla, t.id_utente, t.fabbrica, AVG(val.voto), SUM(vag.peso), SUM(vag.prezzo), SUM(vag.lunghezza), SUM(vag.biglietti)) "
+	                + "FROM Treno t "
+	                + "LEFT JOIN t.valutazione val "
+	                + "LEFT JOIN t.vagoni vag "
+	                + "WHERE t.sigla = :sigla "
+	                + "GROUP BY t.id_treno";
+
+	    Query query = manager.createQuery(jpql);
+	    query.setParameter("sigla", sigla);
+
+	    return (TrenoCompleto) query.getSingleResult();
+	}
 }
