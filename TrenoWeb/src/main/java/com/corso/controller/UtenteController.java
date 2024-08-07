@@ -211,5 +211,48 @@ public class UtenteController {
         return "trenoDetails";
     }
     
+    @PostMapping("/duplicaTreno")
+    public String duplicaTreno(@RequestParam("idTreno") int idTreno, RedirectAttributes redirectAttributes) {
+        try {
+            Treno trenoEsistente = trenoService.findTreno(idTreno);
+            if (trenoEsistente == null) {
+                redirectAttributes.addFlashAttribute("errorMessage", "Treno non trovato.");
+                return "redirect:/profilo";
+            }
 
+            trenoService.duplicateTreno(trenoEsistente.getSigla());
+            redirectAttributes.addFlashAttribute("successMessage", "Treno duplicato con successo.");
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("errorMessage", "Errore durante la duplicazione del treno.");
+        }
+
+        return "redirect:/profilo";
+    }
+    
+    @PostMapping("/invertiSigla")
+    public String invertiSigla(@RequestParam("idTreno") int idTreno, RedirectAttributes redirectAttributes) {
+        try {
+            Treno treno = trenoService.findTreno(idTreno);
+            if (treno == null) {
+                redirectAttributes.addFlashAttribute("errorMessage", "Treno non trovato.");
+                return "redirect:/profilo";
+            }
+
+            String siglaInversa = trenoService.invertiSigla(treno.getSigla());
+            treno.setSigla(siglaInversa);
+            trenoService.updateTreno(treno);
+            
+            // Ricostruisci i vagoni con la nuova sigla inversa
+            trenoService.deleteVagoniByTreno(treno);
+            trenoService.recreateVagoni(treno);
+            
+            redirectAttributes.addFlashAttribute("successMessage", "Sigla del treno invertita con successo.");
+        } catch (IllegalArgumentException e) {
+            redirectAttributes.addFlashAttribute("errorMessage", e.getMessage());
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("errorMessage", "Errore durante l'inversione della sigla.");
+        }
+
+        return "redirect:/profilo";
+    }
 }

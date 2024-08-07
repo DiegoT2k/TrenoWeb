@@ -50,4 +50,7 @@ public interface TrenoDao {
 	public TrenoCompleto findTrenoCompletoById(@Param("idTreno") int idTreno);
 	
 	public void decrementaBiglietti(Treno idTreno) throws Exception;
+
+	public TrenoCompleto findTrenoCompletoBySigla(String sigla);
+
 }

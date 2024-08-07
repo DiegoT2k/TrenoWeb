@@ -20,7 +20,6 @@
 
     </header>
     
- 
     
     <section>
         <h2>Profilo Utente</h2>
@@ -31,6 +30,17 @@
 
     <section>
         <h2>Treni Creati</h2>
+        <c:if test="${not empty errorMessage}">
+        	<div>
+            <c:out value="${errorMessage}" />
+        	</div>
+	    </c:if>
+	    
+    	<c:if test="${not empty successMessage}">
+        	<div>
+            	<c:out value="${successMessage}" />
+        	</div>
+    	</c:if>
         <c:choose>
             <c:when test="${not empty treniCreati}">
                 <table border="1">
@@ -64,7 +74,17 @@
                                     <form action="<c:url value='/modificaTreno/${treno.id_treno}' />" method="get" style="display:inline;">
                                         <button type="submit">Modifica Treno</button>
                                     </form>
-                                
+                                    
+                                	<form action="<c:url value='/duplicaTreno' />" method="post" style="display:inline;">
+    									<input type="hidden" name="idTreno" value="${treno.id_treno}"/>
+    									<button type="submit" onclick="return confirm('Sei sicuro di voler duplicare questo treno?');">Duplica Treno</button>
+									</form>
+									
+									<form action="<c:url value='/invertiSigla' />" method="post" style="display:inline;">
+                                        <input type="hidden" name="idTreno" value="${treno.id_treno}"/>
+                                        <button type="submit">Inverti Sigla</button>
+                                    </form>
+                                    
                                     <form action="<c:url value='/gestisciTreno' />" method="post" style="display:inline;">
                                         <input type="hidden" name="idTreno" value="${treno.id_treno}"/>
                                         <input type="hidden" name="azione" value="elimina"/>
