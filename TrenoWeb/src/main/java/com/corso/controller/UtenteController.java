@@ -213,5 +213,21 @@ public class UtenteController {
         return "trenoDetails";
     }
     
+    @PostMapping("/duplicaTreno")
+    public String duplicaTreno(@RequestParam("idTreno") int idTreno, RedirectAttributes redirectAttributes) {
+        try {
+            Treno trenoEsistente = trenoService.findTreno(idTreno);
+            if (trenoEsistente == null) {
+                redirectAttributes.addFlashAttribute("errorMessage", "Treno non trovato.");
+                return "redirect:/profilo";
+            }
 
+            trenoService.duplicateTreno(trenoEsistente.getSigla());
+            redirectAttributes.addFlashAttribute("successMessage", "Treno duplicato con successo.");
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("errorMessage", "Errore durante la duplicazione del treno.");
+        }
+
+        return "redirect:/profilo";
+    }
 }
