@@ -14,6 +14,7 @@ import com.corso.model.TrenoFilter;
 import com.corso.model.Utente;
 import com.corso.model.Valutazione;
 import com.corso.model.abs_vagone.Vagone;
+import com.corso.vo.FiltroVO;
 
 @Transactional
 public interface TrenoDao {
@@ -40,9 +41,7 @@ public interface TrenoDao {
 	
 	public void updateTreno(Treno treno);
 		
-	public List<TrenoCompleto> filtraTrenoCompleto(Double prezzoMin, Double prezzoMax, Double lunghezzaMin, 
-			Double lunghezzaMax, Double pesoMin, Double pesoMax, String sigla, Utente utente,
-			String sortField, String sortOrder);
+	public List<TrenoCompleto> filtraTrenoCompleto(FiltroVO filtroVO, Utente utente);
 	
 	public void deleteTreno(int idTreno);
 	
@@ -50,5 +49,5 @@ public interface TrenoDao {
 	
 	public TrenoCompleto findTrenoCompletoById(@Param("idTreno") int idTreno);
 	
-	public void decrementaBiglietti(Treno idTreno);
+	public void decrementaBiglietti(Treno idTreno) throws Exception;
 }

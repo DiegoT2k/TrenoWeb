@@ -39,5 +39,5 @@ public interface TrenoService {
 	
 	public TrenoCompleto findTrenoCompletoById(int idTreno);
 	
-	public void acquistaBiglietti(int idTreno);
+	public void acquistaBiglietti(int idTreno) throws Exception;
 }

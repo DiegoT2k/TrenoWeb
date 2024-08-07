@@ -38,7 +38,7 @@ public class ValutazioneDaoImpl extends DaoImpl implements ValutazioneDao{
 	public void addVoto(int rating, int id_treno, int id_utente) {
 		Valutazione v = new Valutazione();
 		v.setId_treno(id_treno); v.setId_utente(id_utente); v.setVoto(rating);
-		manager.merge(v);
+		manager.persist(v);
 	}
 
 	// Cerca il voto, se � gia presente lo rimuove in modo da poter inserire quello nuovo
@@ -59,6 +59,7 @@ public class ValutazioneDaoImpl extends DaoImpl implements ValutazioneDao{
 		    Valutazione valutazioneDaEliminare = l.get(0);
 		   
 		    manager.remove(valutazioneDaEliminare);
+		    System.out.println("eliminato");
 		    
 		}
 		
