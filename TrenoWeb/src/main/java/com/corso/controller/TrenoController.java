@@ -97,11 +97,19 @@ public class TrenoController {
 	 }
 	 
 	 @GetMapping("/acquista/{id_treno}")
-	 public String acquistaBiglietto(@PathVariable("id_treno") int idTreno, HttpSession session) {
+	 public String acquistaBiglietto(@PathVariable("id_treno") int idTreno, HttpSession session, RedirectAttributes redirectAttributes) {
 		 System.out.println("acquisto del biglietto del treno " + idTreno);
 		 
 		 if(session.getAttribute("utente") != null) {
-			 trenoService.acquistaBiglietti(idTreno);
+			 
+				try {
+					trenoService.acquistaBiglietti(idTreno);
+					redirectAttributes.addFlashAttribute("buyMessage", "Biglietto comprato!");
+				}catch(Exception e) {
+					 redirectAttributes.addFlashAttribute("errorMessage", e.getMessage());
+				     return "redirect:/" + idTreno;
+				}
+
 		 }
 		 
 		 return "redirect:/" + idTreno;

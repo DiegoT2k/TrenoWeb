@@ -57,14 +57,13 @@ public class TrenoServiceImpl implements TrenoService{
 	@Autowired
 	private TrenoBuilder trenoTrenordBuilder;
 	
-	//@Autowired
-	//private Treno treno;
-	
 	@Override
 	public void creaTreno(String sigla, String fabbrica, int id_utente) {
 
 		checkStringa(sigla);
+		
 		Treno treno = new Treno();
+		
 	    treno.setId_utente(trenoDao.find(id_utente));
 	    treno.setFabbrica(trenoDao.find(fabbrica));
 	    treno.setSigla(sigla);
@@ -128,9 +127,7 @@ public class TrenoServiceImpl implements TrenoService{
 		
 		Utente utente = userServiceImpl.find(filtroVO.getUsername());
 		System.out.println(utente);
-		List<TrenoCompleto> all = trenoDao.filtraTrenoCompleto(filtroVO.getPrezzoMin(), filtroVO.getPrezzoMax(), 
-				filtroVO.getLunghezzaMin(), filtroVO.getLunghezzaMax(), filtroVO.getPesoMin(), 
-				filtroVO.getPesoMax(), filtroVO.getSigla(), utente, filtroVO.getSortField(), filtroVO.getSortOrder());
+		List<TrenoCompleto> all = trenoDao.filtraTrenoCompleto(filtroVO, utente);
 		
 		return all;
 	}
@@ -201,7 +198,7 @@ public class TrenoServiceImpl implements TrenoService{
 	    return trenoDao.findTrenoCompletoById(idTreno);
 	}
 	
-	@Override
+  @Override
     public Treno duplicateTreno(String sigla) {
 		    // Recupera i dati del treno esistente
         TrenoCompleto trenoCompleto = trenoDao.findTrenoCompletoBySigla(sigla);
@@ -246,7 +243,8 @@ public class TrenoServiceImpl implements TrenoService{
         return nuovoTreno;
     }
   
-	public void acquistaBiglietti(int idTreno) {
+	@Override
+	public void acquistaBiglietti(int idTreno) throws Exception {
 		trenoDao.decrementaBiglietti(trenoDao.findTreno(idTreno));
 	}
 

@@ -20,6 +20,7 @@ import com.corso.model.TrenoFilter;
 import com.corso.model.Utente;
 import com.corso.model.Valutazione;
 import com.corso.model.abs_vagone.Vagone;
+import com.corso.vo.FiltroVO;
 
 import javax.persistence.*;
 
@@ -75,9 +76,7 @@ public class TrenoDaoImpl implements TrenoDao{
 	}
 
 	@Override
-	public List<TrenoCompleto> filtraTrenoCompleto(Double prezzoMin, Double prezzoMax, Double lunghezzaMin, 
-			Double lunghezzaMax, Double pesoMin, Double pesoMax, String sigla, Utente utente,
-			String sortField, String sortOrder) {
+	public List<TrenoCompleto> filtraTrenoCompleto(FiltroVO filtroVO, Utente utente) {
 	    StringBuilder jpql = new StringBuilder("SELECT new com.corso.dto.TrenoCompleto(t.id_treno, t.sigla, t.id_utente, t.fabbrica, AVG(val.voto), SUM(vag.peso), SUM(vag.prezzo), SUM(vag.lunghezza), SUM(vag.biglietti) ) "
 	            + "FROM Treno t "
 	            + "LEFT JOIN t.valutazione val "
@@ -85,36 +84,40 @@ public class TrenoDaoImpl implements TrenoDao{
 	            + "GROUP BY t.id_treno "
 	            + "HAVING 1 = 1"); // start with a true condition
 
-	    if (prezzoMin != null) {
+	    if (filtroVO.getPrezzoMin() != null) {
 	        jpql.append(" AND SUM(vag.prezzo) >= :prezzoMin");
 	    }
-	    if (prezzoMax != null) {
+	    if (filtroVO.getPrezzoMax() != null) {
 	        jpql.append(" AND SUM(vag.prezzo) <= :prezzoMax");
 	    }
-	    if (lunghezzaMin != null) {
+	    if (filtroVO.getLunghezzaMin() != null) {
 	        jpql.append(" AND SUM(vag.lunghezza) >= :lunghezzaMin");
 	    }
-	    if (lunghezzaMax != null) {
+	    if (filtroVO.getLunghezzaMax() != null) {
 	        jpql.append(" AND SUM(vag.lunghezza) <= :lunghezzaMax");
 	    }
-	    if (pesoMin != null) {
+	    if (filtroVO.getPesoMin() != null) {
 	        jpql.append(" AND SUM(vag.peso) >= :pesoMin");
 	    }
-	    if (pesoMax != null) {
+	    if (filtroVO.getPesoMax() != null) {
 	        jpql.append(" AND SUM(vag.peso) <= :pesoMax");
 	    }
-	    if(sigla != null) {
+	    if(filtroVO.getSigla() != null) {
 	    	jpql.append(" AND t.sigla LIKE :sigla");
 	    }
 	    if(utente != null) {
 	    	jpql.append(" AND t.id_utente = :utente");
 	    }
 
+	    /*
+	     * Double prezzoMin, Double prezzoMax, Double lunghezzaMin, 
+			Double lunghezzaMax, Double pesoMin, Double pesoMax, String sigla, Utente utente,
+			String sortField, String sortOrder
+	     * */
 	    
-	    
-	    if (sortField != null && sortOrder != null) {
+	    if (filtroVO.getSortField() != null && filtroVO.getSortOrder() != null) {
 	        jpql.append(" ORDER BY ");
-	        switch (sortField) {
+	        switch (filtroVO.getSortField()) {
 	            case "lunghezza":
 	                jpql.append("SUM(vag.lunghezza)");
 	                break;
@@ -128,32 +131,32 @@ public class TrenoDaoImpl implements TrenoDao{
 	                jpql.append("t.id_treno"); // Ordinamento predefinito
 	                break;
 	        }
-	        jpql.append(" " + sortOrder);
+	        jpql.append(" " + filtroVO.getSortOrder());
 	    }
 	    
 	    
 	    Query q = manager.createQuery(jpql.toString());
 
-	    if (prezzoMin != null) {
-	        q.setParameter("prezzoMin", prezzoMin);
+	    if (filtroVO.getPrezzoMin() != null) {
+	        q.setParameter("prezzoMin", filtroVO.getPrezzoMin());
 	    }
-	    if (prezzoMax != null) {
-	        q.setParameter("prezzoMax", prezzoMax);
+	    if (filtroVO.getPrezzoMax() != null) {
+	        q.setParameter("prezzoMax", filtroVO.getPrezzoMax());
 	    }
-	    if (lunghezzaMin != null) {
-	        q.setParameter("lunghezzaMin", lunghezzaMin);
+	    if (filtroVO.getLunghezzaMin() != null) {
+	        q.setParameter("lunghezzaMin", filtroVO.getLunghezzaMin());
 	    }
-	    if (lunghezzaMax != null) {
-	        q.setParameter("lunghezzaMax", lunghezzaMax);
+	    if (filtroVO.getLunghezzaMax() != null) {
+	        q.setParameter("lunghezzaMax", filtroVO.getLunghezzaMax());
 	    }
-	    if (pesoMin != null) {
-	        q.setParameter("pesoMin", pesoMin);
+	    if (filtroVO.getPesoMin() != null) {
+	        q.setParameter("pesoMin", filtroVO.getPesoMin());
 	    }
-	    if (pesoMax != null) {
-	        q.setParameter("pesoMax", pesoMax);
+	    if (filtroVO.getPesoMax() != null) {
+	        q.setParameter("pesoMax", filtroVO.getPesoMax());
 	    }
-	    if(sigla != null) {
-	    	q.setParameter("sigla", "%" + sigla + "%");
+	    if(filtroVO.getSigla() != null) {
+	    	q.setParameter("sigla", "%" + filtroVO.getSigla() + "%");
 	    }
 	    if(utente != null) {
 	    	q.setParameter("utente", utente);
@@ -247,7 +250,6 @@ public class TrenoDaoImpl implements TrenoDao{
         return (TrenoCompleto) query.getSingleResult();
     }
 	
-	@Override
 	public TrenoCompleto findTrenoCompletoBySigla(String sigla) {
 	    String jpql = "SELECT new com.corso.dto.TrenoCompleto(t.id_treno, t.sigla, t.id_utente, t.fabbrica, AVG(val.voto), SUM(vag.peso), SUM(vag.prezzo), SUM(vag.lunghezza), SUM(vag.biglietti)) "
 	                + "FROM Treno t "
@@ -262,7 +264,8 @@ public class TrenoDaoImpl implements TrenoDao{
 	    return (TrenoCompleto) query.getSingleResult();
 	}
 
-	public void decrementaBiglietti(Treno idTreno) {
+  @Override
+	public void decrementaBiglietti(Treno idTreno) throws Exception {
 		
 		String jpql = "FROM Vagone v WHERE v.id_treno = :id_treno";
 		Query query = manager.createQuery(jpql);
@@ -271,11 +274,16 @@ public class TrenoDaoImpl implements TrenoDao{
 		List<Vagone> lista = query.getResultList();
 		for(Vagone v : lista) {
 			if(v.getBiglietti() > 0) {
-				v.setBiglietti(v.getBiglietti() - 1);
+				int minusB = 1;
+				System.out.println("biglietti da togliere " + minusB);
+				v.setBiglietti(v.getBiglietti() - minusB);
+				System.out.println("i biglietti del vagone sono: " + v.getBiglietti());
 				manager.merge(v);
-				break;
+				return;
 			}
 		}
+		
+		throw new Exception("Biglietti esauriti");
 	}
 
 }

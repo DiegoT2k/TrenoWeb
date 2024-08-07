@@ -29,11 +29,11 @@ import com.corso.vo.TrenoVO;
 @Controller
 public class UtenteController {
 	
-	@Autowired
-	private UserService userService;
+	 @Autowired
+	 private UserService userService;
 	
-	@Autowired
-	private TrenoService trenoService;
+	 @Autowired
+	 private TrenoService trenoService;
 	
 	
 	 @GetMapping("/login")
@@ -77,8 +77,6 @@ public class UtenteController {
 
 		 return "login";
 	 }
-
-
 	 
 
 	 @GetMapping("/registration")
@@ -100,15 +98,15 @@ public class UtenteController {
 		// Verifica se l'username ï¿½ giï¿½ in uso
 	    if (!userService.isUsernameUnique(registrationVO.getUsername())) {
 
-	        bindingResult.rejectValue("username", "", "Username già in uso");
+	        bindingResult.rejectValue("username", "", "Username gi�in uso");
 
 
 	    }
 
-	    // Verifica se l'email ï¿½ giï¿½ in uso
+	    // Verifica se l'email � gi� in uso
 	    if (!userService.isEmailUnique(registrationVO.getEmail())) {
         
-	        bindingResult.rejectValue("email", "", "Email già in uso");
+	        bindingResult.rejectValue("email", "", "Email gi�in uso");
 
 
 	    }
@@ -204,7 +202,7 @@ public class UtenteController {
     	
     	TrenoCompleto trenoCompleto = trenoService.findTrenoCompletoById(idTreno);
     	 
-        if (trenoCompleto  == null) {
+        if (trenoCompleto == null) {
             return "redirect:/treni";
         }
 
