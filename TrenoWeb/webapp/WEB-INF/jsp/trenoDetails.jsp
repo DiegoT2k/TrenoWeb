@@ -61,7 +61,44 @@
         color: white;
     }
 
+
+	/* stile per il bottone di biglietto comprato */
+  	.overlay2 {
+	    position: fixed;
+	    top: 0;
+	    left: 0;
+	    width: 100%;
+	    height: 100%;
+	    background: rgba(0, 0, 0, 0.5); 
+	    display: flex;
+	    justify-content: center;
+	    align-items: center;
+	    color: white;
+	    font-size: 20px;
+	    z-index: 1000; 
+	    visibility: hidden; 
+  	 }
+  	 
+	  .overlay-content2 {
+	    background: blue;
+	    padding: 20px;
+	    border-radius: 10px;
+	    text-align: center;
+	  }
+
+    .close-button {
+      background: red;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      padding: 5px 10px;
+      cursor: pointer;
+      font-size: 16px;
+      margin-top: 10px; 
+    }
+
 </style>
+
 </head>
 <body>
 
@@ -79,15 +116,33 @@
     <p><strong>Utente:</strong> ${trenoCompleto.id_utente.username}</p>
 
     <form action="<c:url value='/acquista/${trenoCompleto.id_treno}' />" method="get" style="display:inline;">
-        <button class="vota" type="submit">Acquista Biglietti</button>
+        <button type="submit">Acquista Biglietti</button>
     </form>
+
+    <c:if test="${not empty errorMessage}">
+        <p style="color:red;">${errorMessage}</p>
+    </c:if>
+    
+	  <div id="overlay2" class="overlay2">
+	  
+	  <button class="close-button" onclick="closeOverlay()">X</button>
+	    <div class="overlay-content2" id="overlayMessage"></div>
+	  </div>
+	  
+	  <script type="text/javascript">
+	    <c:if test="${not empty buyMessage}">
+	      document.getElementById('overlayMessage').innerText = '${buyMessage}';
+	      document.getElementById('overlay2').style.visibility = 'visible';
+	    </c:if>
+	  </script>
+
 	<button type="button" class="vota" onclick="openVoteForm('${trenoCompleto.id_treno}')">Vota</button>
 	<div class="train-image" id="trainImageContainer"></div>
 
 	<div class="bottoni">
 	    <a href="<c:url value='/treni' />">Tutti i treni</a><br>
 	    <a href="<c:url value='/profilo' />">I tuoi treni</a><br>
-	    <a href="<c:url value='/modificaTreno/${trenoCompleto.id_treno}' />">Acquista Biglietti</a>
+	    <a href="<c:url value='/modificaTreno/${trenoCompleto.id_treno}' />">Modifica Treno</a>
     </div>
     <div id="overlay" onclick="closeVoteForm()"></div>
 
@@ -104,6 +159,11 @@
 	</div>
 
     <script>
+    
+	    function closeOverlay() {
+	        document.getElementById('overlay2').style.visibility = 'hidden';
+	    }
+    
         const sigla = "${treno.sigla}";
         console.log(sigla);
         const trainImageContainer = document.getElementById('trainImageContainer');
