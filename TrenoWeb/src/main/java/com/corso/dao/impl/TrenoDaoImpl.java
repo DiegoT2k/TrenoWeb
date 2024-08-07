@@ -265,7 +265,7 @@ public class TrenoDaoImpl implements TrenoDao{
 	}
 
   @Override
-	public void decrementaBiglietti(Treno idTreno) throws Exception {{
+	public void decrementaBiglietti(Treno idTreno) throws Exception {
 		
 		String jpql = "FROM Vagone v WHERE v.id_treno = :id_treno";
 		Query query = manager.createQuery(jpql);
