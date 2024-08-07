@@ -43,4 +43,7 @@ public interface TrenoService {
 	public Treno duplicateTreno(String sigla);
 	
 	public void acquistaBiglietti(int idTreno);
+		
+	public String invertiSigla(String siglaTreno);
+
 }
