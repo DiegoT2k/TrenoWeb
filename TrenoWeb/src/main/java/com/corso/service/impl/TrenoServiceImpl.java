@@ -40,7 +40,6 @@ import com.corso.service.TrenoService;
 import com.corso.service.UserService;
 import com.corso.vo.FiltroVO;
 
-@Transactional
 public class TrenoServiceImpl implements TrenoService{
 
 	@Autowired
@@ -249,5 +248,14 @@ public class TrenoServiceImpl implements TrenoService{
   
 	public void acquistaBiglietti(int idTreno) {
 		trenoDao.decrementaBiglietti(trenoDao.findTreno(idTreno));
+	}
+
+	@Override
+	public String invertiSigla(String siglaTreno) {
+	    if (siglaTreno != null && siglaTreno.endsWith("H")) {
+	        return new StringBuilder(siglaTreno).reverse().toString();
+	    }else {
+	        throw new IllegalArgumentException("La sigla del treno deve terminare con 'H' per poter essere invertita");
+	    }
 	}
 }
