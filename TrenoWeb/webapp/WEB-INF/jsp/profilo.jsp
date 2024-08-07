@@ -64,7 +64,12 @@
                                     <form action="<c:url value='/modificaTreno/${treno.id_treno}' />" method="get" style="display:inline;">
                                         <button type="submit">Modifica Treno</button>
                                     </form>
-                                
+                                    
+                                	<form action="<c:url value='/duplicaTreno' />" method="post" style="display:inline;">
+    									<input type="hidden" name="idTreno" value="${treno.id_treno}"/>
+    									<button type="submit" onclick="return confirm('Sei sicuro di voler duplicare questo treno?');">Duplica Treno</button>
+									</form>
+                                    
                                     <form action="<c:url value='/gestisciTreno' />" method="post" style="display:inline;">
                                         <input type="hidden" name="idTreno" value="${treno.id_treno}"/>
                                         <input type="hidden" name="azione" value="elimina"/>
