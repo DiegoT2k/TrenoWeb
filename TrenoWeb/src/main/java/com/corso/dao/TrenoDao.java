@@ -1,20 +1,15 @@
 package com.corso.dao;
 
 import java.util.List;
-
 import javax.transaction.Transactional;
-
 import org.springframework.data.repository.query.Param;
-
-import com.corso.dto.TrenoCompleto;
-import com.corso.dto.TrenoVoto;
+import com.corso.dto.FiltroDTO;
+import com.corso.dto.TrenoCompletoDTO;
 import com.corso.model.Fabbrica;
 import com.corso.model.Treno;
-import com.corso.model.TrenoFilter;
 import com.corso.model.Utente;
 import com.corso.model.Valutazione;
-import com.corso.model.abs_vagone.Vagone;
-import com.corso.vo.FiltroVO;
+
 
 @Transactional
 public interface TrenoDao {
@@ -31,26 +26,24 @@ public interface TrenoDao {
 	
 	public List<Utente> findByName(String nome);
 	
-	public List<Object[]> filterByPeso(/**TrenoFilter filter**/);
-	
 	public List<Valutazione> findAllValutazione();
 	
-	public List<TrenoCompleto> findTrenoCompleto();
+	public List<TrenoCompletoDTO> findTrenoCompleto();
 	
-	public List<TrenoCompleto> findByIdUtente(int utenteId);
+	public List<TrenoCompletoDTO> findByIdUtente(int utenteId);
 	
 	public void updateTreno(Treno treno);
 		
-	public List<TrenoCompleto> filtraTrenoCompleto(FiltroVO filtroVO, Utente utente);
+	public List<TrenoCompletoDTO> filtraTrenoCompleto(FiltroDTO filtroDTO, Utente utente);
 	
 	public void deleteTreno(int idTreno);
 	
 	public void deleteVagoniByTreno(Treno treno);
 	
-	public TrenoCompleto findTrenoCompletoById(@Param("idTreno") int idTreno);
+	public TrenoCompletoDTO findTrenoCompletoById(@Param("idTreno") int idTreno);
 	
 	public void decrementaBiglietti(Treno idTreno) throws Exception;
 
-	public TrenoCompleto findTrenoCompletoBySigla(String sigla);
+	public TrenoCompletoDTO findTrenoCompletoBySigla(String sigla);
 
 }
