@@ -1,27 +1,16 @@
 package com.corso.dao.impl;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
-
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Join;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
 import com.corso.dao.TrenoDao;
-import com.corso.dto.TrenoCompleto;
-import com.corso.dto.TrenoVoto;
+import com.corso.dto.TrenoCompletoDTO;
 import com.corso.model.Fabbrica;
 import com.corso.model.Treno;
-import com.corso.model.TrenoFilter;
 import com.corso.model.Utente;
 import com.corso.model.Valutazione;
 import com.corso.model.abs_vagone.Vagone;
-import com.corso.vo.FiltroVO;
-
+import com.corso.dto.FiltroDTO;
 import javax.persistence.*;
 
 public class TrenoDaoImpl implements TrenoDao{
@@ -60,9 +49,9 @@ public class TrenoDaoImpl implements TrenoDao{
 	}
 		
 	@Override
-	public List<TrenoCompleto> findTrenoCompleto(){
+	public List<TrenoCompletoDTO> findTrenoCompleto(){
 		
-		String jpql = "SELECT new com.corso.dto.TrenoCompleto(t.id_treno, t.sigla, t.id_utente, t.fabbrica, AVG(val.voto), SUM(vag.peso), SUM(vag.prezzo), SUM(vag.lunghezza), SUM(vag.biglietti) ) "
+		String jpql = "SELECT new com.corso.dto.TrenoCompletoDTO(t.id_treno, t.sigla, t.id_utente, t.fabbrica, AVG(val.voto), SUM(vag.peso), SUM(vag.prezzo), SUM(vag.lunghezza), SUM(vag.biglietti) ) "
 				+ "FROM Treno t "
 				+ "LEFT JOIN t.valutazione val "
 				+ "LEFT JOIN t.vagoni vag "
@@ -70,54 +59,48 @@ public class TrenoDaoImpl implements TrenoDao{
 		
 		Query q = manager.createQuery(jpql);
 		
-		List<TrenoCompleto> l = q.getResultList();
+		List<TrenoCompletoDTO> l = q.getResultList();
 		
 		return l;
 	}
 
 	@Override
-	public List<TrenoCompleto> filtraTrenoCompleto(FiltroVO filtroVO, Utente utente) {
-	    StringBuilder jpql = new StringBuilder("SELECT new com.corso.dto.TrenoCompleto(t.id_treno, t.sigla, t.id_utente, t.fabbrica, AVG(val.voto), SUM(vag.peso), SUM(vag.prezzo), SUM(vag.lunghezza), SUM(vag.biglietti) ) "
+	public List<TrenoCompletoDTO> filtraTrenoCompleto(FiltroDTO filtroDTO, Utente utente) {
+	    StringBuilder jpql = new StringBuilder("SELECT new com.corso.dto.TrenoCompletoDTO(t.id_treno, t.sigla, t.id_utente, t.fabbrica, AVG(val.voto), SUM(vag.peso), SUM(vag.prezzo), SUM(vag.lunghezza), SUM(vag.biglietti) ) "
 	            + "FROM Treno t "
 	            + "LEFT JOIN t.valutazione val "
 	            + "LEFT JOIN t.vagoni vag "
 	            + "GROUP BY t.id_treno "
 	            + "HAVING 1 = 1"); // start with a true condition
 
-	    if (filtroVO.getPrezzoMin() != null) {
+	    if (filtroDTO.getPrezzoMin() != null) {
 	        jpql.append(" AND SUM(vag.prezzo) >= :prezzoMin");
 	    }
-	    if (filtroVO.getPrezzoMax() != null) {
+	    if (filtroDTO.getPrezzoMax() != null) {
 	        jpql.append(" AND SUM(vag.prezzo) <= :prezzoMax");
 	    }
-	    if (filtroVO.getLunghezzaMin() != null) {
+	    if (filtroDTO.getLunghezzaMin() != null) {
 	        jpql.append(" AND SUM(vag.lunghezza) >= :lunghezzaMin");
 	    }
-	    if (filtroVO.getLunghezzaMax() != null) {
+	    if (filtroDTO.getLunghezzaMax() != null) {
 	        jpql.append(" AND SUM(vag.lunghezza) <= :lunghezzaMax");
 	    }
-	    if (filtroVO.getPesoMin() != null) {
+	    if (filtroDTO.getPesoMin() != null) {
 	        jpql.append(" AND SUM(vag.peso) >= :pesoMin");
 	    }
-	    if (filtroVO.getPesoMax() != null) {
+	    if (filtroDTO.getPesoMax() != null) {
 	        jpql.append(" AND SUM(vag.peso) <= :pesoMax");
 	    }
-	    if(filtroVO.getSigla() != null) {
+	    if(filtroDTO.getSigla() != null) {
 	    	jpql.append(" AND t.sigla LIKE :sigla");
 	    }
 	    if(utente != null) {
 	    	jpql.append(" AND t.id_utente = :utente");
 	    }
-
-	    /*
-	     * Double prezzoMin, Double prezzoMax, Double lunghezzaMin, 
-			Double lunghezzaMax, Double pesoMin, Double pesoMax, String sigla, Utente utente,
-			String sortField, String sortOrder
-	     * */
 	    
-	    if (filtroVO.getSortField() != null && filtroVO.getSortOrder() != null) {
+	    if (filtroDTO.getSortField() != null && filtroDTO.getSortOrder() != null) {
 	        jpql.append(" ORDER BY ");
-	        switch (filtroVO.getSortField()) {
+	        switch (filtroDTO.getSortField()) {
 	            case "lunghezza":
 	                jpql.append("SUM(vag.lunghezza)");
 	                break;
@@ -131,38 +114,38 @@ public class TrenoDaoImpl implements TrenoDao{
 	                jpql.append("t.id_treno"); // Ordinamento predefinito
 	                break;
 	        }
-	        jpql.append(" " + filtroVO.getSortOrder());
+	        jpql.append(" " + filtroDTO.getSortOrder());
 	    }
 	    
 	    
 	    Query q = manager.createQuery(jpql.toString());
 
-	    if (filtroVO.getPrezzoMin() != null) {
-	        q.setParameter("prezzoMin", filtroVO.getPrezzoMin());
+	    if (filtroDTO.getPrezzoMin() != null) {
+	        q.setParameter("prezzoMin", filtroDTO.getPrezzoMin());
 	    }
-	    if (filtroVO.getPrezzoMax() != null) {
-	        q.setParameter("prezzoMax", filtroVO.getPrezzoMax());
+	    if (filtroDTO.getPrezzoMax() != null) {
+	        q.setParameter("prezzoMax", filtroDTO.getPrezzoMax());
 	    }
-	    if (filtroVO.getLunghezzaMin() != null) {
-	        q.setParameter("lunghezzaMin", filtroVO.getLunghezzaMin());
+	    if (filtroDTO.getLunghezzaMin() != null) {
+	        q.setParameter("lunghezzaMin", filtroDTO.getLunghezzaMin());
 	    }
-	    if (filtroVO.getLunghezzaMax() != null) {
-	        q.setParameter("lunghezzaMax", filtroVO.getLunghezzaMax());
+	    if (filtroDTO.getLunghezzaMax() != null) {
+	        q.setParameter("lunghezzaMax", filtroDTO.getLunghezzaMax());
 	    }
-	    if (filtroVO.getPesoMin() != null) {
-	        q.setParameter("pesoMin", filtroVO.getPesoMin());
+	    if (filtroDTO.getPesoMin() != null) {
+	        q.setParameter("pesoMin", filtroDTO.getPesoMin());
 	    }
-	    if (filtroVO.getPesoMax() != null) {
-	        q.setParameter("pesoMax", filtroVO.getPesoMax());
+	    if (filtroDTO.getPesoMax() != null) {
+	        q.setParameter("pesoMax", filtroDTO.getPesoMax());
 	    }
-	    if(filtroVO.getSigla() != null) {
-	    	q.setParameter("sigla", "%" + filtroVO.getSigla() + "%");
+	    if(filtroDTO.getSigla() != null) {
+	    	q.setParameter("sigla", "%" + filtroDTO.getSigla() + "%");
 	    }
 	    if(utente != null) {
 	    	q.setParameter("utente", utente);
 	    }
 	    
-	    List<TrenoCompleto> l = q.getResultList();
+	    List<TrenoCompletoDTO> l = q.getResultList();
 
 	    return l;
 	}
@@ -176,23 +159,6 @@ public class TrenoDaoImpl implements TrenoDao{
 		return l;
 	}
 	
-	
-	public List<Object[]> filterByPeso(/**TrenoFilter filter**/){
-		
-		String jpql = "SELECT t.id_treno, SUM(v.peso) AS pesoTotale "
-				+ "FROM Treno t "
-				+ "JOIN t.vagoni v "
-				+ "GROUP BY t.id_treno " ;
-				//+ "HAVING SUM(v.peso) >= 300";
-		
-		Query q = manager.createQuery(jpql);
-		
-		List<Object[]> l = q.getResultList();
-		
-
-		return l;
-	}
-	
 	@Override
 	public List<Utente> findByName(String nome) {
 		// TODO Auto-generated method stub
@@ -200,8 +166,8 @@ public class TrenoDaoImpl implements TrenoDao{
 	}
 
 	@Override
-	public List<TrenoCompleto> findByIdUtente(int utenteId) {
-		String jpql = "SELECT new com.corso.dto.TrenoCompleto(t.id_treno, t.sigla, t.id_utente, t.fabbrica, AVG(val.voto), SUM(vag.peso), SUM(vag.prezzo), SUM(vag.lunghezza), SUM(vag.biglietti)) "
+	public List<TrenoCompletoDTO> findByIdUtente(int utenteId) {
+		String jpql = "SELECT new com.corso.dto.TrenoCompletoDTO(t.id_treno, t.sigla, t.id_utente, t.fabbrica, AVG(val.voto), SUM(vag.peso), SUM(vag.prezzo), SUM(vag.lunghezza), SUM(vag.biglietti)) "
 	            + "FROM Treno t "
 	            + "LEFT JOIN t.valutazione val "
 	            + "LEFT JOIN t.vagoni vag "
@@ -237,8 +203,8 @@ public class TrenoDaoImpl implements TrenoDao{
 	}
 	
 	@Override
-    public TrenoCompleto findTrenoCompletoById(int idTreno) {
-        String hql = "SELECT new com.corso.dto.TrenoCompleto(t.id_treno, t.sigla, t.id_utente, t.fabbrica, AVG(val.voto), SUM(vag.peso), SUM(vag.prezzo), SUM(vag.lunghezza), SUM(vag.biglietti)) " 
+    public TrenoCompletoDTO findTrenoCompletoById(int idTreno) {
+        String hql = "SELECT new com.corso.dto.TrenoCompletoDTO(t.id_treno, t.sigla, t.id_utente, t.fabbrica, AVG(val.voto), SUM(vag.peso), SUM(vag.prezzo), SUM(vag.lunghezza), SUM(vag.biglietti)) " 
                     + "FROM Treno t " 
                     + "LEFT JOIN t.valutazione val "
      	            + "LEFT JOIN t.vagoni vag "
@@ -247,12 +213,12 @@ public class TrenoDaoImpl implements TrenoDao{
         Query query = manager.createQuery(hql);
         query.setParameter("idTreno", idTreno);
 
-        return (TrenoCompleto) query.getSingleResult();
+        return (TrenoCompletoDTO) query.getSingleResult();
     }
 	
 	@Override
-	public TrenoCompleto findTrenoCompletoBySigla(String sigla) {
-	    String jpql = "SELECT new com.corso.dto.TrenoCompleto(t.id_treno, t.sigla, t.id_utente, t.fabbrica, AVG(val.voto), SUM(vag.peso), SUM(vag.prezzo), SUM(vag.lunghezza), SUM(vag.biglietti)) "
+	public TrenoCompletoDTO findTrenoCompletoBySigla(String sigla) {
+	    String jpql = "SELECT new com.corso.dto.TrenoCompletoDTO(t.id_treno, t.sigla, t.id_utente, t.fabbrica, AVG(val.voto), SUM(vag.peso), SUM(vag.prezzo), SUM(vag.lunghezza), SUM(vag.biglietti)) "
 	                + "FROM Treno t "
 	                + "LEFT JOIN t.valutazione val "
 	                + "LEFT JOIN t.vagoni vag "
@@ -261,7 +227,7 @@ public class TrenoDaoImpl implements TrenoDao{
 	    
 	    Query query = manager.createQuery(jpql);
 	    query.setParameter("sigla", sigla);
-	    List<TrenoCompleto> l = query.getResultList();
+	    List<TrenoCompletoDTO> l = query.getResultList();
 	    
 	    return l.get(0);
 	}

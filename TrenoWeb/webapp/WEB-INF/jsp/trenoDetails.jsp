@@ -114,7 +114,7 @@
     <p><strong>Lunghezza:</strong> ${trenoCompleto.lunghezza}</p> --%>
     <p><strong>Biglietti disponibili:</strong> ${trenoCompleto.biglietti}</p>
     <p><strong>Utente:</strong> ${trenoCompleto.id_utente.username}</p>
-
+	
     <form action="<c:url value='/acquista/${trenoCompleto.id_treno}' />" method="get" style="display:inline;">
         <button type="submit">Acquista Biglietti</button>
     </form>
@@ -123,18 +123,18 @@
         <p style="color:red;">${errorMessage}</p>
     </c:if>
     
-	  <div id="overlay2" class="overlay2">
+	<div id="overlay2" class="overlay2">
 	  
-	  <button class="close-button" onclick="closeOverlay()">X</button>
-	    <div class="overlay-content2" id="overlayMessage"></div>
-	  </div>
+	<button class="close-button" onclick="closeOverlay()">X</button>
+  		<div class="overlay-content2" id="overlayMessage"></div>
+	</div>
 	  
-	  <script type="text/javascript">
-	    <c:if test="${not empty buyMessage}">
-	      document.getElementById('overlayMessage').innerText = '${buyMessage}';
-	      document.getElementById('overlay2').style.visibility = 'visible';
+	<script type="text/javascript">
+		<c:if test="${not empty buyMessage}">
+	    document.getElementById('overlayMessage').innerText = '${buyMessage}';
+	    document.getElementById('overlay2').style.visibility = 'visible';
 	    </c:if>
-	  </script>
+	</script>
 
 	<button type="button" class="vota" onclick="openVoteForm('${trenoCompleto.id_treno}')">Vota</button>
 	
@@ -175,30 +175,23 @@
             trainImageContainer.appendChild(img);
         });
     }
-
     
-    
-	    function closeOverlay() {
-	        document.getElementById('overlay2').style.visibility = 'hidden';
-	    }
+    function closeOverlay() {
+        document.getElementById('overlay2').style.visibility = 'hidden';
+    }
 
+    function openVoteForm(trenoId) {
+    	document.getElementById('trenoId').value = trenoId;
+        document.getElementById('overlay').style.display = 'block';
+        document.getElementById('voteForm').style.display = 'block';
+    }
 
+    function closeVoteForm() {
+        document.getElementById('overlay').style.display = 'none';
+        document.getElementById('voteForm').style.display = 'none';
+    }
 
-
-
-
-        function openVoteForm(trenoId) {
-            document.getElementById('trenoId').value = trenoId;
-            document.getElementById('overlay').style.display = 'block';
-            document.getElementById('voteForm').style.display = 'block';
-        }
-
-        function closeVoteForm() {
-            document.getElementById('overlay').style.display = 'none';
-            document.getElementById('voteForm').style.display = 'none';
-        }
-
-        </script>
+    </script>
     
 </body>
 </html>

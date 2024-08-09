@@ -3,7 +3,7 @@ package com.corso.dto;
 import com.corso.model.Fabbrica;
 import com.corso.model.Utente;
 
-public class TrenoCompleto {
+public class TrenoCompletoDTO {
 
 	private int id_treno;
 	private Utente id_utente;
@@ -15,7 +15,7 @@ public class TrenoCompleto {
 	private Long biglietti;
 	private String sigla;
 	
-	public TrenoCompleto(int id_treno, String sigla, Utente id_utente, Fabbrica fabbrica, Double voto, Double peso, Double prezzo,
+	public TrenoCompletoDTO(int id_treno, String sigla, Utente id_utente, Fabbrica fabbrica, Double voto, Double peso, Double prezzo,
 			Double lunghezza, Long biglietti) {
 		this.id_treno = id_treno;
 		this.id_utente = id_utente;

@@ -7,7 +7,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import com.corso.dao.ValutazioneDao;
-import com.corso.dto.TrenoCompleto;
+import com.corso.dto.TrenoCompletoDTO;
 import com.corso.model.Treno;
 import com.corso.model.Utente;
 import com.corso.model.Valutazione;

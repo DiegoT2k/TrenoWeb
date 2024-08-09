@@ -8,8 +8,6 @@
 <meta charset="UTF-8">
 <title>Pagina treni</title>
 
-<!-- <link rel="stylesheet" type="text/css" href="webapp/WEB-INF/css/table.css">  -->
-
 <style>
 
     h1{
