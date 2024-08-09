@@ -219,7 +219,7 @@ public class UtenteController {
                 redirectAttributes.addFlashAttribute("errorMessage", "Treno non trovato.");
                 return "redirect:/profilo";
             }
-
+            System.out.println("provo a generare " + trenoEsistente.getSigla());
             trenoService.duplicateTreno(trenoEsistente.getSigla());
             redirectAttributes.addFlashAttribute("successMessage", "Treno duplicato con successo.");
         } catch (Exception e) {

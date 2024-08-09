@@ -208,6 +208,7 @@ public class TrenoServiceImpl implements TrenoService{
 
         // Crea un nuovo treno con le stesse proprietà
         Treno nuovoTreno = new Treno();
+
         nuovoTreno.setSigla(trenoCompleto.getSigla());
         nuovoTreno.setFabbrica(trenoCompleto.getFabbrica());
         nuovoTreno.setId_utente(trenoCompleto.getId_utente());
@@ -224,10 +225,10 @@ public class TrenoServiceImpl implements TrenoService{
         
         // Costruisci i vagoni per il nuovo treno
         List<Vagone> listaVagoni = null;
-
-        if (trenoCompleto.getFabbrica().equals("IT")) {
+   
+        if (trenoCompleto.getFabbrica().getFabbrica().equals("Italo")) {
             listaVagoni = trenoItaloBuilder.costruisciTreno(nuovoTreno.getSigla(), idNuovoTreno);
-        } else if (trenoCompleto.getFabbrica().equals("TN")) {
+        } else if (trenoCompleto.getFabbrica().getFabbrica().equals("Trenord")) {
             listaVagoni = trenoTrenordBuilder.costruisciTreno(nuovoTreno.getSigla(), idNuovoTreno);
         }
         

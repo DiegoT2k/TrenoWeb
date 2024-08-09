@@ -137,6 +137,7 @@
 	  </script>
 
 	<button type="button" class="vota" onclick="openVoteForm('${trenoCompleto.id_treno}')">Vota</button>
+	
 	<div class="train-image" id="trainImageContainer"></div>
 
 	<div class="bottoni">
@@ -159,26 +160,31 @@
 	</div>
 
     <script>
+    const sigla = "${trenoCompleto.sigla}";
+
+    const trainImageContainer = document.getElementById('trainImageContainer');
+    const imageBasePath = '<c:url value="resources/" />'; // Base path delle immagini
+    loadTrainImages(sigla);
+    
+    function loadTrainImages(sigla) {
+    	console.log(sigla);
+        sigla.split('').forEach(letter => {
+            const img = document.createElement('img');
+            img.src = imageBasePath + letter + ".png";
+            img.alt = letter;
+            trainImageContainer.appendChild(img);
+        });
+    }
+
+    
     
 	    function closeOverlay() {
 	        document.getElementById('overlay2').style.visibility = 'hidden';
 	    }
-    
-        const sigla = "${treno.sigla}";
-        console.log(sigla);
-        const trainImageContainer = document.getElementById('trainImageContainer');
-        const imageBasePath = '<c:url value="webapp/WEB-INF/img/" />'; // Base path delle immagini
 
-        function loadTrainImages(sigla) {
-            sigla.split('').forEach(letter => {
-                const img = document.createElement('img');
-                img.src = imageBasePath + letter + ".png";
-                img.alt = letter;
-                trainImageContainer.appendChild(img);
-            });
-        }
 
-        loadTrainImages(sigla);
+
+
 
 
         function openVoteForm(trenoId) {
