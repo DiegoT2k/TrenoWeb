@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Homepage</title>
+<link rel="stylesheet" type="text/css" href="<c:url value='/style/home.css' />" />
 </head>
 <body>
 

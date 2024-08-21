@@ -2,27 +2,27 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <!DOCTYPE html>
 <html>
+
 <head>
+
     <title>Profilo Utente</title>
-    <link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/style.css' />" />
+    <link rel="stylesheet" type="text/css" href="<c:url value='/style/profilo.css' />" />
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+	
 </head>
+
 <body>
 <jsp:include page="menu.jsp"></jsp:include> 
     <header>
     
-     
-    
-    	<!-- Bottone di ritorno alla home -->
         <a href="home"><i class="fa-solid fa-arrow-left-long"></i><i class="fa-solid fa-home"></i></a>
         
         <h1>Benvenuto, ${utente.username}</h1>
 
     </header>
-    
-    
+     
     <section>
-        <h2>Profilo Utente</h2>
+        <h3>Profilo Utente</h3>
         <p><strong>Nome:</strong> ${utente.nome}</p>
         <p><strong>Cognome:</strong> ${utente.cognome}</p>
         <p><strong>Email:</strong> ${utente.email}</p>
@@ -61,35 +61,37 @@
                             <tr>
                                 <td>${treno.id_treno}</td>
                                 <td>${treno.fabbrica}</td>
-                                <td>${treno.voto}</td>
+                                <td><span class="emoji">&#x2B50;</span> ${treno.voto}</td>
                                 <td>${treno.peso}</td>
                                 <td>${treno.prezzo}</td>
                                 <td>${treno.lunghezza}</td>
                                 <td>${treno.sigla}</td>
                                 <td>
-                                	<form action="<c:url value='/${treno.id_treno}' />" method="get">
-                            			<button type="submit">Visualizza</button>
-                        			</form>                                
-                                
-                                    <form action="<c:url value='/modificaTreno/${treno.id_treno}' />" method="get" style="display:inline;">
-                                        <button type="submit">Modifica Treno</button>
-                                    </form>
-                                    
-                                	<form action="<c:url value='/duplicaTreno' />" method="post" style="display:inline;">
-    									<input type="hidden" name="idTreno" value="${treno.id_treno}"/>
-    									<button type="submit" onclick="return confirm('Sei sicuro di voler duplicare questo treno?');">Duplica Treno</button>
-									</form>
-									
-									<form action="<c:url value='/invertiSigla' />" method="post" style="display:inline;">
-                                        <input type="hidden" name="idTreno" value="${treno.id_treno}"/>
-                                        <button type="submit">Inverti Sigla</button>
-                                    </form>
-                                    
-                                    <form action="<c:url value='/gestisciTreno' />" method="post" style="display:inline;">
-                                        <input type="hidden" name="idTreno" value="${treno.id_treno}"/>
-                                        <input type="hidden" name="azione" value="elimina"/>
-                                        <button type="submit" onclick="return confirm('Sei sicuro di voler eliminare questo treno?');">Elimina Treno</button>
-                                    </form>
+                                <div class="bottoni">
+	                                	<form action="<c:url value='/${treno.id_treno}' />" method="get">
+	                            			<button type="submit">Visualizza</button>
+	                        			</form>                                
+	                                
+	                                    <form action="<c:url value='/modificaTreno/${treno.id_treno}' />" method="get" style="display:inline;">
+	                                        <button type="submit">Modifica Treno</button>
+	                                    </form>
+	                                    
+	                                	<form action="<c:url value='/duplicaTreno' />" method="post" style="display:inline;">
+	    									<input type="hidden" name="idTreno" value="${treno.id_treno}"/>
+	    									<button type="submit" onclick="return confirm('Sei sicuro di voler duplicare questo treno?');">Duplica Treno</button>
+										</form>
+										
+										<form action="<c:url value='/invertiSigla' />" method="post" style="display:inline;">
+	                                        <input type="hidden" name="idTreno" value="${treno.id_treno}"/>
+	                                        <button type="submit">Inverti Sigla</button>
+	                                    </form>
+	                                    
+	                                    <form action="<c:url value='/gestisciTreno' />" method="post" style="display:inline;">
+	                                        <input type="hidden" name="idTreno" value="${treno.id_treno}"/>
+	                                        <input type="hidden" name="azione" value="elimina"/>
+	                                        <button type="submit" onclick="return confirm('Sei sicuro di voler eliminare questo treno?');">Elimina Treno</button>
+	                                    </form>
+                                    </div>
                                 </td>
                             </tr>
                         </c:forEach>
@@ -102,7 +104,7 @@
         </c:choose>
     </section>
     
-    <section>
+    <section class="crea">
         <form action="<c:url value='/modulo' />" method="get">
             <button type="submit">Crea Nuovo Treno</button>
         </form>

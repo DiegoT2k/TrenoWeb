@@ -1,86 +1,22 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Registrazione</title>
-<style>
-    .error {
-        color: red;
-    }
-<style>
-    body {
-        font-family: Arial, sans-serif;
-        background-color: #f4f4f9;
-        color: #333;
-        margin: 0;
-        padding: 0;
-    }
 
-    .container {
-        width: 60%;
-        margin: 0 auto;
-        padding: 20px;
-        background: #fff;
-        border-radius: 8px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        margin-top: 50px;
-    }
+	<meta charset="UTF-8">
+	<title>Registrazione</title>
+	<link rel="stylesheet" type="text/css" href="<c:url value='/style/registration.css' />" />
 
-    h1, h2 {
-        text-align: center;
-        color: #333;
-    }
-
-    .form-group {
-        margin-bottom: 20px;
-    }
-
-    .form-group label {
-        display: block;
-        margin-bottom: 5px;
-        font-weight: bold;
-    }
-
-    .form-group input[type="text"],
-    .form-group input[type="password"],
-    .form-group input[type="email"] {
-        width: 100%;
-        padding: 10px;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        font-size: 16px;
-    }
-
-    .form-group input[type="submit"] {
-        width: 100%;
-        padding: 10px;
-        border: none;
-        border-radius: 4px;
-        background-color: #4CAF50;
-        color: #fff;
-        font-size: 16px;
-        cursor: pointer;
-        transition: background-color 0.3s ease;
-    }
-
-    .form-group input[type="submit"]:hover {
-        background-color: #45a049;
-    }
-
-    .error {
-        color: red;
-        font-size: 14px;
-    }
-</style>
 </head>
+
 <body>
 
 <jsp:include page="menu.jsp"></jsp:include> 
 
 <div class="container">
-    <h1>Registration Form</h1> 
+    <h1>Registrazione</h1> 
     <form:form method="POST" 
         action="postRegistrazione"       
         modelAttribute="registrationVO"> 
