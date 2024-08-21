@@ -22,7 +22,7 @@
     <!-- Bottone per mostrare/nascondere i filtri -->
     <button id="toggle-filters">Filtro</button>
     
-	<div id="filters" class="mt-3" style="display: none;">
+	<div id="filters" style="display: none;">
     
     <form:form method="POST" 
         action="filtro"       
@@ -72,7 +72,7 @@
     	</div>
     	
  	    <div class="form-group">
-            <input type="submit" value="Cerca"/>
+            <input type="submit" class="bottoni" value="Cerca"/>
         </div>
         
     </form:form>

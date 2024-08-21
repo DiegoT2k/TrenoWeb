@@ -54,8 +54,19 @@ button:active {
 	gap: 10px;
 }
 
+.bottoni button {
+    flex-grow: 1; /* Permette ai bottoni di crescere uniformemente */
+    flex-basis: 0; /* Imposta una base di larghezza uguale per tutti i bottoni */
+    text-align: center; /* Centra il testo all'interno del bottone */
+    min-height: 50px;
+}
+
 .crea{
         display: flex; 
         justify-content: center; 
         margin-top: 20px;
+}
+
+.error{
+	color:red;
 }

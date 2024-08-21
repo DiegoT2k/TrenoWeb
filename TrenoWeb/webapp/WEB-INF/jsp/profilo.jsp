@@ -31,7 +31,7 @@
     <section>
         <h2>Treni Creati</h2>
         <c:if test="${not empty errorMessage}">
-        	<div>
+        	<div class="error">
             <c:out value="${errorMessage}" />
         	</div>
 	    </c:if>
