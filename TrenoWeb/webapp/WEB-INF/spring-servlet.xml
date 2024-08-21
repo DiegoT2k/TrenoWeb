@@ -24,6 +24,16 @@
 
      <mvc:resources mapping="/resources/**" 
                location="/WEB-INF/img/" 
-               cache-period="10000" /> 
+               cache-period="1000" /> 
+               
+      <mvc:resources mapping="/style/**" 
+               location="/WEB-INF/css/" 
+               cache-period="1"
+              /> 
+              
+      <mvc:resources mapping="/js/**" 
+               location="/WEB-INF/js/" 
+               cache-period="1"
+              /> 
       
 </beans>  

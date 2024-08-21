@@ -1,24 +1,28 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
+
 <head>
-<meta charset="UTF-8">
-<title>Modulo di creazione treni</title>
+	<meta charset="UTF-8">
+	<title>Modulo di creazione treni</title>
+	<link rel="stylesheet" type="text/css" href="<c:url value='/style/modulo.css' />" />
 </head>
+
 <body>
 
 <jsp:include page="menu.jsp"></jsp:include>	
 
-	<h1>Crea il tuo treno personalizzato:</h1>
+<div class="crea">
 
-	<h4>Sei ${username}</h4>
+	<h1>Crea il tuo treno personalizzato:</h1>
 	
 	<ul>
-	<li>H - Locomotiva</li>
- 	<li>P - Vagone Passeggeri</li>
-	<li>C - Vagone Cargo</li>
- 	<li>R - Vagone Ristorante</li>
+		<li>H - Locomotiva</li>
+	 	<li>P - Vagone Passeggeri</li>
+		<li>C - Vagone Cargo</li>
+	 	<li>R - Vagone Ristorante</li>
 	</ul>
 
 	
@@ -29,8 +33,8 @@
         <br><br>
         <label for="selectOption">Seleziona un'opzione:</label>
         <select id="fabbrica" name="fabbrica" required>
-            <option value="IT">IT</option>
-            <option value="TN">TN</option>
+            <option value="IT">Italo</option>
+            <option value="TN">Trenord</option>
         </select>
         <br><br>
         <input type="submit" value="Invia">
@@ -39,6 +43,6 @@
     <c:if test="${not empty errorMessage}">
         <p style="color:red;">${errorMessage}</p>
     </c:if>
-    
+    </div>
 </body>
 </html>

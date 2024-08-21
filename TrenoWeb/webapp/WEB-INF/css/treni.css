@@ -1,0 +1,32 @@
+@charset "UTF-8";
+
+h1{
+    text-align:center;
+    color: #689F38;
+}
+
+table{
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+td, th {
+    border: 1px solid black;
+    text-align: left;
+    padding: 8px;
+}
+
+tr:nth-child(even) {
+    background-color: #dddddd;
+}
+
+.emoji {
+    font-size: 1.2em; 
+    color: gold; 
+}
+
+.selected {
+    background-color: #4CAF50; 
+    color: white;
+}
