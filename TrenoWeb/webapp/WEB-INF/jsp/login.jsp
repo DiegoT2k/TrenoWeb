@@ -32,7 +32,7 @@
  			<input type="hidden" name="origin" value="${origin}">
 			<div class="form-group">
 				<form:label path="username">Username</form:label>
-				<form:input path="username" placeholder="Inserisci il tuo username" />
+				<form:input path="username" placeholder="Inserisci il tuo username" required="true" />
 				<form:errors path="username" class="error"/>
 				<h2 class="error">${error_username}</h2>
 			</div>
@@ -41,7 +41,7 @@
 
 				<form:label path="password">Password</form:label>
 				<form:password path="password"
-					placeholder="Inserisci la tua password" />
+					placeholder="Inserisci la tua password" required="true" minlength="8" maxlength="20"/>
 				<form:errors path="password" class="error" />
 				<h2 class="error">${error_password}</h2>
 			</div>
