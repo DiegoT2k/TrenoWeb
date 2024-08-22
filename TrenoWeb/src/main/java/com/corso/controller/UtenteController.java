@@ -98,15 +98,15 @@ public class UtenteController {
 		// Verifica se l'username Ã¯Â¿Â½ giÃ¯Â¿Â½ in uso
 	    if (!userService.isUsernameUnique(registrationVO.getUsername())) {
 
-	        bindingResult.rejectValue("username", "", "Username già in uso");
+	        bindingResult.rejectValue("username", "", "Username giï¿½in uso");
 
 
 	    }
 
-	    // Verifica se l'email è già in uso
+	    // Verifica se l'email ï¿½ giï¿½ in uso
 	    if (!userService.isEmailUnique(registrationVO.getEmail())) {
         
-	        bindingResult.rejectValue("email", "", "Email già in uso");
+	        bindingResult.rejectValue("email", "", "Email giï¿½in uso");
 
 
 	    }
