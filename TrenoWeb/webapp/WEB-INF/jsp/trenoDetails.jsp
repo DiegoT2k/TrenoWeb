@@ -71,7 +71,7 @@
     const imageMap = {
     			'H': 'locomotivaIt.png',
         		'P': 'passeggeriIt.png',
-        		'R': 'passeggeriIt.png',
+        		'R': 'passeggeriTn.png',
         		'C': 'cargoIT.png'
    		};
     
