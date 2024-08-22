@@ -44,14 +44,7 @@ public class TrenoController {
 	 
 	 @GetMapping("/modulo")
 	 public String crea(Model model, HttpSession session, RedirectAttributes redirectAttributes) {
-		 System.out.println("\nSono nella pagina modulo creazione\n");
-		 
-		// Controlla se l'utente è loggato
-	    if (session.getAttribute("utente") == null) {
-	        redirectAttributes.addFlashAttribute("errorMessage", "Devi effettuare il login prima di creare un treno.");
-	        return "redirect:/login";
-	    }
-		    
+		 System.out.println("\nSono nella pagina modulo creazione\n");		    
 		 model.addAttribute("id_utente", session.getAttribute("utente"));
 		 
 		 return "modulo";
@@ -60,8 +53,15 @@ public class TrenoController {
 	 @PostMapping("/crea")
 	 public String creazioneTreno(@RequestParam String sigla, 
 			 					@RequestParam String fabbrica, 
-			 					@RequestParam int id_utente,
+			 					@RequestParam(required = false) Integer id_utente,
+			 					HttpSession session,
 			 					RedirectAttributes redirectAttributes) {
+		 
+		// Controlla se l'utente è loggato
+	    if (session.getAttribute("utente") == null) {
+	        redirectAttributes.addFlashAttribute("errorMessage", "Devi effettuare il login prima di creare un treno.");
+	        return "redirect:/login";
+	    }	
 		 
 		 try {
 			trenoService.creaTreno(sigla, fabbrica, id_utente);
