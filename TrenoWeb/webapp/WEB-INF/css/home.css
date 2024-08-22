@@ -1,5 +1,14 @@
 @charset "UTF-8";
 
-h1{
-	color:#689F38;
+h1 {
+    color: #33691E;
+    text-align: center; /* Centra il testo nella pagina */
+    font-family: 'Arial', sans-serif; /* Cambia il font a piacere */
+    font-size: 48px; /* Aumenta la dimensione del font */
+    text-shadow: 1px 1px 2px rgb(119, 167, 48); /* Aggiunge un'ombra al testo */
+    background: linear-gradient(to right, rgb(101, 152, 54), #33691E); /* Aggiunge una sfumatura al colore del testo */
+    -webkit-background-clip: text; 
+    -webkit-text-fill-color: transparent; 
 }
+
+

@@ -109,7 +109,7 @@ button:active {
 
 .train-image {
     display: flex;
-    flex-wrap: nowrap; /* Impedisce la rottura della riga */
+    flex-wrap: nowrap; 
     overflow-x: auto;
     justify-content: start; 
     padding-left: 50px;
@@ -122,30 +122,28 @@ button:active {
 
 .train-image img {
     height: auto;
-    flex: 0 0 auto; /* Impedisce alle immagini di ridimensionarsi automaticamente per riempire lo spazio */
-    max-height: 100px; /* Imposta un'altezza massima per l'immagine */
+    flex: 0 0 auto;
+    max-height: 100px; 
 
     scroll-snap-align: start; 
 }
 
 .train-image img:first-child {
-    margin-left: 50px; /* Aggiungi margine a sinistra per la prima immagine */
+    margin-left: 50px; 
 }
 
 .train-image img:last-child {
-    margin-right: 50px; /* Aggiungi margine a destra per l'ultima immagine */
+    margin-right: 50px; 
 }
 
-
-/* Immagini responsive in base alle dimensioni dello schermo */
 @media (max-width: 500px) {
     .train-image img {
-        max-height: 80px; /* Altezza inferiore per schermi più piccoli */
+        max-height: 80px; 
     }
 }
 
 @media (max-width: 300px) {
     .train-image img {
-        max-height: 50px; /* Altezza ancora più bassa per dispositivi mobili */
+        max-height: 50px; 
     }
 }

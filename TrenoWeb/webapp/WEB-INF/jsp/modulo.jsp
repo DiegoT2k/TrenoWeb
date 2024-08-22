@@ -17,7 +17,7 @@
 
 <div class="crea">
 
-	<h1>Crea il tuo treno personalizzato:</h1>
+	<h1>Crea il tuo treno personalizzato</h1>
 	
 	<button id="infoButton">Info Treno</button>
 	
@@ -27,7 +27,7 @@
             <h2>Istruzioni per creare il treno:</h2>
             <p>Inserisci una stringa che rappresenta la configurazione del treno. Ogni lettera rappresenta un tipo di vagone:</p>
             
-            <strong>H</strong> - Locomotiva (obbligatoria, deve essere presente almeno una)<br>
+            <strong>H</strong> - Locomotiva<br>
             <strong>P</strong> - Vagone Passeggeri<br>
             <strong>C</strong> - Vagone Cargo<br>
             <strong>R</strong> - Vagone Ristorante
