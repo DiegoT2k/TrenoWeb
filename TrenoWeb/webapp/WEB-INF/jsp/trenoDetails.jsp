@@ -15,6 +15,7 @@
 	<jsp:include page="menu.jsp"></jsp:include>  
  
     <h1>Dettagli Treno</h1>
+	<div class="train-image" id="trainImageContainer"></div>
     <p><strong>ID Treno:</strong> ${trenoCompleto.id_treno}</p>
     <p><strong>Sigla:</strong> ${trenoCompleto.sigla}</p>
     <p><strong>Fabbrica:</strong> ${trenoCompleto.fabbrica.sigla}</p>
@@ -44,8 +45,7 @@
 	</script>
 
 	<button type="button" class="vota" onclick="openVoteForm('${trenoCompleto.id_treno}')">Vota</button>
-	
-	<div class="train-image" id="trainImageContainer"></div>
+
 
 	<div class="bottoni">
 	    <a href="<c:url value='/treni' />">Tutti i treni</a><br>
@@ -67,22 +67,46 @@
 	</div>
     
     <script>
+
+    const imageMap = {
+    			'H': 'locomotivaIt.png',
+        		'P': 'passeggeriIt.png',
+        		'R': 'passeggeriIt.png',
+        		'C': 'cargoIT.png'
+   		};
+    
     const sigla = "${trenoCompleto.sigla}";
 
     const trainImageContainer = document.getElementById('trainImageContainer');
     const imageBasePath = '<c:url value="resources/" />'; // Base path delle immagini
-    loadTrainImages(sigla);
 
+    loadTrainImages(sigla);
+    
     function loadTrainImages(sigla) {
     	console.log(sigla);
+    	let locomotiveCount = 0;
+    	
         sigla.split('').forEach(letter => {
             const img = document.createElement('img');
-            img.src = imageBasePath + letter + ".png";
+         
+            if (letter === 'H') {
+            	locomotiveCount++;
+            	
+            	if(locomotiveCount === 2) {
+            		img.src = imageBasePath + 'locomotivaIt-Inverti.png';
+            	}  else {
+                	img.src = imageBasePath + imageMap['H'];
+                }
+            }  else {
+            	img.src = imageBasePath + imageMap[letter];
+         }
+
             img.alt = letter;
+            
             trainImageContainer.appendChild(img);
         });
     }
-
+    
     function closeOverlay() {
         document.getElementById('overlay2').style.visibility = 'hidden';
     }
