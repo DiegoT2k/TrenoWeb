@@ -41,7 +41,7 @@
 			</c:when>
 			<c:otherwise>
 				<a href="<c:url value='/profilo' />" class="profilo">
-				<i class="fa-solid fa-user"></i> Ciao, ${username}</a>
+				Profilo <i class="fa-solid fa-user"></i> Ciao, ${username}</a>
 				
 				<a href="<c:url value='logout' />" class="logout">
 				<i class="fa-solid fa-right-from-bracket"></i> Logout</a>

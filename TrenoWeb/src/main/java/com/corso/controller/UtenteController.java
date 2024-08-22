@@ -94,7 +94,7 @@ public class UtenteController {
 			 return "registration";
 		}
 		 
-		// Verifica se l'username ï¿½ giï¿½ in uso
+		// Verifica se l'username � gi� in uso
 	    if (!userService.isUsernameUnique(registrationVO.getUsername())) {
 	        bindingResult.rejectValue("username", "", "Username gi�in uso");
 	    }
