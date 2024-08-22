@@ -1,9 +1,6 @@
 package com.corso.config;
 
 import javax.sql.DataSource;
-
-import org.springframework.beans.factory.BeanFactory;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -14,7 +11,6 @@ import org.springframework.orm.jpa.vendor.Database;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
-
 import com.corso.dao.FabbricaDao;
 import com.corso.dao.TipologiaDao;
 import com.corso.dao.TrenoDao;
@@ -25,7 +21,6 @@ import com.corso.dao.impl.UtenteDaoImpl;
 import com.corso.dao.impl.VagoneDaoImpl;
 import com.corso.dao.impl.ValutazioneDaoImpl;
 import com.corso.model.Treno;
-import com.corso.model.abs_vagone.Vagone;
 import com.corso.model.builder.TrenoBuilder;
 import com.corso.model.builder.impl.TrenoItaloBuilder;
 import com.corso.model.builder.impl.TrenoTrenordBuilder;
@@ -175,9 +170,9 @@ public class Beans {
 	@Bean(name="locomotivaItalo")
 	public LocomotivaItalo getLocomotivaItalo() {	
 		LocomotivaItalo locomotivaItalo = new LocomotivaItalo();
-	    locomotivaItalo.setLunghezza(100);
-	    locomotivaItalo.setPeso(100);
-	    locomotivaItalo.setPrezzo(100);
+	    locomotivaItalo.setLunghezza(20);
+	    locomotivaItalo.setPeso(10);
+	    locomotivaItalo.setPrezzo(2356);
 	    locomotivaItalo.setBiglietti(0);
 	    locomotivaItalo.setTipo(getVagoneDao().findTipo("Locomotiva"));
 		return locomotivaItalo;
@@ -185,15 +180,21 @@ public class Beans {
 	
 	@Bean(name="locomotivaTrenord")
 	public LocomotivaTrenord getLocomotivaTrenord() {	
-		return new LocomotivaTrenord();
+		LocomotivaTrenord locomotivaTrenord = new LocomotivaTrenord();
+		locomotivaTrenord.setLunghezza(12);
+		locomotivaTrenord.setPeso(10);
+		locomotivaTrenord.setPrezzo(5110);
+		locomotivaTrenord.setBiglietti(0);
+		locomotivaTrenord.setTipo(getVagoneDao().findTipo("Locomotiva"));
+		return locomotivaTrenord;
 	}
 	
 	@Bean(name="passeggeriItalo")
 	public PasseggeriItalo getPasseggeriItalo() {
 		PasseggeriItalo passeggeriItalo = new PasseggeriItalo();
-		passeggeriItalo.setLunghezza(100);
-		passeggeriItalo.setPeso(100);
-		passeggeriItalo.setPrezzo(100);
+		passeggeriItalo.setLunghezza(23);
+		passeggeriItalo.setPeso(8);
+		passeggeriItalo.setPrezzo(1112);
 		passeggeriItalo.setBiglietti(200);
 		passeggeriItalo.setTipo(getVagoneDao().findTipo("Passeggeri"));
 		return passeggeriItalo;
@@ -201,15 +202,21 @@ public class Beans {
 	
 	@Bean(name="passeggeriTrenord")
 	public PasseggeriTrenord getPasseggeriTrenord() {
-		return new PasseggeriTrenord();
+		PasseggeriTrenord passeggeriTrenord = new PasseggeriTrenord();
+		passeggeriTrenord.setLunghezza(28);
+		passeggeriTrenord.setPeso(9);
+		passeggeriTrenord.setPrezzo(6621);
+		passeggeriTrenord.setBiglietti(241);
+		passeggeriTrenord.setTipo(getVagoneDao().findTipo("Passeggeri"));
+		return passeggeriTrenord;
 	}
 	
 	@Bean(name="cargoItalo")
 	public CargoItalo getCargoItalo() {
 		CargoItalo cargoItalo = new CargoItalo();
-		cargoItalo.setLunghezza(100);
-	    cargoItalo.setPeso(100);
-	    cargoItalo.setPrezzo(100);
+		cargoItalo.setLunghezza(25);
+	    cargoItalo.setPeso(15);
+	    cargoItalo.setPrezzo(1030);
 	    cargoItalo.setBiglietti(0);
 	    cargoItalo.setTipo(getVagoneDao().findTipo("Cargo"));
 		return cargoItalo; 
@@ -217,22 +224,34 @@ public class Beans {
 	
 	@Bean(name="cargoTrenord")
 	public CargoTrenord getCargoTrenord() {
-		return new CargoTrenord();
+		CargoTrenord cargoTrenord = new CargoTrenord();
+		cargoTrenord.setLunghezza(21);
+		cargoTrenord.setPeso(16);
+		cargoTrenord.setPrezzo(8311);
+		cargoTrenord.setBiglietti(0);
+		cargoTrenord.setTipo(getVagoneDao().findTipo("Cargo"));
+		return cargoTrenord;
 	}
 	
 	@Bean(name="ristoranteItalo")
 	public RistoranteItalo getRistoranteItalo() {
 		RistoranteItalo ristoranteItalo = new RistoranteItalo();
-		ristoranteItalo.setLunghezza(100);
-		ristoranteItalo.setPeso(100);
-	    ristoranteItalo.setPrezzo(100);
-	    ristoranteItalo.setBiglietti(100);
+		ristoranteItalo.setLunghezza(19);
+		ristoranteItalo.setPeso(11);
+	    ristoranteItalo.setPrezzo(1050);
+	    ristoranteItalo.setBiglietti(15);
 	    ristoranteItalo.setTipo(getVagoneDao().findTipo("Ristorante"));
 		return ristoranteItalo; 
 	}
 
 	@Bean(name="ristoranteTrenord")
 	public RistoranteTrenord getRistoranteTrenord() {
+		RistoranteTrenord ristoranteTrenord = new RistoranteTrenord();
+		ristoranteTrenord.setLunghezza(54);
+		ristoranteTrenord.setPeso(12);
+		ristoranteTrenord.setPrezzo(1410);
+		ristoranteTrenord.setBiglietti(12);
+		ristoranteTrenord.setTipo(getVagoneDao().findTipo("Ristorante"));
 		return new RistoranteTrenord();
 	}
 
