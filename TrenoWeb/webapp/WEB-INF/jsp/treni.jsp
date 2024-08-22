@@ -17,7 +17,7 @@
 
 <jsp:include page="menu.jsp"></jsp:include>    
 
-<h1>Tabella dei treni:</h1>
+<h1>Tabella dei treni</h1>
 
     <!-- Bottone per mostrare/nascondere i filtri -->
     <button id="toggle-filters">Filtro</button>

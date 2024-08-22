@@ -47,11 +47,11 @@
 	<button type="button" class="vota" onclick="openVoteForm('${trenoCompleto.id_treno}')">Vota</button>
 
 
-	<div class="bottoni">
+<%-- 	<div class="bottoni">
 	    <a href="<c:url value='/treni' />">Tutti i treni</a><br>
 	    <a href="<c:url value='/profilo' />">I tuoi treni</a><br>
 	    <a href="<c:url value='/modificaTreno/${trenoCompleto.id_treno}' />">Modifica Treno</a>
-    </div>
+    </div> --%>
     <div id="overlay" onclick="closeVoteForm()"></div>
 
 	<!-- Modulo di valutazione popup -->
