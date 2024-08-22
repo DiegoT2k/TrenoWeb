@@ -20,6 +20,10 @@
 <div class="container">
 
 	<h1>Login</h1>
+	
+	<c:if test="${not empty errorMessage}">
+    	<p style="color:red;">${errorMessage}</p>
+	</c:if>
 
 	<form:form method="POST" 
 	        action="postLogin"       

@@ -43,8 +43,15 @@ public class TrenoController {
 	 }
 	 
 	 @GetMapping("/modulo")
-	 public String crea(Model model, HttpSession session) {
+	 public String crea(Model model, HttpSession session, RedirectAttributes redirectAttributes) {
 		 System.out.println("\nSono nella pagina modulo creazione\n");
+		 
+		// Controlla se l'utente è loggato
+	    if (session.getAttribute("utente") == null) {
+	        redirectAttributes.addFlashAttribute("errorMessage", "Devi effettuare il login prima di creare un treno.");
+	        return "redirect:/login";
+	    }
+		    
 		 model.addAttribute("id_utente", session.getAttribute("utente"));
 		 
 		 return "modulo";
