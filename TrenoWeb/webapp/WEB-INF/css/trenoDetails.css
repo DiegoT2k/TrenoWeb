@@ -102,3 +102,50 @@ button:active {
   font-size: 16px;
   margin-top: 10px; 
 }
+
+.inverted {
+    transform: scaleX(-1);
+}
+
+.train-image {
+    display: flex;
+    flex-wrap: nowrap; /* Impedisce la rottura della riga */
+    overflow-x: auto;
+    justify-content: start; 
+    padding-left: 50px;
+    padding-right: 50px; 
+    scroll-padding-left: 50px; 
+    scroll-padding-right: 50px;
+    
+    scroll-snap-type: x mandatory;
+}
+
+.train-image img {
+    height: auto;
+    flex: 0 0 auto; /* Impedisce alle immagini di ridimensionarsi automaticamente per riempire lo spazio */
+    max-height: 100px; /* Imposta un'altezza massima per l'immagine */
+
+    scroll-snap-align: start; 
+}
+
+.train-image img:first-child {
+    margin-left: 50px; /* Aggiungi margine a sinistra per la prima immagine */
+}
+
+.train-image img:last-child {
+    margin-right: 50px; /* Aggiungi margine a destra per l'ultima immagine */
+}
+
+
+/* Immagini responsive in base alle dimensioni dello schermo */
+@media (max-width: 500px) {
+    .train-image img {
+        max-height: 80px; /* Altezza inferiore per schermi più piccoli */
+    }
+}
+
+@media (max-width: 300px) {
+    .train-image img {
+        max-height: 50px; /* Altezza ancora più bassa per dispositivi mobili */
+    }
+}
