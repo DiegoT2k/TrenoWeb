@@ -14,15 +14,13 @@
 <body>
 <jsp:include page="menu.jsp"></jsp:include> 
     <header>
-    
-        <a href="home"><i class="fa-solid fa-arrow-left-long"></i><i class="fa-solid fa-home"></i></a>
         
         <h1>Benvenuto, ${utente.username}</h1>
 
     </header>
      
     <section>
-        <h3>Profilo Utente</h3>
+        <h3>Scheda Utente</h3>
         <p><strong>Nome:</strong> ${utente.nome}</p>
         <p><strong>Cognome:</strong> ${utente.cognome}</p>
         <p><strong>Email:</strong> ${utente.email}</p>

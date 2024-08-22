@@ -6,6 +6,7 @@
 
     <meta charset="UTF-8">
     <title>Modifica Treno</title>
+    <link rel="stylesheet" type="text/css" href="<c:url value='/style/modulo.css' />" />
     
 </head>
 
@@ -27,10 +28,6 @@
             <button type="submit">Aggiorna Treno</button>
         </div>
     </form>
-
-    <div>
-        <a href="<c:url value='/profilo' />">Torna al Profilo</a>
-    </div>
     
     <c:if test="${not empty errorMessage}">
         <p style="color:red;">${errorMessage}</p>
