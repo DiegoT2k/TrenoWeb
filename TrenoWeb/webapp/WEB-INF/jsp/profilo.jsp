@@ -60,9 +60,9 @@
                                 <td>${treno.id_treno}</td>
                                 <td>${treno.fabbrica}</td>
                                 <td><span class="emoji">&#x2B50;</span> ${treno.voto}</td>
-                                <td>${treno.peso}</td>
-                                <td>${treno.prezzo}</td>
-                                <td>${treno.lunghezza}</td>
+                                <td>${treno.peso} ton</td>
+                                <td>${treno.prezzo} €</td>
+                                <td>${treno.lunghezza} m</td>
                                 <td>${treno.sigla}</td>
                                 <td>
                                 <div class="bottoni">

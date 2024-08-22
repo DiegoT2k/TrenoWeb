@@ -51,7 +51,7 @@ public class TrenoServiceImpl implements TrenoService{
 		List<Vagone> lista = null;
 		
 		if(fabbrica.equals("IT")) {
-			lista = trenoItaloBuilder.costruisciTreno(sigla, id_treno);
+			lista = trenoItaloBuilder.costruisciTreno(sigla);
 			
 			for(Vagone v : lista) {
 			    v.setId_treno(vagoneDao.find(id_treno));
@@ -59,7 +59,13 @@ public class TrenoServiceImpl implements TrenoService{
 			}
 			
 		}else if(fabbrica.equals("TN")) {
-			lista = trenoTrenordBuilder.costruisciTreno(sigla, id_treno);
+			lista = trenoTrenordBuilder.costruisciTreno(sigla);
+			
+			for(Vagone v : lista) {
+			    v.setId_treno(vagoneDao.find(id_treno));
+			    v.setFabbrica(vagoneDao.find("TN"));	
+			}
+			
 		}
 		
 		for(Vagone v : lista) {
@@ -159,12 +165,25 @@ public class TrenoServiceImpl implements TrenoService{
 	    int id_treno = treno.getId_treno();
 	    
 	    // Costruisci una nuova lista di vagoni
-	    List<Vagone> lista = null;
-	    if (fabbrica.equals("IT")) {
-	        lista = trenoItaloBuilder.costruisciTreno(sigla, id_treno);
-	    } else if (fabbrica.equals("TN")) {
-	        lista = trenoTrenordBuilder.costruisciTreno(sigla, id_treno);
-	    }
+		List<Vagone> lista = null;
+		
+		if(fabbrica.equals("IT")) {
+			lista = trenoItaloBuilder.costruisciTreno(sigla);
+			
+			for(Vagone v : lista) {
+			    v.setId_treno(vagoneDao.find(id_treno));
+			    v.setFabbrica(vagoneDao.find("IT"));	
+			}
+			
+		}else if(fabbrica.equals("TN")) {
+			lista = trenoTrenordBuilder.costruisciTreno(sigla);
+			
+			for(Vagone v : lista) {
+			    v.setId_treno(vagoneDao.find(id_treno));
+			    v.setFabbrica(vagoneDao.find("TN"));	
+			}
+			
+		}
 	    
 	    // Aggiungi i nuovi vagoni
 	    for (Vagone v : lista) {
@@ -206,9 +225,9 @@ public class TrenoServiceImpl implements TrenoService{
         List<Vagone> listaVagoni = null;
    
         if (trenoCompleto.getFabbrica().getFabbrica().equals("Italo")) {
-            listaVagoni = trenoItaloBuilder.costruisciTreno(nuovoTreno.getSigla(), idNuovoTreno);
+            listaVagoni = trenoItaloBuilder.costruisciTreno(nuovoTreno.getSigla());
         } else if (trenoCompleto.getFabbrica().getFabbrica().equals("Trenord")) {
-            listaVagoni = trenoTrenordBuilder.costruisciTreno(nuovoTreno.getSigla(), idNuovoTreno);
+            listaVagoni = trenoTrenordBuilder.costruisciTreno(nuovoTreno.getSigla());
         }
         
         System.out.println("Numero di vagoni da salvare: " + listaVagoni.size());

@@ -107,9 +107,9 @@
                 </td>
                 <td>${item.sigla}</td>
                 <td>${item.fabbrica}</td>
-                <td>${item.peso}</td>
-                <td>${item.lunghezza}</td>
-                <td>${item.prezzo}</td>
+                <td>${item.peso} ton</td>
+                <td>${item.lunghezza} m</td>
+                <td>${item.prezzo} €</td>
                 <td><span class="emoji">&#x2B50;</span> ${item.voto}</td>
             </tr>
         </c:forEach>
