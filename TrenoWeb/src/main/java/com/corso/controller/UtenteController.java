@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.corso.dto.TrenoCompleto;
+import com.corso.dto.TrenoCompletoDTO;
 import com.corso.exception.TrenoException;
 import com.corso.model.Treno;
 import com.corso.model.Utente;
@@ -24,7 +24,6 @@ import com.corso.service.UserService;
 import com.corso.vo.LoginVO;
 import com.corso.vo.RegistrationVO;
 import com.corso.vo.TrenoVO;
-
 
 @Controller
 public class UtenteController {
@@ -97,18 +96,12 @@ public class UtenteController {
 		 
 		// Verifica se l'username ï¿½ giï¿½ in uso
 	    if (!userService.isUsernameUnique(registrationVO.getUsername())) {
-
 	        bindingResult.rejectValue("username", "", "Username gi�in uso");
-
-
 	    }
 
 	    // Verifica se l'email � gi� in uso
 	    if (!userService.isEmailUnique(registrationVO.getEmail())) {
-        
 	        bindingResult.rejectValue("email", "", "Email gi�in uso");
-
-
 	    }
 
 	    // Se ci sono errori, ritorna alla pagina di registrazione
@@ -127,6 +120,7 @@ public class UtenteController {
 
 	 @GetMapping("/logout")
 	 public String logout(HttpSession session) {
+		 
 		 session.invalidate();
 		 return "redirect:/login";
 	 }
@@ -144,7 +138,7 @@ public class UtenteController {
             return "redirect:/login";
         }
 
-        List<TrenoCompleto> treniCreati = trenoService.findByIdUtente(utenteId);
+        List<TrenoCompletoDTO> treniCreati = trenoService.findByIdUtente(utenteId);
 
         model.addAttribute("utente", utente);
         model.addAttribute("treniCreati", treniCreati);
@@ -200,7 +194,7 @@ public class UtenteController {
     @GetMapping("/{idTreno}")
     public String showTrenoDetails(@PathVariable("idTreno") int idTreno, Model model) {
     	
-    	TrenoCompleto trenoCompleto = trenoService.findTrenoCompletoById(idTreno);
+    	TrenoCompletoDTO trenoCompleto = trenoService.findTrenoCompletoById(idTreno);
     	 
         if (trenoCompleto == null) {
             return "redirect:/treni";

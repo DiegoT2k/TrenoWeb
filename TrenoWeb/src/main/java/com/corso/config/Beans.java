@@ -2,6 +2,8 @@ package com.corso.config;
 
 import javax.sql.DataSource;
 
+import org.springframework.beans.factory.BeanFactory;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -171,8 +173,14 @@ public class Beans {
 	}
 	
 	@Bean(name="locomotivaItalo")
-	public LocomotivaItalo getLocomotivaItalo() {
-		return new LocomotivaItalo();
+	public LocomotivaItalo getLocomotivaItalo() {	
+		LocomotivaItalo locomotivaItalo = new LocomotivaItalo();
+	    locomotivaItalo.setLunghezza(100);
+	    locomotivaItalo.setPeso(100);
+	    locomotivaItalo.setPrezzo(100);
+	    locomotivaItalo.setBiglietti(0);
+	    locomotivaItalo.setTipo(getVagoneDao().findTipo("Locomotiva"));
+		return locomotivaItalo;
 	}
 	
 	@Bean(name="locomotivaTrenord")
@@ -182,7 +190,13 @@ public class Beans {
 	
 	@Bean(name="passeggeriItalo")
 	public PasseggeriItalo getPasseggeriItalo() {
-		return new PasseggeriItalo();
+		PasseggeriItalo passeggeriItalo = new PasseggeriItalo();
+		passeggeriItalo.setLunghezza(100);
+		passeggeriItalo.setPeso(100);
+		passeggeriItalo.setPrezzo(100);
+		passeggeriItalo.setBiglietti(200);
+		passeggeriItalo.setTipo(getVagoneDao().findTipo("Passeggeri"));
+		return passeggeriItalo;
 	}
 	
 	@Bean(name="passeggeriTrenord")
@@ -192,7 +206,13 @@ public class Beans {
 	
 	@Bean(name="cargoItalo")
 	public CargoItalo getCargoItalo() {
-		return new CargoItalo();
+		CargoItalo cargoItalo = new CargoItalo();
+		cargoItalo.setLunghezza(100);
+	    cargoItalo.setPeso(100);
+	    cargoItalo.setPrezzo(100);
+	    cargoItalo.setBiglietti(0);
+	    cargoItalo.setTipo(getVagoneDao().findTipo("Cargo"));
+		return cargoItalo; 
 	}
 	
 	@Bean(name="cargoTrenord")
@@ -202,7 +222,13 @@ public class Beans {
 	
 	@Bean(name="ristoranteItalo")
 	public RistoranteItalo getRistoranteItalo() {
-		return new RistoranteItalo();
+		RistoranteItalo ristoranteItalo = new RistoranteItalo();
+		ristoranteItalo.setLunghezza(100);
+		ristoranteItalo.setPeso(100);
+	    ristoranteItalo.setPrezzo(100);
+	    ristoranteItalo.setBiglietti(100);
+	    ristoranteItalo.setTipo(getVagoneDao().findTipo("Ristorante"));
+		return ristoranteItalo; 
 	}
 
 	@Bean(name="ristoranteTrenord")

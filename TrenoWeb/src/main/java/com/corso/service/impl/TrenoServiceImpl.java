@@ -1,41 +1,18 @@
 package com.corso.service.impl;
 
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
-import javax.transaction.Transactional;
-
-import org.springframework.beans.factory.BeanFactory;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.springframework.stereotype.Component;
-
-import com.corso.config.Beans;
 import com.corso.dao.TrenoDao;
 import com.corso.dao.VagoneDao;
-import com.corso.dao.ValutazioneDao;
-import com.corso.dto.TrenoCompleto;
-import com.corso.dto.TrenoVoto;
-import com.corso.exception.DimensioneMagException;
-import com.corso.exception.DimensioneMinException;
-import com.corso.exception.LocomotivaNonInTestaException;
-import com.corso.exception.NumLocomotiveException;
-import com.corso.exception.NumRistorantiException;
-import com.corso.exception.SoloCargoException;
-import com.corso.exception.VagoneException;
+import com.corso.dto.FiltroDTO;
+import com.corso.dto.TrenoCompletoDTO;
+import com.corso.exception.*;
 import com.corso.model.Treno;
 import com.corso.model.Utente;
-import com.corso.model.Valutazione;
 import com.corso.model.abs_vagone.Vagone;
 import com.corso.model.builder.TrenoBuilder;
-import com.corso.model.builder.impl.TrenoItaloBuilder;
-import com.corso.model.builder.impl.TrenoTrenordBuilder;
-import com.corso.model.vagone.CargoAbs;
-import com.corso.model.vagone.LocomotivaAbs;
-import com.corso.model.vagone.PasseggeriAbs;
-import com.corso.model.vagone.RistoranteAbs;
 import com.corso.service.TrenoService;
 import com.corso.service.UserService;
 import com.corso.vo.FiltroVO;
@@ -75,12 +52,19 @@ public class TrenoServiceImpl implements TrenoService{
 		
 		if(fabbrica.equals("IT")) {
 			lista = trenoItaloBuilder.costruisciTreno(sigla, id_treno);
+			
+			for(Vagone v : lista) {
+			    v.setId_treno(vagoneDao.find(id_treno));
+			    v.setFabbrica(vagoneDao.find("IT"));	
+			}
+			
 		}else if(fabbrica.equals("TN")) {
 			lista = trenoTrenordBuilder.costruisciTreno(sigla, id_treno);
 		}
 		
-		for(Vagone v : lista)
+		for(Vagone v : lista) {
 			vagoneDao.add(v);
+		}
 		
 	}
 	
@@ -116,24 +100,25 @@ public class TrenoServiceImpl implements TrenoService{
 	}
 	
 	@Override
-	public List<TrenoCompleto> trenoCompleto(){
-		List<TrenoCompleto> all = trenoDao.findTrenoCompleto();
+	public List<TrenoCompletoDTO> trenoCompleto(){
+		List<TrenoCompletoDTO> all = trenoDao.findTrenoCompleto();
 		
 		return all;
 	}
 	
 	@Override
-	public List<TrenoCompleto> filtraTreno(FiltroVO filtroVO){
-		
-		Utente utente = userServiceImpl.find(filtroVO.getUsername());
-		System.out.println(utente);
-		List<TrenoCompleto> all = trenoDao.filtraTrenoCompleto(filtroVO, utente);
+	public List<TrenoCompletoDTO> filtraTreno(FiltroVO filtroVO){
+		FiltroDTO filtroDTO = new FiltroDTO();
+		BeanUtils.copyProperties(filtroVO, filtroDTO);
+		Utente utente = userServiceImpl.find(filtroDTO.getUsername());
+	
+		List<TrenoCompletoDTO> all = trenoDao.filtraTrenoCompleto(filtroDTO, utente);
 		
 		return all;
 	}
 	
 	@Override
-    public List<TrenoCompleto> findByIdUtente(int utenteId) {
+    public List<TrenoCompletoDTO> findByIdUtente(int utenteId) {
         return trenoDao.findByIdUtente(utenteId);
     }
 
@@ -153,21 +138,15 @@ public class TrenoServiceImpl implements TrenoService{
     }
 	
 	@Override
-	@Transactional
 	public void updateTrenoSigla(Treno treno, String newSigla) {
         checkStringa(newSigla);
-
         treno.setSigla(newSigla);
-        
-        trenoDao.updateTreno(treno);
-        
-        deleteVagoniByTreno(treno);
-        
+        trenoDao.updateTreno(treno);     
+        deleteVagoniByTreno(treno);    
         recreateVagoni(treno);
     }
 	
 	@Override
-	@Transactional
 	public void deleteVagoniByTreno(Treno treno) {
         trenoDao.deleteVagoniByTreno(treno);
     }
@@ -194,14 +173,14 @@ public class TrenoServiceImpl implements TrenoService{
     }
 	
 	@Override
-	public TrenoCompleto findTrenoCompletoById(int idTreno) {
+	public TrenoCompletoDTO findTrenoCompletoById(int idTreno) {
 	    return trenoDao.findTrenoCompletoById(idTreno);
 	}
 	
   @Override
     public Treno duplicateTreno(String sigla) {
-		    // Recupera i dati del treno esistente
-        TrenoCompleto trenoCompleto = trenoDao.findTrenoCompletoBySigla(sigla);
+		// Recupera i dati del treno esistente
+        TrenoCompletoDTO trenoCompleto = trenoDao.findTrenoCompletoBySigla(sigla);
         if (trenoCompleto == null) {
             throw new IllegalArgumentException("Treno non trovato con la sigla: " + sigla);
         }

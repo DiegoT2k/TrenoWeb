@@ -8,7 +8,7 @@ public class NumRistorantiException extends TrenoException{
 
 	@Override
 	public String getSuggerimento() {
-		return "La stringa " + getSigla() + " contiene troppi ristoranti\nInserire " + getSiglaSuggerita();
+		return "La stringa " + getSigla() + " contiene troppi ristoranti, inserire " + getSiglaSuggerita();
 	}
 
 	@Override

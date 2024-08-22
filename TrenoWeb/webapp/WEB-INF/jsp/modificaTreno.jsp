@@ -3,9 +3,12 @@
 <!DOCTYPE html>
 <html>
 <head>
+
     <meta charset="UTF-8">
     <title>Modifica Treno</title>
+    
 </head>
+
 <body>
 
 	<jsp:include page="menu.jsp" /> 
@@ -32,5 +35,6 @@
     <c:if test="${not empty errorMessage}">
         <p style="color:red;">${errorMessage}</p>
     </c:if>
+    
 </body>
 </html>

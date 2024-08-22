@@ -1,0 +1,72 @@
+@charset "UTF-8";
+
+h2{
+	text-align: center;
+	color: #689F38
+}
+table{
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+td, th {
+    border: 1px solid black;
+    text-align: left;
+    padding: 8px;
+}
+
+tr:nth-child(even) {
+    background-color: #dddddd;
+}
+
+.emoji {
+    font-size: 1.2em; 
+    color: gold; 
+}
+
+button {
+       background-color: #8BC34A; 
+       color: white; 
+       border: 2px solid #689F38; 
+       padding: 6px 12px; 
+       border-radius: 4px; 
+       box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1); 
+       cursor: pointer;
+       font-size: 14px; 
+       transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #7CB342; 
+    border-color: #558B2F; 
+}
+
+button:active {
+    background-color: #689F38; 
+    border-color: #33691E; 
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); 
+}
+    
+.bottoni{
+	display: flex; 
+	flex-wrap: nowrap;
+	gap: 10px;
+}
+
+.bottoni button {
+    flex-grow: 1; /* Permette ai bottoni di crescere uniformemente */
+    flex-basis: 0; /* Imposta una base di larghezza uguale per tutti i bottoni */
+    text-align: center; /* Centra il testo all'interno del bottone */
+    min-height: 50px;
+}
+
+.crea{
+        display: flex; 
+        justify-content: center; 
+        margin-top: 20px;
+}
+
+.error{
+	color:red;
+}
